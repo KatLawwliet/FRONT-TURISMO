@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Button from "./ButtonComponnent";
-import { RxMagnifyingGlass } from "react-icons/rx";
 
 const SearchInput = ({seachInput}) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -16,6 +14,7 @@ const SearchInput = ({seachInput}) => {
 
     return (
         <div style={styles.container}>
+            <h1 style={{fontSize: 20, fontFamily: 'Arial, Helvetica, sans-serif', marginRight:10}}>Buscador: </h1>
             <input
                 style={{ ...styles.input, ...focusStyles }}
                 value={inputValue}
@@ -46,16 +45,6 @@ const styles = {
         borderColor: '#e1e7f0',
         fontSize: 20,
         outline: 'none'
-    },
-    button: {
-        width: '20%',
-        height: '90%',
-        outline: 'none',
-        backgroundColor: '#03A143',
-        margin: 20,
-        borderWidth: 1,
-
-        borderRadius: 10
     }
 }
 
