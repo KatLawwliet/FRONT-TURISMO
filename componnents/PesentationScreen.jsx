@@ -23,12 +23,16 @@ const Presentation = ({data, seachInput}) => {
                 <Button text={<FaRegCalendarAlt/>} clickAction={() => alert('Precionaste la otra caca!')}/>
             </div>
             <div style={styles.container}>
-                {data.map((pack, index) => (
+                {data.length != 0 ? data.map((pack, index) => (
                     <div key={index} style={styles.item}>
                         <h1>{pack.name}</h1>
                         <h1>{pack.destination}</h1>
                     </div>
-                ))}
+                )) :
+                    <div style={styles.nothing}>
+                        <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20}}>No se encontraron elementos</h1>
+                    </div>
+                }
 
 
             </div>
@@ -44,6 +48,7 @@ const styles = {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         height: '100%',
+        width: '100%',
         overflowY: 'auto',
         maxHeight: '100vh',
     },
@@ -58,6 +63,13 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    nothing: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '25%',
     }
 }
 
