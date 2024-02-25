@@ -10,18 +10,26 @@ const MenuNavigate = ({navigation}) => {
     const [activeView, setActiveView] = useState('Paquetes');
     const [packages, setPackages] = useState([])
     const [services, setServices] = useState([])
+    const [seachInput, setSeachInput] = useState("")
 
     useEffect(() => {
-        const loadedPackages = PackageBack.getPackages()
-        const loadedServices = PackageBack.getServices()
-        setServices(loadedServices)
-        setPackages(loadedPackages)
-    },[])
+        const fetchData = async () => {
+            try {
+                const loadedPackages = await PackageBack.getPackages(seachInput)
+                const loadedServices = PackageBack.getServices()
+                setServices(loadedServices)
+                setPackages(loadedPackages)
+            }catch (error){
+                console.error('Error al cargar datos:', error);
+            }
+        }
+        fetchData()
+    },[seachInput])
 
     const renderView = () => {
         switch(activeView) {
             case 'Paquetes':
-                return <Presentation data={packages} />;
+                return <Presentation data={packages} seachInput={setSeachInput} />;
             case 'Servicios':
                 return <Presentation data={services} />;
             case 'Crear Paquete':

@@ -16,6 +16,7 @@ const style = {
         backgroundColor: '#e1e7f0',
         height:'100%',
         display: 'flex',
+        width: '100%',
         flexDirection: 'column',
     },
 }

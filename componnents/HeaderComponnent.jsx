@@ -18,7 +18,7 @@ const style = {
         alignItems: 'center',
         backgroundColor: '#03A143',
         height: 80,
-        width: '95%',
+        width: '100%',
         marginTop: 30,
         marginLeft: 30,
         marginRight: 30,
