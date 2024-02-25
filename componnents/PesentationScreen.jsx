@@ -5,8 +5,6 @@ import {FaRegCalendarAlt} from "react-icons/fa";
 
 const Presentation = ({data, seachInput}) => {
 
-    const [filteredData, setFilteredData] = useState(data);
-
     useEffect(() => {
 
     }, [data]);
@@ -42,9 +40,9 @@ const styles = {
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        height: '97%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        height: '100%',
         overflowY: 'auto',
         maxHeight: '100vh',
     },

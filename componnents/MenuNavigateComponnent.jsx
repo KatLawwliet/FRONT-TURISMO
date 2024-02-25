@@ -45,7 +45,7 @@ const MenuNavigate = ({navigation}) => {
             <div style={{
                 backgroundColor: '#f1f5f9',
                 width: '100%',
-                height: '97%',
+                height: '100%',
                 borderRadius: '0px 0px 0px 10px',
                 paddingTop: 30
             }}>

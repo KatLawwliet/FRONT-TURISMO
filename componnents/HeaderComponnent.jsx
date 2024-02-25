@@ -20,8 +20,6 @@ const style = {
         height: 80,
         width: '100%',
         marginTop: 30,
-        marginLeft: 30,
-        marginRight: 30,
         marginBottom: 0,
         borderRadius: 30,
         boxShadow: '2px -30px 3px -15px rgba(153, 209, 159, 100)',

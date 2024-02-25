@@ -38,7 +38,7 @@ const style = {
         backgroundColor: '#e1e7f0',
         padding: 50,
         width: 200,
-        height: '100%',
+        height: '90%',
     },
     containerButtons: {
         display: 'flex',
