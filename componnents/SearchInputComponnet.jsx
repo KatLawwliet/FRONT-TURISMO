@@ -33,7 +33,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'flex-start',
         margin: 30,
-        width: 1000,
+        width: '70%',
         height: 50,
     },
     input: {

@@ -13,6 +13,7 @@ const Presentation = ({data, seachInput}) => {
         <div style={{display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'flex-start'}}>
             <div style={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -52,7 +53,7 @@ const styles = {
         margin: 10,
         width: '30%',
         height: '50%',
-        minWidth: 300,
+        minWidth: 400,
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',
