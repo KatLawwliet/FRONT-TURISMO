@@ -16,7 +16,7 @@ const MenuNavigate = ({navigation}) => {
         const fetchData = async () => {
             try {
                 const loadedPackages = await PackageBack.getPackages(seachInput)
-                const loadedServices = PackageBack.getServices()
+                const loadedServices = await PackageBack.getServices(seachInput)
                 setServices(loadedServices)
                 setPackages(loadedPackages)
             }catch (error){
@@ -31,7 +31,7 @@ const MenuNavigate = ({navigation}) => {
             case 'Paquetes':
                 return <Presentation data={packages} seachInput={setSeachInput} />;
             case 'Servicios':
-                return <Presentation data={services} />;
+                return <Presentation data={services} seachInput={setSeachInput}/>;
             case 'Crear Paquete':
                 return <CreatePackage />;
             case 'Negocio':

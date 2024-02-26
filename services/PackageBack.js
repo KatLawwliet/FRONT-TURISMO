@@ -16,63 +16,20 @@ const getPackages = async (search) => {
     }
 }
 
-const getServices = () => {
-    return [
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-        {
-            name: "Service"
-        },
-    ]
+const getServices = async (search) => {
+    try {
+        const response = await axios.get('http://localhost:8080/services?search='+search);
+        const packageData = response.data;
+
+        console.log(`Código: ${packageData.code}`);
+        console.log(`Description: ${packageData.description}`);
+        console.log(`Destino: ${packageData.destination}`);
+        console.log(`Costo: ${packageData.cost}`);
+        return packageData
+    } catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
 }
 
 export default {getPackages, getServices}

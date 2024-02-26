@@ -25,7 +25,7 @@ const Presentation = ({data, seachInput}) => {
             <div style={styles.container}>
                 {data.length != 0 ? data.map((pack, index) => (
                     <div key={index} style={styles.item}>
-                        <h1>{pack.name}</h1>
+                        <h1>{pack.name ? pack.name : pack.description}</h1>
                         <h1>{pack.destination}</h1>
                     </div>
                 )) :
