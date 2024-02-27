@@ -58,7 +58,7 @@ const styles = {
         margin: 10,
         width: '30%',
         height: '50%',
-        minWidth: 400,
+        minWidth: 300,
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',

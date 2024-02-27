@@ -37,15 +37,15 @@ const style = {
         justifyContent: 'space-around',
         backgroundColor: '#e1e7f0',
         width: 250,
-        height: '90%',
+        height: '100%',
     },
     containerButtons: {
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'flex-end',
-        margin: 10,
-        height: '90%',
-        width: '90%',
+
+        height: '100%',
+        width: 210,
         flexDirection: 'column',
     },
     button: {

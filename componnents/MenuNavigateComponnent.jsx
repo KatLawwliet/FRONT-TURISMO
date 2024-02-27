@@ -47,7 +47,6 @@ const MenuNavigate = ({navigation}) => {
                 width: '100%',
                 height: '100%',
                 borderRadius: '0px 0px 0px 10px',
-                paddingTop: 30
             }}>
                 {renderView()}
             </div>
