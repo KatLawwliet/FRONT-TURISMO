@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { BsSearch } from "react-icons/bs";
 const SearchInput = ({seachInput}) => {
     const [isFocused, setIsFocused] = useState(false);
     const [inputValue, setInputValue] = useState(""); // Estado para almacenar el valor del input
@@ -14,7 +14,6 @@ const SearchInput = ({seachInput}) => {
 
     return (
         <div style={styles.container}>
-            <h1 style={{fontSize: 20, fontFamily: 'Arial, Helvetica, sans-serif', marginRight:10}}>Buscador: </h1>
             <input
                 style={{ ...styles.input, ...focusStyles }}
                 value={inputValue}
@@ -22,11 +21,15 @@ const SearchInput = ({seachInput}) => {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
             />
+            <BsSearch  style={styles.sarasa} size={27} color={isFocused ? '#03A143' : "#475569"}/>
         </div>
     );
 };
 
 const styles = {
+    sarasa: {
+        margin: 10,
+    },
     container: {
         display: 'flex',
         flexDirection: 'row',

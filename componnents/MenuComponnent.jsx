@@ -16,14 +16,14 @@ const Menu = ({setActiveView, navigation}) => {
     return (
         <div style={style.container}>
             <div style={style.containerButtons}>
-                <Select logo={<TiHomeOutline size={20} />} text='Home' clickAction={() => setActiveView('Paquetes')} style={style.button}/>
-                <Select logo={<MdOutlineCreateNewFolder size={20} />} text='Paquetes' clickAction={() => setActiveView('Paquetes')} style={style.button}/>
-                <Select logo={<GiOfficeChair size={20} />} text='Servicios' clickAction={() => setActiveView('Servicios')} style={style.button}/>
-                <Select logo={<BsPersonVcard size={20} />} text='Crear Paquete' clickAction={() => setActiveView('Crear Paquete')} style={style.button}/>
-                <Select logo={<TiHomeOutline size={20} />} text='Negocio' clickAction={() => setActiveView('Negocio')} style={style.button}/>
+
+                <Select logo={<MdOutlineCreateNewFolder size={25} />} text='Paquetes' clickAction={() => setActiveView('Paquetes')} style={style.button}/>
+                <Select logo={<GiOfficeChair size={25} />} text='Servicios' clickAction={() => setActiveView('Servicios')} style={style.button}/>
+                <Select logo={<BsPersonVcard size={25} />} text='Crear Paquete' clickAction={() => setActiveView('Crear Paquete')} style={style.button}/>
+                <Select logo={<TiHomeOutline size={25} />} text='Negocio' clickAction={() => setActiveView('Negocio')} style={style.button}/>
             </div>
             <div style={style.containerButtons}>
-                <Select logo={<LuLogOut />} text='Log Out' clickAction={() => handleClick()} style={style.button}/>
+                <Select logo={<LuLogOut size={25}/>} text='Cerrar Session' clickAction={() => handleClick()} style={style.button}/>
             </div>
         </div>
     )
@@ -36,15 +36,14 @@ const style = {
         flexDirection: 'column',
         justifyContent: 'space-around',
         backgroundColor: '#e1e7f0',
-        padding: 50,
-        width: 200,
+        width: 250,
         height: '90%',
     },
     containerButtons: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'flex-end',
-        margin: 50,
+        margin: 10,
         height: '90%',
         width: '90%',
         flexDirection: 'column',
