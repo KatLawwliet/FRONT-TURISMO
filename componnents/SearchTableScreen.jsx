@@ -6,13 +6,13 @@ import Table from "./TableComponnent";
 
 const SearchTableScreen = ({data, seachInput}) => {
     return (
-        <>
+        <div >
             <div style={style.searchContainer}>
                 <SearchInput seachInput={seachInput}/>
                 <Button text={<FaRegCalendarAlt/>} clickAction={() => alert("caca")}/>
             </div>
-            <Table data={data}></Table>
-        </>
+            {data.length != 0 ? <Table data={data}></Table> : <h1>No hay nada, gato, recatate</h1>}
+        </div>
     );
 };
 

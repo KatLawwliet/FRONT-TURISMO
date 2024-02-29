@@ -30,23 +30,21 @@ const Business = () => {
     const renderView = () => {
         switch(activeView) {
             case 'A':
-                // Asegúrate de que clients no es un array vacío antes de renderizar SearchTableScreen
-                return clients.length > 0 ? (<SearchTableScreen data={clients} seachInput={setSeachInput}/>) : null;
-
+                return <SearchTableScreen data={clients} seachInput={setSeachInput}/>;
             case 'B':
-                return sales.length > 0 ? (<SearchTableScreen data={sales} seachInput={setSeachInput}/>) : null;
+                return <SearchTableScreen data={sales} seachInput={setSeachInput}/>;
         }
     };
 
 
     return (
-        <>
+        <div >
             <div style={style.tagsButtons}>
                 <Button text={"Clientes"} clickAction={() => setActiveView("A")}/>
                 <Button text={"Ventas"} clickAction={() => setActiveView("B")}/>
             </div>
             {renderView()}
-        </>
+        </div>
 
     );
 };
@@ -62,7 +60,7 @@ const style = {
     },
     tagsButtons: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         flexDirection: 'row'
     }
 }
