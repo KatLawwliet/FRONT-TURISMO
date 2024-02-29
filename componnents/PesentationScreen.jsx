@@ -2,8 +2,13 @@ import React, {useEffect, useState} from 'react';
 import SearchInput from "./SearchInputComponnet";
 import Button from "./ButtonComponnent";
 import {FaRegCalendarAlt} from "react-icons/fa";
+import Modal from "./Modal";
 
 const Presentation = ({data, seachInput}) => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     useEffect(() => {
 
@@ -20,7 +25,12 @@ const Presentation = ({data, seachInput}) => {
                 width: '100%'
             }}>
                 <SearchInput seachInput={seachInput}/>
-                <Button text={<FaRegCalendarAlt/>} clickAction={() => alert('Precionaste la otra caca!')}/>
+                <Button text={<FaRegCalendarAlt/>} clickAction={() => toggleModal()}/>
+                <Modal isOpen={isModalOpen} onClose={toggleModal}>
+                    <div style={{width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <h1>Contenido</h1>
+                    </div>
+                </Modal>
             </div>
             <div style={styles.container}>
                 {data.length != 0 ? data.map((pack, index) => (

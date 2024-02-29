@@ -43,7 +43,6 @@ const style = {
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'flex-end',
-
         height: '100%',
         width: 210,
         flexDirection: 'column',
