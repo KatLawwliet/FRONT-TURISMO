@@ -4,6 +4,13 @@ import React from 'react';
 
 
 const Table = ({ data }) => {
+    const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);
+
+    const getRowStyle = (index) => ({
+        ...styles.tr,
+        ...(hoveredRowIndex === index ? styles.hover : {}),
+    });
+
     return (
         <div style={styles.container}>
             <table style={styles.table}>
@@ -18,7 +25,12 @@ const Table = ({ data }) => {
                 </thead>
                 <tbody>
                 {data.map((item, index) => (
-                    <tr key={index} style={styles.tr}>
+                    <tr
+                        key={index}
+                        style={getRowStyle(index)}
+                        onMouseEnter={() => setHoveredRowIndex(index)}
+                        onMouseLeave={() => setHoveredRowIndex(null)}
+                    >
                         {Object.values(item).map((val, i) => (
                             <td key={i} style={styles.td}>
                                 {val}
@@ -44,21 +56,25 @@ const styles = {
         fontWeight: 'normal',
         padding: '10px 15px',
         color: 'white',
-        justifyContent: 'flex-start'
+        textAlign: 'left',
+        fontFamily: 'Arial, Helvetica, sans-serif'
     },
     td: {
         padding: '10px 15px',
         borderBottom: '1px solid #ddd',
     },
     tr: {
-        '&:hover': {
-            backgroundColor: '#f5f5f5',
-        },
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        color: "#475569"
+    },
+    hover: {
+        backgroundColor: '#ccecd9',
     },
     container: {
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
         margin: '20px',
         overflowX: 'auto',
+        borderRadius: 10,
     },
 };
 

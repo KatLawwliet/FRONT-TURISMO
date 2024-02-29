@@ -42,8 +42,8 @@ const Business = () => {
     return (
         <>
             <div style={style.tagsButtons}>
-                <Button text={"clientes"} clickAction={() => setActiveView("A")}/>
-                <Button text={"ventas"} clickAction={() => setActiveView("B")}/>
+                <Button text={"Clientes"} clickAction={() => setActiveView("A")}/>
+                <Button text={"Ventas"} clickAction={() => setActiveView("B")}/>
             </div>
             {renderView()}
         </>
@@ -62,6 +62,7 @@ const style = {
     },
     tagsButtons: {
         display: 'flex',
+        justifyContent: 'center',
         flexDirection: 'row'
     }
 }
