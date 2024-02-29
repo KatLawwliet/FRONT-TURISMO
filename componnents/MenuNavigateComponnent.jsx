@@ -41,7 +41,7 @@ const MenuNavigate = ({navigation}) => {
 
     return (
         <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: "row"}}>
-            <Menu setActiveView={setActiveView} navigation={navigation}/>
+            <Menu setActiveView={setActiveView} activeView={activeView} navigation={navigation}/>
             <div style={{
                 backgroundColor: '#f1f5f9',
                 width: '100%',

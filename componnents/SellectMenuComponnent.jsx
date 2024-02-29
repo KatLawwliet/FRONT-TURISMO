@@ -1,9 +1,36 @@
 import React, {useState} from "react";
+import {MdOutlineCreateNewFolder} from "react-icons/md";
+import {GiOfficeChair} from "react-icons/gi";
+import {BsPersonVcard} from "react-icons/bs";
+import {TiHomeOutline} from "react-icons/ti";
+import {LuLogOut} from "react-icons/lu";
 
 
-const Select = ({text, clickAction, logo}) => {
+const Select = ({ text, clickAction, isActive }) => {
 
     const [buttonColor, setButtonColor] = useState('#e1e7f0')
+
+    const coloricon = () => {
+        if(isActive){
+            return '#03A143'
+        }
+        return '#475569'
+    }
+
+    const logocase = () => {
+        switch (text) {
+            case "Paquetes":
+                return <MdOutlineCreateNewFolder size={25} color={coloricon()}/>
+            case "Servicios":
+                return <GiOfficeChair size={25} color={coloricon()}/>
+            case "Crear Paquete":
+                return <BsPersonVcard size={25} color={coloricon()}/>
+            case "Negocio":
+                return <TiHomeOutline size={25} color={coloricon()}/>
+            case "Cerrar Session":
+                return <LuLogOut size={25} color={coloricon()}/>
+        }
+    }
 
     const styles = {
         container: {
@@ -24,7 +51,7 @@ const Select = ({text, clickAction, logo}) => {
             fontSize: 16,
             border: 'none',
             cursor: 'pointer',
-            color: '#475569',
+            color: coloricon(),
             transition: 'background-color 0.3s',
         }
     }
@@ -41,7 +68,7 @@ const Select = ({text, clickAction, logo}) => {
 
     return (
         <div style={styles.container}>
-            {logo}
+            {logocase()}
             <button
                 onClick={clickAction}
                 style={styles.button}
