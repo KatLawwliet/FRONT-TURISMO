@@ -6,12 +6,15 @@ const Tags = ({ buttons, renderView }) => {
 
     return (
         <div style={{height: '100%'}}>
-            {buttons.map((bt, index) => (
-                <div key={index}>
-                    <Button  text={bt.name} clickAction={() => setActiveView(bt.name)} />
-                </div>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
+                {buttons.map((bt, index) => (
+                    <div key={index}>
+                        <Button  text={bt.name} clickAction={() => setActiveView(bt.name)} />
+                    </div>
 
-            ))}
+                ))}
+            </div>
+
             {renderView(activeView)}
         </div>
     );

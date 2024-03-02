@@ -8,48 +8,18 @@ import Package from "./PackageComponnent";
 import Service from "./ServiceComponnent";
 import Button from "./ButtonComponnent";
 import PackagesScreen from "./PackagesScreen";
+import ServiceScreen from "./ServiceScreen";
 
 const MenuNavigate = ({navigation}) => {
 
     const [activeView, setActiveView] = useState('Paquetes');
-    const [packages, setPackages] = useState([])
-    const [services, setServices] = useState([])
-    const [seachInput, setSeachInput] = useState("")
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const loadedPackages = await PackageBack.getPackages(seachInput)
-                const loadedServices = await PackageBack.getServices(seachInput)
-                setServices(loadedServices)
-                setPackages(loadedPackages)
-            }catch (error){
-                console.error('Error al cargar datos:', error);
-            }
-        }
-        fetchData()
-    },[seachInput])
 
     const renderView = () => {
         switch(activeView) {
             case 'Paquetes':
-                return (
-                    <PackagesScreen packages={packages} setSeachInput={setSeachInput}/>
-                )
+                return <PackagesScreen/>
             case 'Servicios':
-                return (
-                    <Presentation data={services} seachInput={setSeachInput}>
-                        {services.length != 0 ? services.map((pack, index) => (
-                                <Service destination={pack.destination} description={pack.description}/>
-                            )) :
-                            <div style={styles.nothing}>
-                                <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>No se encontraron Servicios</h1>
-                            </div>
-                        }
-                    </Presentation>
-                )
-            case 'Crear Paquete':
-                return <CreatePackage />;
+                return <ServiceScreen/>
             case 'Negocio':
                 return <Business />;
         }

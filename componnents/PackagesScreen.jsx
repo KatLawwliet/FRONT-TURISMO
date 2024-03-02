@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Tags from "./TagComponnent";
 import Package from "./PackageComponnent";
 import Presentation from "./PesentationScreen";
+import PackageBack from "../services/PackageBack";
 
-const PackagesScreen = ({packages, setSeachInput}) => {
+const PackagesScreen = () => {
+
+    const [packages, setPackages] = useState([])
+    const [seachInput, setSeachInput] = useState("")
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const loadedPackages = await PackageBack.getPackages(seachInput)
+                setPackages(loadedPackages)
+            }catch (error){
+                console.error('Error al cargar datos:', error);
+            }
+        }
+        fetchData()
+    },[seachInput])
 
     const renderView= (condition) => {
         switch (condition) {
@@ -19,40 +35,20 @@ const PackagesScreen = ({packages, setSeachInput}) => {
                     }
                 </Presentation>
             )
+            case "Crear Paquete":
+                return (<h1>Pantalla para crear paquete</h1>)
         }
     }
 
     return (
         <div style={{height: '100%', maxHeight:770,}}>
-            <Tags renderView={renderView} buttons={[{name: "Package"}]}/>
+            <Tags renderView={renderView} buttons={[{name: "Package"}, {name: "Crear Paquete"}]}/>
         </div>
     );
 };
 
 
 const styles = {
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        height: '100%',
-        width: '100%',
-        overflowY: 'auto',
-        maxHeight: '100vh',
-    },
-    item: {
-        backgroundColor: 'white',
-        flexDirection: 'column',
-        margin: 10,
-        width: '30%',
-        height: '50%',
-        minWidth: 300,
-        borderRadius: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     nothing: {
         display: 'flex',
         justifyContent: 'center',

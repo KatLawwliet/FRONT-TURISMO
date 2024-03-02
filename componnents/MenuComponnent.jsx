@@ -52,7 +52,6 @@ const Menu = ({setActiveView, activeView, navigation}) => {
     const menuItems = [
         { name: 'Paquetes'},
         { name: 'Servicios'},
-        { name: 'Crear Paquete'},
         { name: 'Negocio'},
         { name: isMobile? 'Cerrar Session' : ""},
     ];
