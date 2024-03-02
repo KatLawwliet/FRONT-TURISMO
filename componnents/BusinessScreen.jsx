@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import Button from "./ButtonComponnent";
-import SearchTableScreen from "./SearchTableScreen";
 import {getClients} from "../services/ClientsService";
 import {getSales} from "../services/SalesService";
+import Tags from "./TagComponnent";
+import Presentation from "./PesentationScreen";
+import Table from "./TableComponnent";
 
 const Business = () => {
-
-    const [activeView, setActiveView] = useState('A');
     const [clients, setClients] = useState([]);
     const [sales, setSales] = useState([]);
     const [seachInput, setSeachInput] = useState("")
@@ -27,42 +26,30 @@ const Business = () => {
 
 
 
-    const renderView = () => {
-        switch(activeView) {
-            case 'A':
-                return <SearchTableScreen data={clients} seachInput={setSeachInput}/>;
-            case 'B':
-                return <SearchTableScreen data={sales} seachInput={setSeachInput}/>;
+    const renderView = (condition) => {
+        switch(condition) {
+            case 'Clientes':
+                return (
+                    <Presentation data={clients} seachInput={setSeachInput}>
+                        {clients.length != 0 ? <Table data={clients}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                    </Presentation>
+                );
+            case 'Ventas':
+                return (
+                    <Presentation data={clients} seachInput={setSeachInput}>
+                        {sales.length != 0 ? <Table data={sales}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                    </Presentation>
+                );
         }
     };
 
 
     return (
         <div >
-            <div style={style.tagsButtons}>
-                <Button text={"Clientes"} clickAction={() => setActiveView("A")}/>
-                <Button text={"Ventas"} clickAction={() => setActiveView("B")}/>
-            </div>
-            {renderView()}
+            <Tags renderView={renderView} buttons={[{name: "Clientes"}, {name: "Ventas"}]}></Tags>
         </div>
 
     );
 };
-
-const style = {
-    searchContainer: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        width: '100%'
-    },
-    tagsButtons: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        flexDirection: 'row'
-    }
-}
 
 export default Business;

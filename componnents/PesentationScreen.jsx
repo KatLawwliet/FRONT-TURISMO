@@ -51,25 +51,6 @@ const styles = {
         width: '100%',
         overflowY: 'auto',
         alignContent: 'flex-start', // Asegurándonos de que los elementos estén alineados al inicio del contenedor.
-    },
-    item: {
-        backgroundColor: 'white',
-        flexDirection: 'column',
-        margin: 10,
-        width: '30%',
-        height: '50%',
-        minWidth: 300,
-        borderRadius: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    nothing: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '25%',
     }
 }
 
