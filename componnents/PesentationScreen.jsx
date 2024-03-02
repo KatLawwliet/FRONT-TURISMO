@@ -4,7 +4,7 @@ import Button from "./ButtonComponnent";
 import {FaRegCalendarAlt} from "react-icons/fa";
 import Modal from "./Modal";
 
-const Presentation = ({data, seachInput}) => {
+const Presentation = ({data, seachInput, children}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,6 +24,7 @@ const Presentation = ({data, seachInput}) => {
                 flexDirection: 'row',
                 width: '100%'
             }}>
+
                 <SearchInput seachInput={seachInput}/>
                 <Button text={<FaRegCalendarAlt/>} clickAction={() => toggleModal()}/>
                 <Modal isOpen={isModalOpen} onClose={toggleModal}>
@@ -33,18 +34,7 @@ const Presentation = ({data, seachInput}) => {
                 </Modal>
             </div>
             <div style={styles.container}>
-                {data.length != 0 ? data.map((pack, index) => (
-                    <div key={index} style={styles.item}>
-                        <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>{pack.name ? pack.name : pack.description}</h1>
-                        <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>{pack.destination}</h1>
-                    </div>
-                )) :
-                    <div style={styles.nothing}>
-                        <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>No se encontraron elementos</h1>
-                    </div>
-                }
-
-
+                {children}
             </div>
         </div>
     );
@@ -55,12 +45,12 @@ const styles = {
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        height: '100%',
+        alignItems: 'stretch', // O 'flex-start' si quieres que cada elemento mantenga su altura original.
+        justifyContent: 'center',
+        height: 'auto', // Cambiado de '100%' a 'auto'.
         width: '100%',
         overflowY: 'auto',
-        maxHeight: '100vh',
+        alignContent: 'flex-start', // Asegurándonos de que los elementos estén alineados al inicio del contenedor.
     },
     item: {
         backgroundColor: 'white',
