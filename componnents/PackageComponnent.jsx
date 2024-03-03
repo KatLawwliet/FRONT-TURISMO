@@ -13,14 +13,14 @@ const Package = ({packagee}) => {
                 <div style={{display: 'flex', height: '50%', margin:8}}>
                     {packagee.services.map(serv => {
                         return (<div style={{
-                            fontSize: 11,
+                            fontSize: 9,
                             display: 'flex',
                             justifyContent: 'center',
                             margin:2,
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             color: "#475569",
                             backgroundColor: "#c0c4c7",
-                            padding: 3,
+                            padding: 5,
                             borderRadius: 10
                         }}><b>{serv.type}</b></div>)
                     })}
