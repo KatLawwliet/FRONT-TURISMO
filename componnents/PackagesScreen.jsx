@@ -27,7 +27,7 @@ const PackagesScreen = () => {
                 return (
                 <Presentation data={packages} seachInput={setSeachInput} >
                     {packages.length !== 0 ? packages.map((pack, index) => (
-                            <Package name={pack.name} destination={pack.destination}/>
+                            <Package packagee={pack}/>
                         )) :
                         <div style={styles.nothing}>
                             <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>No se encontraron Paquetes</h1>
