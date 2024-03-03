@@ -10,10 +10,12 @@ const Package = ({packagee}) => {
             </div>
             <div style={{display: 'flex', flexDirection: "column", width: "100%"}}>
                 <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize: 20, color: "#475569",margin:10}}>{packagee.name}</h1>
-                <div style={{display: 'flex', height: '50%'}}>
+                <div style={{display: 'flex', height: '50%', margin:8}}>
                     {packagee.services.map(serv => {
                         return (<div style={{
                             fontSize: 11,
+                            display: 'flex',
+                            justifyContent: 'center',
                             margin:2,
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             color: "#475569",

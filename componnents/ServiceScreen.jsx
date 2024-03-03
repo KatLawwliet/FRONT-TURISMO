@@ -26,8 +26,8 @@ const ServiceScreen = () => {
             case 'Sarasa':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
-                        {services.length != 0 ? services.map((pack, index) => (
-                                <Service destination={pack.destination} description={pack.description}/>
+                        {services.length != 0 ? services.map((serv, index) => (
+                                <Service service={serv}/>
                             )) :
                             <div style={styles.nothing}>
                                 <h1 style={{fontFamily: 'Arial, Helvetica, sans-serif', fontSize:20, color: "#475569"}}>No se encontraron Servicios</h1>

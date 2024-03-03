@@ -19,13 +19,19 @@ const getPackages = async (search) => {
 const getServices = async (search) => {
     try {
         const response = await axios.get('http://localhost:8080/services?searcher='+search);
-        const packageData = response.data;
+        const serviceData = response.data;
 
-        console.log(`Código: ${packageData.code}`);
-        console.log(`Description: ${packageData.description}`);
-        console.log(`Destino: ${packageData.destination}`);
-        console.log(`Costo: ${packageData.cost}`);
-        return packageData
+        console.log(`RESPUESTAAAA: ${serviceData}`);
+        return serviceData.map(servi => {
+            console.log(servi.pic)
+            return {
+                description: servi.description,
+                destination: servi.destination,
+                pic: servi.pic,
+                type: servi.type,
+                cost: servi.cost
+            }
+        })
     } catch (error) {
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;
