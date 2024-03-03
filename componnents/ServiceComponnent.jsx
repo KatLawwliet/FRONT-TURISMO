@@ -50,7 +50,7 @@ const styles = {
     item: {
         backgroundColor: 'white',
         flexDirection: 'row',
-        margin: '5px',
+        margin: '8px',
         width: '30%',
         height: 'auto',
         minWidth: 300,

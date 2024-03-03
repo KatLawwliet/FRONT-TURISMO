@@ -30,7 +30,7 @@ const Package = ({packagee}) => {
                     fontFamily: 'Arial, Helvetica, sans-serif',
                     fontSize: 15,
                     color: "#475569"
-                }}>{`Desde $ ${packagee.cost}`}</p>
+                }}>Desde <b>$ {packagee.cost}</b></p>
             </div>
         </div>
     );
@@ -43,7 +43,7 @@ const styles = {
         margin: '10px',
         width: '20%',
         height: 300,
-        minWidth: 300,
+        minWidth: 320,
         borderRadius: 10,
         display: 'flex',
         justifyContent: 'center',

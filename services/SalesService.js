@@ -9,7 +9,7 @@ export const getSales = async (search) => {
         return salesData.map(pack => {
             return {
                 codigo: pack.numSale,
-                cliente: `${pack.client.name} ${pack.client.lastname}`,
+                cliente: `${pack.client.lastname} ${pack.client.name}`,
                 nombre_de_paquete: `${pack.packagee.name}`,
                 metodo_de_pago: pack.paymentMethod,
                 costo: `$ ${pack.packagee.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`
