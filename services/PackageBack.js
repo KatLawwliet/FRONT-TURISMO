@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getPackages = async (search) => {
     try {
-        const response = await axios.get('http://localhost:8080/packages?search='+search);
+        const response = await axios.get('http://localhost:8080/packages?searcher='+search);
         const packageData = response.data;
 
         console.log(`Código: ${packageData.code}`);
@@ -18,7 +18,7 @@ const getPackages = async (search) => {
 
 const getServices = async (search) => {
     try {
-        const response = await axios.get('http://localhost:8080/services?search='+search);
+        const response = await axios.get('http://localhost:8080/services?searcher='+search);
         const packageData = response.data;
 
         console.log(`Código: ${packageData.code}`);
