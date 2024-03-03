@@ -18,7 +18,7 @@ const Table = ({ data }) => {
                 <tr>
                     {data && data.length > 0 && Object.keys(data[0]).map((key) => (
                         <th key={key} style={styles.th}>
-                            {key.toUpperCase()}
+                            {key.replace(/_/g, " ").toUpperCase()}
                         </th>
                     ))}
                 </tr>
