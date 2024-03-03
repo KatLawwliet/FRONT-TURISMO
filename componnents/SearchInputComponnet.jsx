@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BsSearch } from "react-icons/bs";
 const SearchInput = ({seachInput}) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [inputValue, setInputValue] = useState(""); // Estado para almacenar el valor del input
+    const [inputValue, setInputValue] = useState("");
 
     const focusStyles = isFocused ? { boxShadow: '0 0 10px #03A143' } : {};
 
@@ -17,7 +17,7 @@ const SearchInput = ({seachInput}) => {
             <input
                 style={{ ...styles.input, ...focusStyles }}
                 value={inputValue}
-                onChange={handleInputChange} // Manejador de cambios para actualizar el valor del input
+                onChange={handleInputChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
             />

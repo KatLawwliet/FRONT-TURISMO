@@ -9,10 +9,10 @@ export const getSales = async (search) => {
         return salesData.map(pack => {
             return {
                 codigo: pack.numSale,
-                metodo_de_pago: pack.paymentMethod,
                 cliente: `${pack.client.name} ${pack.client.lastname}`,
                 nombre_de_paquete: `${pack.packagee.name}`,
-                costo: `${pack.packagee.cost}`
+                metodo_de_pago: pack.paymentMethod,
+                costo: `$ ${pack.packagee.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`
             }
         })
     } catch (error) {
