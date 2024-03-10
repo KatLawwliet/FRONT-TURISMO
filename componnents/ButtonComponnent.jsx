@@ -21,11 +21,11 @@ const Button = ({text, clickAction, color}) => {
     }
 
     const handleMouseOver = (e) => {
-        e.target.style.backgroundColor = color? '#7a0000' :'#029033';
+        e.target.style.backgroundColor = color? '#7a0000' :'#03A143';
     };
 
     const handleMouseOut = (e) => {
-        e.target.style.backgroundColor = color? color :'#03A143';
+        e.target.style.backgroundColor = color? color :'#028035';
     };
 
     return (

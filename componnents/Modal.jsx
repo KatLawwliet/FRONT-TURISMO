@@ -4,6 +4,7 @@ const Modal = ({ isOpen, onClose, children, width, height}) => {
 
     const styles = {
         modalOverlay: {
+            zIndex: 1000,
             position: "fixed",
             top: 0,
             left: 0,

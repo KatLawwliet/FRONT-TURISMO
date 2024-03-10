@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './customCheckbox.css'
 
 const Service = ({ service, onCheckChange, isChecked }) => {
 
@@ -9,8 +10,12 @@ const Service = ({ service, onCheckChange, isChecked }) => {
 
     return (
         <div style={styles.item}>
-            <div style={{width: "50%", height: "100%"}}>
-                <img style={{width: "100%", height: "100%"}} alt={""} src={service.pic !== "" ? service.pic : "https://img.freepik.com/free-vector/front-view-sketch-fuck-you-symbol_23-2148667363.jpg"}/>
+            <div style={styles.imageContainer}>
+                <img
+                    style={styles.image}
+                    alt={service.description}
+                    src={service.pic !== "" ? service.pic : "https://img.freepik.com/free-vector/front-view-sketch-fuck-you-symbol_23-2148667363.jpg"}
+                />
             </div>
             <div style={{
                 display: 'flex',
@@ -23,7 +28,12 @@ const Service = ({ service, onCheckChange, isChecked }) => {
             }}
             >
                 <div style={{width: '100%', height: '100%'}}>
-                    <div style={{height: "60%", padding:10}}>
+                    <div style={{height: "60%", padding: 10}}>
+                        <div style={{height: '10%', display: 'flex', width: '100%', justifyContent: 'flex-end'}}>
+                            <input id={"checkbox-" + service.code} className="hiddenCheckbox" type="checkbox"
+                                   checked={isChecked} onChange={handleCheckboxChange}/>
+                            <label htmlFor={"checkbox-" + service.code} className="customCheckbox"></label>
+                        </div>
                         <h1 style={{
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             fontSize: 20,
@@ -39,8 +49,14 @@ const Service = ({ service, onCheckChange, isChecked }) => {
                             padding: 1
                         }}>{service.type}</h1>
                     </div>
-                    <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
-                        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        width: '100%',
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}>
+
                         <h1 style={{
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             fontSize: 20,
@@ -65,6 +81,18 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    imageContainer: {
+        width: "50%",
+        height: "100%",
+        overflow: 'hidden'
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+        objectFit: 'cover',
+        maxHeight: '100%',
+        maxWidth: '100%'
     }
 }
 
