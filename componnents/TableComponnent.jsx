@@ -1,25 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 
 
-const Table = ({ data }) => {
-    const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);
+const Table = ({ data, showCheckboxes, selectedItem, onSelectItem }) => {
+    const [hoveredRowIndex, setHoveredRowIndex] = useState(null);
 
     const getRowStyle = (index) => ({
         ...styles.tr,
         ...(hoveredRowIndex === index ? styles.hover : {}),
     });
 
+    const handleCheckboxChange = (item) => () => {
+        const isSelected = selectedItem && selectedItem.code === item.code;
+        onSelectItem(item);
+    };
+
     return (
         <div style={styles.container}>
             <table style={styles.table}>
                 <thead style={styles.thead}>
                 <tr>
+                    {showCheckboxes && <th style={styles.th}>SELECT</th>}
                     {data && data.length > 0 && Object.keys(data[0]).map((key) => (
-                        <th key={key} style={styles.th}>
-                            {key.replace(/_/g, " ").toUpperCase()}
-                        </th>
+                        <th key={key} style={styles.th}>{key.replace(/_/g, " ").toUpperCase()}</th>
                     ))}
                 </tr>
                 </thead>
@@ -31,10 +35,18 @@ const Table = ({ data }) => {
                         onMouseEnter={() => setHoveredRowIndex(index)}
                         onMouseLeave={() => setHoveredRowIndex(null)}
                     >
-                        {Object.values(item).map((val, i) => (
-                            <td key={i} style={styles.td}>
-                                {val}
+                        {showCheckboxes && (
+                            <td style={styles.td}>
+                                <input
+                                    type="radio"
+                                    name="selectedItem"
+                                    checked={item.code}
+                                    onChange={handleCheckboxChange(item)}
+                                />
                             </td>
+                        )}
+                        {Object.values(item).map((val, i) => (
+                            <td key={i} style={styles.td}>{val}</td>
                         ))}
                     </tr>
                 ))}
@@ -43,7 +55,6 @@ const Table = ({ data }) => {
         </div>
     );
 };
-
 const styles = {
     table: {
         width: '100%',

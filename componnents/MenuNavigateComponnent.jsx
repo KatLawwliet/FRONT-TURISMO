@@ -6,7 +6,7 @@ import ServiceScreen from "./ServiceScreen";
 
 const MenuNavigate = ({navigation}) => {
 
-    const [activeView, setActiveView] = useState('Paquetes');
+    const [activeView, setActiveView] = useState('Servicios');
 
     const renderView = () => {
         switch(activeView) {
@@ -20,7 +20,7 @@ const MenuNavigate = ({navigation}) => {
     };
 
     return (
-        <div style={{height: '100%', maxHeight:890, width: '100%', display: 'flex', flexDirection: "row"}}>
+        <div style={{height: '100%', maxHeight:869, width: '100%', display: 'flex', flexDirection: "row"}}>
             <Menu setActiveView={setActiveView} activeView={activeView} navigation={navigation}/>
             <div style={{
                 backgroundColor: '#f1f5f9',

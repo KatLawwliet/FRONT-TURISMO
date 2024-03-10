@@ -16,15 +16,16 @@ const getPackages = async (search) => {
     }
 }
 
-const getServices = async (search) => {
+const getServices = async (search, typeId) => {
     try {
-        const response = await axios.get('http://localhost:8080/services?searcher='+search);
+        const response = await axios.get('http://localhost:8080/services?searcher='+search+'&typeId='+typeId);
         const serviceData = response.data;
 
         console.log(`RESPUESTAAAA: ${serviceData}`);
         return serviceData.map(servi => {
             console.log(servi.pic)
             return {
+                code: servi.code,
                 description: servi.description,
                 destination: servi.destination,
                 pic: servi.pic,
@@ -38,4 +39,26 @@ const getServices = async (search) => {
     }
 }
 
-export default {getPackages, getServices}
+const createPackage = async (name, destination, costo) => {
+
+    try {
+        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+
+        const request = {
+            name: name,
+            destination: destination,
+            cost: costo,
+            services: selectedServices.map(service => ({
+                code: service.code,
+            }))
+        }
+
+        const resp = await axios.post("http://localhost:8080/packages", request)
+        return resp.data
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
+export default {getPackages, getServices,createPackage}

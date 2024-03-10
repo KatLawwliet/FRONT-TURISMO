@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const Service = ({service}) => {
+const Service = ({ service, onCheckChange, isChecked }) => {
+
+    const handleCheckboxChange = (e) => {
+        onCheckChange(service.code, e.target.checked);
+    };
+
+
     return (
         <div style={styles.item}>
             <div style={{width: "50%", height: "100%"}}>
@@ -24,16 +30,17 @@ const Service = ({service}) => {
                             color: "#475569",
                             marginBottom: 1,
                             padding: 1
-                        }}>{service.type}</h1>
+                        }}>{service.description}</h1>
                         <h1 style={{
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             fontSize: 10,
                             color: "#475569",
                             marginTop: 1,
                             padding: 1
-                        }}>{service.description}</h1>
+                        }}>{service.type}</h1>
                     </div>
                     <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
+                        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
                         <h1 style={{
                             fontFamily: 'Arial, Helvetica, sans-serif',
                             fontSize: 20,

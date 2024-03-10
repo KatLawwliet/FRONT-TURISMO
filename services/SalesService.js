@@ -20,3 +20,26 @@ export const getSales = async (search) => {
         throw error;
     }
 }
+
+export const createSale = async (sale) => {
+    try {
+        await axios.post("http://localhost:8080/sales", sale)
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
+export const calculate = async (services) => {
+    try {
+        const response = await axios.post("http://localhost:8080/sales/calculate", services)
+        const calculateData = response.data;
+        console.log("DATA CALCULADA: " + calculateData.totalPrice)
+        return calculateData
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+
+
+}
