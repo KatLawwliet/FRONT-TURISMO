@@ -20,10 +20,13 @@ const Modal = ({ isOpen, onClose, children, width, height}) => {
             padding: "20px",
             borderRadius: "15px",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             width: width,
-            height: height
+            height: height,
+            overflowY: "auto",
+            overflowX: "hidden",
         },
         closeButton: {
             position: "absolute",
