@@ -9,7 +9,7 @@ import {createSale} from "../services/SalesService";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
-    const [clients, setClients] = useState([{caca: 'caca', pedo: 'pedo'}])
+    const [clients, setClients] = useState([])
     const [seachInput, setSeachInput] = useState("")
     const [selectedClient, setSelectedClient] = useState(null);
     const [calc, setCalc] = useState({});
@@ -31,13 +31,15 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             await createSale({
                 paymentMethod: "Con la cola",
                 client: selectedClient.id,
-                packagee: code
+                packagee: code,
+                cost: calc.totalPrice
             })
         }else {
             await createSale({
                 paymentMethod: "Con la cola",
                 client: selectedClient.id,
-                service: selectedServices[0].codigo
+                service: selectedServices[0].codigo,
+                cost: calc.totalPrice
             })
         }
         toggleModal()

@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from "./ButtonComponnent";
 
 const Modal = ({ isOpen, onClose, children, width, height}) => {
 

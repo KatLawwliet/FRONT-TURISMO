@@ -45,12 +45,13 @@ const styles = {
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'stretch', // O 'flex-start' si quieres que cada elemento mantenga su altura original.
-        justifyContent: 'center',
-        height: 'auto', // Cambiado de '100%' a 'auto'.
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
+        height: 'auto',
         width: '100%',
+        padding:10,
         overflowY: 'auto',
-        alignContent: 'flex-start', // Asegurándonos de que los elementos estén alineados al inicio del contenedor.
+        alignContent: 'flex-start',
     }
 }
 
