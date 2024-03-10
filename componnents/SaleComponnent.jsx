@@ -80,32 +80,69 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                 isServiceSelected ?
                     (
                         <div style={styles.container}>
-                            <h1 style={{
-                                fontFamily: 'Arial, Helvetica, sans-serif',
-                                fontSize: 30,
-                                color: "#475569"
-                            }}>Venta</h1>
+
+                            <div style={{display: 'flex', height: '20%', width: '80%', justifyContent: 'flex-end'}}>
+                                <Button text={"Enviar"} clickAction={() => handleCreateSaleClick()}></Button>
+                                <Button text={"Cerrar"} color={'#B32100'}
+                                        clickAction={() => handleClosedClick()}></Button>
+                            </div>
+
+                            <div style={{height: '10%'}}></div>
                             <div style={styles.containerServices}>
-                                {<Table data={selectedServices} ></Table>}
+                                <h4 style={{
+                                    fontFamily: 'Arial, Helvetica, sans-serif',
+                                    fontSize: 20,
+                                    color: "#028035",
+                                    margin: 1
+                                }}>Servicios</h4>
+                                {<Table data={selectedServices}></Table>}
+                                <h4 style={{
+                                    fontFamily: 'Arial, Helvetica, sans-serif',
+                                    fontSize: 20,
+                                    color: "#028035",
+                                    margin: 1
+                                }}>Clientes</h4>
                                 <SearchInput seachInput={setSeachInput}/>
                                 {clients.length != 0 ? <Table
                                     data={clients}
                                     showCheckboxes={true}
                                     selectedItem={selectedClient}
                                     onSelectItem={handleSelectItem}
-                                ></Table> : <h1 >No hay nada, gato, recatate</h1>}
+                                ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                            </div>
+                            <div style={{
+                                width: '70%',
+                                margin: 10
+                            }}>
+
+
+                                <div style={{
+                                    width: '90%',
+                                    height: '10%',
+                                    minHeight: 100,
+                                    padding: 20,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-end'
+                                }}>
+                                    <h4 style={{
+                                        fontFamily: 'Arial, Helvetica, sans-serif',
+                                        fontSize: 20,
+                                        color: "#028035",
+                                        marginBottom: 10,
+                                    }}>Resumen</h4>
+                                    <h1 style={styles.text}>Servicios seleccionados: {calc.servicesCount}</h1>
+                                    <h1 style={styles.text}>Descuento: {calc.discoutn}</h1>
+                                    <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
+                                </div>
                             </div>
 
-                            <div style={{ width: '90%', height:'10%', minHeight: 100, padding: 30}}>
-                                <h1 style={styles.text}>Servicios seleccionados: {calc.servicesCount}</h1>
-                                <h1 style={styles.text}>Descuento: {calc.discoutn}</h1>
-                                <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
+                            <div style={{display: 'flex', height: '20%', width: '75%', justifyContent: 'flex-end'}}>
+                                <Button text={"Enviar"} clickAction={() => handleCreateSaleClick()}></Button>
+                                <Button text={"Cerrar"} color={'#B32100'}
+                                        clickAction={() => handleClosedClick()}></Button>
                             </div>
 
-                            <div style={{display: 'flex', height: '20%'}}>
-                                <Button text={"Cerrar"} color={'#B32100'} clickAction={() => handleClosedClick()}></Button>
-                                <Button text={"Enviar"}  clickAction={() => handleCreateSaleClick()}></Button>
-                            </div>
                         </div>
                     )
                     : (

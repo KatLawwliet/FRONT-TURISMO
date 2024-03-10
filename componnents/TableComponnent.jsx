@@ -21,7 +21,7 @@ const Table = ({ data, showCheckboxes, selectedItem, onSelectItem }) => {
             <table style={styles.table}>
                 <thead style={styles.thead}>
                 <tr>
-                    {showCheckboxes && <th style={styles.th}>SELECT</th>}
+                    {showCheckboxes && <th style={styles.th}>SELECCIONAR</th>}
                     {data && data.length > 0 && Object.keys(data[0]).map((key) => (
                         <th key={key} style={styles.th}>{key.replace(/_/g, " ").toUpperCase()}</th>
                     ))}
