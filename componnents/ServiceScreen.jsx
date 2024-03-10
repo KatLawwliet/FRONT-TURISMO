@@ -142,7 +142,7 @@ const ServiceScreen = () => {
     }
 
     return (
-        <div style={{height: '100%', maxHeight: 770,}}>
+        <div style={{ maxHeight: 770,}}>
             <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
             <Modal
                 isOpen={isModalOpen}
