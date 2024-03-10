@@ -73,7 +73,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
 
 
     return (
-        <div style={styles.container}>
+        <div >
             {
                 isServiceSelected ?
                     (
@@ -125,7 +125,7 @@ const styles = {
         flexDirection: 'column',
         width: '100%',
         height: '100%',
-        minHeight: 100
+        minHeight: 400
     },
 
     containerServices: {
@@ -135,7 +135,7 @@ const styles = {
         flexDirection: 'column',
         width: '90%',
         height: '90%',
-        minHeight: 100
+        minHeight: 400
     },
     text: {
         fontFamily: 'Arial, Helvetica, sans-serif',
