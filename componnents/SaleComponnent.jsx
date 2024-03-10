@@ -94,7 +94,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                 ></Table> : <h1 >No hay nada, gato, recatate</h1>}
                             </div>
 
-                            <div style={{ width: '90%', height:'10%', padding: 30}}>
+                            <div style={{ width: '90%', height:'10%', minHeight: 100, padding: 30}}>
                                 <h1 style={styles.text}>Servicios seleccionados: {calc.servicesCount}</h1>
                                 <h1 style={styles.text}>Descuento: {calc.discoutn}</h1>
                                 <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
@@ -124,7 +124,8 @@ const styles = {
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        minHeight: 100
     },
 
     containerServices: {
@@ -133,7 +134,8 @@ const styles = {
         alignItems: 'flex-start',
         flexDirection: 'column',
         width: '90%',
-        height: '90%'
+        height: '90%',
+        minHeight: 100
     },
     text: {
         fontFamily: 'Arial, Helvetica, sans-serif',
