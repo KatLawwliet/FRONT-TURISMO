@@ -100,7 +100,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                 <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
                             </div>
 
-                            <div style={{display: 'flex'}}>
+                            <div style={{display: 'flex', height: '20%'}}>
                                 <Button text={"Cerrar"} color={'#B32100'} clickAction={() => handleClosedClick()}></Button>
                                 <Button text={"Enviar"}  clickAction={() => handleCreateSaleClick()}></Button>
                             </div>
