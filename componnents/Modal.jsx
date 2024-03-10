@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, children, width, height}) => {
             borderRadius: "15px",
             width: "80%",
             height: "100%",
-            maxHeight: 600,
+            maxHeight: 800,
             overflowY: "auto",
             boxSizing: "border-box",
         },
