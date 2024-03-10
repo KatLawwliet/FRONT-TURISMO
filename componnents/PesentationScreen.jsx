@@ -26,7 +26,9 @@ const Presentation = ({data, seachInput, children}) => {
             }}>
 
                 <SearchInput seachInput={seachInput}/>
-                <Button text={<FaRegCalendarAlt/>} clickAction={() => toggleModal()}/>
+                <div style={{width: '55%', display: 'flex', alignItems: 'center'}}>
+                    <Button text={<FaRegCalendarAlt/>} clickAction={() => toggleModal()}/>
+                </div>
                 <Modal isOpen={isModalOpen} onClose={toggleModal}>
                     <div style={{width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center"}}>
                         <h1>Contenido</h1>

@@ -143,7 +143,7 @@ const ServiceScreen = () => {
 
     return (
         <div style={{ maxHeight: 770,}}>
-            <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
+
             <Modal
                 isOpen={isModalOpen}
                 onClose={toggleModal}
@@ -166,7 +166,13 @@ const ServiceScreen = () => {
                     setServices={setServices}
                 />
             </Modal>
-            <Tags renderView={renderView} buttons={[{name: "Alojamiento"}, {name: "Transporte"}, {name: "Guía Turístico"}, {name: "Comida y Bebida"}]} setSelected={setTagSelected}/>
+            <Tags renderView={renderView}
+                  buttons={[{name: "Alojamiento"}, {name: "Transporte"}, {name: "Guía Turístico"}, {name: "Comida y Bebida"}]}
+                  setSelected={setTagSelected}>
+                <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%'}}>
+                    <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
+                </div>
+            </Tags>
         </div>
     );
 };

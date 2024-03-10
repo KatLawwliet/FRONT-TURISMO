@@ -13,7 +13,7 @@ const Select = ({ text, clickAction, isActive, isMovile }) => {
 
     const coloricon = () => {
         if(isActive){
-            return '#03A143'
+            return '#028035'
         }
         return '#475569'
     }

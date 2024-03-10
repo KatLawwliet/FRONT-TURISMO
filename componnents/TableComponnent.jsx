@@ -61,7 +61,7 @@ const styles = {
         borderCollapse: 'collapse',
     },
     thead: {
-        backgroundColor: '#03A143',
+        backgroundColor: '#028035',
     },
     th: {
         fontWeight: 'normal',

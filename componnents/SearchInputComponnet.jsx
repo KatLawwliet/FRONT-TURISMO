@@ -36,11 +36,11 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'flex-start',
         margin: 20,
-        width: '70%',
+        width: '40%',
         height: 50,
     },
     input: {
-        width: '50%',
+        width: '100%',
         height: '60%',
         borderRadius: 20,
         color: '#475569',

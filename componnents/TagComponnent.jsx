@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from "./ButtonComponnent";
 
-const Tags = ({ buttons, renderView , setSelected}) => {
+const Tags = ({ buttons, renderView , setSelected, children}) => {
     const [activeView, setActiveView] = useState(buttons[0].name);
 
     const actionButton = (name) => {
@@ -15,10 +15,22 @@ const Tags = ({ buttons, renderView , setSelected}) => {
             <div style={{display: 'flex', flexDirection: 'row'}}>
                 {buttons.map((bt, index) => (
                     <div key={index}>
-                        <Button  text={bt.name} clickAction={() => actionButton(bt.name)} />
+                        <button style={{
+                            width:160,
+                            height:35,
+                            margin:20,
+                            backgroundColor: '#b3e2c6',
+                            borderRadius:20,
+                            borderColor:'lightgray',
+                            borderWidth: 1,
+                            fontFamily: 'Arial, Helvetica, sans-serif',
+                            fontSize:18,
+                            color: "#475569"
+                        }} value={bt.name} onClick={() => actionButton(bt.name)} >{bt.name}</button>
                     </div>
 
                 ))}
+                {children? children : ""}
             </div>
 
             {renderView(activeView)}

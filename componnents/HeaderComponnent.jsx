@@ -16,14 +16,14 @@ const style = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#03A143',
+        backgroundColor: '#028035',
         height: 60,
         width: '100%',
         marginTop: 30,
         marginBottom: 0,
         marginEnd: 10,
         borderRadius: 30,
-        boxShadow: '2px -30px 3px -15px rgba(153, 209, 159, 100)',
+        boxShadow: '2px -30px 3px -15px rgba(78, 189, 123)',
     }
 }
 
