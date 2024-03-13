@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
+import Modal from './Modal';
+import EmailService from '../services/EmailService';
 
-
-
-
-const Table = ({ data, showCheckboxes, selectedItem, onSelectItem }) => {
-    const [hoveredRowIndex, setHoveredRowIndex] = useState(null);
+const Table = ({ data, showCheckboxes, selectedItem, onSelectItem, onEmailClick }) => {
+    const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);
 
     const getRowStyle = (index) => ({
         ...styles.tr,
@@ -20,41 +19,47 @@ const Table = ({ data, showCheckboxes, selectedItem, onSelectItem }) => {
         <div style={styles.container}>
             <table style={styles.table}>
                 <thead style={styles.thead}>
-                <tr>
-                    {showCheckboxes && <th style={styles.th}>SELECCIONAR</th>}
-                    {data && data.length > 0 && Object.keys(data[0]).map((key) => (
-                        <th key={key} style={styles.th}>{key.replace(/_/g, " ").toUpperCase()}</th>
-                    ))}
-                </tr>
-                </thead>
-                <tbody>
-                {data.map((item, index) => (
-                    <tr
-                        key={index}
-                        style={getRowStyle(index)}
-                        onMouseEnter={() => setHoveredRowIndex(index)}
-                        onMouseLeave={() => setHoveredRowIndex(null)}
-                    >
-                        {showCheckboxes && (
-                            <td style={styles.td}>
-                                <input
-                                    type="radio"
-                                    name="selectedItem"
-                                    checked={item.code}
-                                    onChange={handleCheckboxChange(item)}
-                                />
-                            </td>
-                        )}
-                        {Object.values(item).map((val, i) => (
-                            <td key={i} style={styles.td}>{val}</td>
+                    <tr>
+                        {showCheckboxes && <th style={styles.th}>SELECCIONAR</th>}
+                        {data && data.length > 0 && Object.keys(data[0]).map((key) => (
+                            <th key={key} style={styles.th}>{key.replace(/_/g, " ").toUpperCase()}</th>
                         ))}
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {data.map((item, index) => (
+                        <tr
+                            key={index}
+                            style={getRowStyle(index)}
+                            onMouseEnter={() => setHoveredRowIndex(index)}
+                            onMouseLeave={() => setHoveredRowIndex(null)}
+                        >
+                            {showCheckboxes && (
+                                <td style={styles.td}>
+                                    <input
+                                        type="radio"
+                                        name="selectedItem"
+                                        checked={item.code}
+                                        onChange={handleCheckboxChange(item)}
+                                    />
+                                </td>
+                            )}
+                            {Object.entries(item).map(([key, val], i) => (
+                                <td key={i} style={styles.td}>
+                                    {/* Agregar el componente EmailService si la clave es 'email' */}
+                                    {key === 'email' && <EmailService email={val} />}
+                                    {/* Mostrar el valor si no es un correo electrónico */}
+                                    {key !== 'email' && val}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
     );
 };
+
 const styles = {
     table: {
         width: '100%',
@@ -92,4 +97,4 @@ const styles = {
     },
 };
 
-export default Table
+export default Table;
