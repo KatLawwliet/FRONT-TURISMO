@@ -23,6 +23,11 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "extra": {
+      "supabaseUrl": "https://snxhqkypetprgogliayo.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNueGhxa3lwZXRwcmdvZ2xpYXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAzNjcxMDcsImV4cCI6MjAyNTk0MzEwN30.Au5BgVLrL4eky-LTHaxYoVvOoC-JZwTio7V7CNvo1QY",
+      "bucketName": "turismo"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }

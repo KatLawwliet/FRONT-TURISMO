@@ -44,13 +44,8 @@ const Table = ({ data, showCheckboxes, selectedItem, onSelectItem, onEmailClick 
                                     />
                                 </td>
                             )}
-                            {Object.entries(item).map(([key, val], i) => (
-                                <td key={i} style={styles.td}>
-                                    {/* Agregar el componente EmailService si la clave es 'email' */}
-                                    {key === 'email' && <EmailService email={val} />}
-                                    {/* Mostrar el valor si no es un correo electrónico */}
-                                    {key !== 'email' && val}
-                                </td>
+                            {Object.values(item).map((val, i) => (
+                                <td key={i} style={styles.td}>{val}</td>
                             ))}
                         </tr>
                     ))}

@@ -6,6 +6,8 @@ import ClientsBack from "../services/ClientService";
 import PackageBack from "../services/PackageBack";
 import {calculate} from "../services/SalesService";
 import {createSale} from "../services/SalesService";
+import {sendPaymentNotification} from '../services/NotificationService'
+import FileUploader from "./UploadedComponent";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
@@ -25,8 +27,16 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     }
 
     const handleCreateSaleClick = async () => {
-
-        if(selectedServices.length > 1){
+        const isPackage = selectedServices.length > 1
+        const massage = () => {
+            if (isPackage) {
+                return `Usted acaba de comprar los servicios: \n ${selectedServices.map(serv => {
+                    return `${serv.codigo} ${serv.nombre} con destino a ${serv.destino} \n`
+                })}`
+            }
+            return `Usted acaba de comprar el servicio ${selectedServices[0].codigo} ${selectedServices[0].nombre} con destino a ${selectedServices[0].destino}`
+        }
+        if(isPackage){
             const code = await PackageBack.createPackage("Un paquete", "La Plata")
             await createSale({
                 paymentMethod: "Con la cola",
@@ -42,6 +52,12 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                 cost: calc.totalPrice
             })
         }
+        await sendPaymentNotification({
+            to: selectedClient.email,
+            services: selectedServices,
+            totalPrice: calc.totalPrice,
+            discount: calc.discoutn
+        })
         toggleModal()
         setSelectedServices([]);
         setServices(services.map(service => ({ ...service, isChecked: false })));
@@ -146,10 +162,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                         </div>
                     )
                     : (
-                        <div style={styles.container}>
-                            <h1 style={styles.text}>Servicio no seleccionado</h1>
-                            <Button text={"Cerrar"} color={'#B32100'} clickAction={() => handleClosedClick()}></Button>
-                        </div>
+                        <FileUploader></FileUploader>
                     )
             }
         </div>

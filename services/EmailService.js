@@ -16,7 +16,7 @@ const EmailService = ({ email }) => {
     try {
       setIsModalOpen(false);
       console.log('Datos del correo electrónico a enviar:', emailData);
-      const response = await axios.post('http://localhost:8080/email/send-email', emailData);
+      const response = await axios.post('http://localhost:8080/notification/send', emailData);
       console.log('Correo electrónico enviado correctamente:', response.data);
     } catch (error) {
       console.error('Error al enviar el correo electrónico:', error);
