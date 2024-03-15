@@ -1,6 +1,6 @@
-/*import React, { useState } from 'react';
+import React, { useState } from 'react';
 
-//import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js'
 
 import Constants from 'expo-constants';
 
@@ -40,4 +40,4 @@ const FileUploader = () => {
     );
 };
 
-export default FileUploader;*/
+export default FileUploader;
