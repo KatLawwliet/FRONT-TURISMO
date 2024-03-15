@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchInput from "./SearchInputComponnet";
 import Button from "./ButtonComponnent";
-import {FaRegCalendarAlt} from "react-icons/fa";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import Modal from "./Modal";
+import DatePicker from "./DatePickerComponnent";
 
-const Presentation = ({data, seachInput, children}) => {
-
+const Presentation = ({ data, seachInput, children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -14,8 +15,12 @@ const Presentation = ({data, seachInput, children}) => {
 
     }, [data]);
 
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
+    };
+
     return (
-        <div style={{display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'flex-start'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'flex-start' }}>
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -26,12 +31,12 @@ const Presentation = ({data, seachInput, children}) => {
             }}>
 
                 <SearchInput seachInput={seachInput}/>
-                <div style={{width: '55%', display: 'flex', alignItems: 'center'}}>
-                    <Button text={<FaRegCalendarAlt/>} clickAction={() => toggleModal()}/>
+                <div style={{ width: '55%', display: 'flex', alignItems: 'center' }}>
+                    <Button text={<FaRegCalendarAlt />} clickAction={() => toggleModal()}/>
                 </div>
                 <Modal isOpen={isModalOpen} onClose={toggleModal}>
-                    <div style={{width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <h1>Contenido</h1>
+                    <div style={{ width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <DatePicker onSelect={handleDateSelect} />
                     </div>
                 </Modal>
             </div>
@@ -41,7 +46,6 @@ const Presentation = ({data, seachInput, children}) => {
         </div>
     );
 };
-
 
 const styles = {
     container: {
