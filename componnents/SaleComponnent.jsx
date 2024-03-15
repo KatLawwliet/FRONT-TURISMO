@@ -27,41 +27,44 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     }
 
     const handleCreateSaleClick = async () => {
-        const isPackage = selectedServices.length > 1
-        const massage = () => {
-            if (isPackage) {
-                return `Usted acaba de comprar los servicios: \n ${selectedServices.map(serv => {
-                    return `${serv.codigo} ${serv.nombre} con destino a ${serv.destino} \n`
-                })}`
+        const isConfirmed = window.confirm("¿Estás seguro de que decea prosesar la venta?");
+        if (isConfirmed){
+            const isPackage = selectedServices.length > 1
+            const massage = () => {
+                if (isPackage) {
+                    return `Usted acaba de comprar los servicios: \n ${selectedServices.map(serv => {
+                        return `${serv.codigo} ${serv.nombre} con destino a ${serv.destino} \n`
+                    })}`
+                }
+                return `Usted acaba de comprar el servicio ${selectedServices[0].codigo} ${selectedServices[0].nombre} con destino a ${selectedServices[0].destino}`
             }
-            return `Usted acaba de comprar el servicio ${selectedServices[0].codigo} ${selectedServices[0].nombre} con destino a ${selectedServices[0].destino}`
-        }
-        if(isPackage){
-            const code = await PackageBack.createPackage("Un paquete", "La Plata")
-            await createSale({
-                paymentMethod: "Con la cola",
-                client: selectedClient.id,
-                packagee: code,
-                cost: calc.totalPrice
+            if(isPackage){
+                const code = await PackageBack.createPackage("Un paquete", "La Plata")
+                await createSale({
+                    paymentMethod: "Con la cola",
+                    client: selectedClient.id,
+                    packagee: code,
+                    cost: calc.totalPrice
+                })
+            }else {
+                await createSale({
+                    paymentMethod: "Con la cola",
+                    client: selectedClient.id,
+                    service: selectedServices[0].codigo,
+                    cost: calc.totalPrice
+                })
+            }
+            await sendPaymentNotification({
+                to: selectedClient.email,
+                services: selectedServices,
+                totalPrice: calc.totalPrice,
+                discount: calc.discoutn
             })
-        }else {
-            await createSale({
-                paymentMethod: "Con la cola",
-                client: selectedClient.id,
-                service: selectedServices[0].codigo,
-                cost: calc.totalPrice
-            })
+            toggleModal()
+            setSelectedServices([]);
+            setServices(services.map(service => ({ ...service, isChecked: false })));
+            localStorage.removeItem('selectedServices');
         }
-        await sendPaymentNotification({
-            to: selectedClient.email,
-            services: selectedServices,
-            totalPrice: calc.totalPrice,
-            discount: calc.discoutn
-        })
-        toggleModal()
-        setSelectedServices([]);
-        setServices(services.map(service => ({ ...service, isChecked: false })));
-        localStorage.removeItem('selectedServices');
     }
 
     useEffect(() => {

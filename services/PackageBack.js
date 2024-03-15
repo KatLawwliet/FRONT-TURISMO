@@ -73,6 +73,7 @@ const createService = async (service) => {
 
 const deleteService = async (code) => {
     try {
+        console.log("ESTOY ACAAA " + code)
         await axios.delete("http://localhost:8080/services/"+code)
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
@@ -80,4 +81,13 @@ const deleteService = async (code) => {
     }
 }
 
-export default {getPackages, getServices,createPackage, createService, deleteService}
+export const deletePackage = async (code) => {
+    try {
+        await axios.delete("http://localhost:8080/packages/"+code)
+    }catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
+export default {getPackages, getServices,createPackage, createService, deleteService, deletePackage}

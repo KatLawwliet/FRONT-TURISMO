@@ -12,3 +12,12 @@ export const getSelles = async (search) => {
         throw error;
     }
 }
+
+export const deleteSeller = async (id) => {
+    try {
+        await axios.delete("http://localhost:8080/sellers/"+id)
+    }catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}

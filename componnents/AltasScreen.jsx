@@ -3,7 +3,7 @@ import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
 import Tags from "./TagComponnent";
 import PackageBack from '../services/PackageBack'
-import {getSelles} from '../services/SellersService'
+import {deleteSeller, getSelles} from '../services/SellersService'
 import Button from "./ButtonComponnent";
 import Modal from "./Modal";
 import CreateService from "./CreateServiceComponnent";
@@ -14,12 +14,47 @@ const AltasScreen = () => {
     const [services, setServices] = useState([]);
     const [sellers, setSellers] = useState([]);
     const [seachInput, setSeachInput] = useState("")
-    const [isModalAddOpen, setIsModalAddOpen] = useState(true);
+    const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [selectedService, setSelectedService] = useState(null);
+    const [selectedSeller, setSelectedSeller] = useState(null);
+    const [sellectedPackages, setSellectedPackages] = useState(null)
+    const [load, setLoad] = useState(0)
 
-    const handleSelectItem = (item) => {
+    const handleSelectService = (item) => {
         setSelectedService(item);
     };
+    const handleSelectPackage = (item) => {
+        setSellectedPackages(item);
+    };
+    const handleSelectSeller = (item) => {
+        setSelectedSeller(item);
+    };
+
+    const handleDeleteServiceClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este servicio?");
+        if (isConfirmed) {
+            await PackageBack.deleteService(selectedService.codigo);
+            alert("Servicio eliminado exitosamente.");
+            setLoad(load + 1)
+        }
+    }
+    const handleDeletePackageClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este paquete?");
+        if (isConfirmed) {
+            await PackageBack.deletePackage(sellectedPackages.codigo);
+            alert("Servicio eliminado exitosamente.");
+            setLoad(load + 1)
+        }
+    }
+
+    const handleDeleteSellerClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este empleado?");
+        if (isConfirmed) {
+            await deleteSeller(selectedSeller.id);
+            alert("Servicio eliminado exitosamente.");
+            setLoad(load + 1)
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,19 +84,13 @@ const AltasScreen = () => {
             }
         }
         fetchData()
-    },[seachInput, isModalAddOpen])
+    },[seachInput, isModalAddOpen, load])
 
     const handleAddServiceClick = () => {
         setIsModalAddOpen(true)
     }
 
-    const handleDeleteClick = async () => {
-        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este servicio?");
-        if (isConfirmed) {
-            await PackageBack.deleteService(selectedService.codigo);
-            alert("Servicio eliminado exitosamente.");
-        }
-    }
+
 
     const toggleModal = () => {
         setIsModalAddOpen(!isModalAddOpen)
@@ -80,9 +109,14 @@ const AltasScreen = () => {
                             height:'10%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => alert("Caca")}></Button>
-                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => alert("Caca")}></Button>
+                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeletePackageClick()}></Button>
                         </div>
-                        {packages.length !== 0 ? <Table data={packages} showCheckboxes={true}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        {packages.length !== 0 ? <Table
+                            data={packages}
+                            selectedItem={sellectedPackages}
+                            onSelectItem={handleSelectPackage}
+                            showCheckboxes={true}
+                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
                     </Presentation>
                 );
             case 'Servicios':
@@ -99,13 +133,13 @@ const AltasScreen = () => {
                             <Modal isOpen={isModalAddOpen} onClose={toggleModal}>
                                 <CreateService isModalOpen={setIsModalAddOpen}/>
                             </Modal>
-                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteClick()}></Button>
+                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteServiceClick()}></Button>
                         </div>
                         {services.length !== 0 ? <Table
                             data={services}
                             showCheckboxes={true}
                             selectedItem={selectedService}
-                            onSelectItem={handleSelectItem}
+                            onSelectItem={handleSelectService}
                         ></Table> : <h1>No hay nada, gato, recatate</h1>}
                     </Presentation>
                 );
@@ -121,9 +155,14 @@ const AltasScreen = () => {
                             height: '10%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => alert("Caca")}></Button>
-                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => alert("Caca")}></Button>
+                            <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteSellerClick()}></Button>
                         </div>
-                        {sellers.length !== 0 ? <Table data={sellers} showCheckboxes={true}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        {sellers.length !== 0 ? <Table
+                            data={sellers}
+                            showCheckboxes={true}
+                            selectedItem={selectedSeller}
+                            onSelectItem={handleSelectSeller}
+                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
                     </Presentation>
                 );
         }
@@ -134,8 +173,8 @@ const AltasScreen = () => {
             <Tags
                 renderView={renderView}
                 buttons={[
-                    {name: "Servicios"},
                     {name: "Paquetes"},
+                    {name: "Servicios"},
                     {name: "Empleados"}
                 ]}
             ></Tags>
