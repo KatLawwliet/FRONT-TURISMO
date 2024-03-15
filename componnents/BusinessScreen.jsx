@@ -4,6 +4,7 @@ import {getSales} from "../services/SalesService";
 import Tags from "./TagComponnent";
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
+import Button from "./ButtonComponnent";
 
 const Business = () => {
     const [clients, setClients] = useState([]);
@@ -25,22 +26,37 @@ const Business = () => {
         fetchData()
     },[seachInput])
 
-    const handleDownloadPdf = async () => {
+    const handleClientDownloadPdf = async () => {
         setPdfLoading(true);
         try {
-            // Realizar la petición para descargar el PDF
-            const response = await fetch('http://localhost:8080/print/clients/pdf');
-            // Convertir la respuesta a blob
+            const response = await getClients(seachInput, true);
             const blob = await response.blob();
-            // Crear un objeto URL para el blob
             const url = URL.createObjectURL(blob);
-            // Crear un enlace invisible para descargar el PDF
             const a = document.createElement('a');
             a.href = url;
             a.download = 'clients.pdf';
             document.body.appendChild(a);
             a.click();
-            // Limpiar el objeto URL y eliminar el enlace
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error al descargar PDF:', error);
+        } finally {
+            setPdfLoading(false);
+        }
+    };
+
+    const handleSalesDownloadPdf = async () => {
+        setPdfLoading(true);
+        try {
+            const response = await getSales(seachInput, true);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sales.pdf';
+            document.body.appendChild(a);
+            a.click();
             URL.revokeObjectURL(url);
             document.body.removeChild(a);
         } catch (error) {
@@ -58,12 +74,14 @@ const Business = () => {
                 return (
                     <Presentation data={clients} seachInput={setSeachInput}>
                         {clients.length != 0 ? <Table data={clients}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={handleClientDownloadPdf} disabled={pdfLoading}></Button>
                     </Presentation>
                 );
             case 'Ventas':
                 return (
                     <Presentation data={clients} seachInput={setSeachInput}>
                         {sales.length != 0 ? <Table data={sales}></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={handleSalesDownloadPdf} disabled={pdfLoading}></Button>
                     </Presentation>
                 );
         }
@@ -73,7 +91,6 @@ const Business = () => {
     return (
         <div>
             <Tags renderView={renderView} buttons={[{name: "Clientes"}, {name: "Ventas"}]}></Tags>
-            <button onClick={handleDownloadPdf} disabled={pdfLoading}>Descargar PDF</button>
         </div>
 
     );

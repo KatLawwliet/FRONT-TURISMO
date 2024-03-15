@@ -28,6 +28,8 @@ const Select = ({ text, clickAction, isActive, isMovile }) => {
                 return <BsPersonVcard size={25} color={coloricon()} style={styles.icon}/>
             case "Negocio":
                 return <TiHomeOutline size={25} color={coloricon()} style={styles.icon}/>
+            case "Altas":
+                return <TiHomeOutline size={25} color={coloricon()} style={styles.icon}/>
             case "Cerrar Session":
                 return <LuLogOut size={25} color={coloricon()} style={styles.icon}/>
         }

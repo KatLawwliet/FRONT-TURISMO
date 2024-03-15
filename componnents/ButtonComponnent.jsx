@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({text, clickAction, color}) => {
+const Button = ({text, clickAction, color, disabled}) => {
 
     const styles = {
         button: {
@@ -30,6 +30,7 @@ const Button = ({text, clickAction, color}) => {
 
     return (
         <button
+            disabled={disabled}
             onClick={clickAction}
             style={styles.button}
             onMouseOver={handleMouseOver}

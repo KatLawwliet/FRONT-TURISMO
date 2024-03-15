@@ -1,8 +1,12 @@
 import axios from 'axios';
 
-export const getSales = async (search) => {
+export const getSales = async (search, isPdf = false) => {
     try {
-        const response = await axios.get('http://localhost:8080/sales?searcher='+search);
+        const url = isPdf ? "http://localhost:8080/sales/pdf?searcher=": 'http://localhost:8080/sales?searcher='
+        if (isPdf) {
+            return await fetch(url+search)
+        }
+        const response = await axios.get(url+search);
         const salesData = response.data;
         console.log(salesData)
 

@@ -61,4 +61,23 @@ const createPackage = async (name, destination, costo) => {
     }
 }
 
-export default {getPackages, getServices,createPackage}
+const createService = async (service) => {
+    try {
+        const resp = await axios.post("http://localhost:8080/services", service)
+        return resp.data
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
+const deleteService = async (code) => {
+    try {
+        await axios.delete("http://localhost:8080/services/"+code)
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
+export default {getPackages, getServices,createPackage, createService, deleteService}

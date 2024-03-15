@@ -3,10 +3,11 @@ import Menu from "./MenuComponnent";
 import Business from "./BusinessScreen";
 import PackagesScreen from "./PackagesScreen";
 import ServiceScreen from "./ServiceScreen";
+import AltasScreen from "./AltasScreen";
 
 const MenuNavigate = ({navigation}) => {
 
-    const [activeView, setActiveView] = useState('Servicios');
+    const [activeView, setActiveView] = useState('Altas');
 
     const renderView = () => {
         switch(activeView) {
@@ -16,6 +17,8 @@ const MenuNavigate = ({navigation}) => {
                 return <ServiceScreen/>
             case 'Negocio':
                 return <Business />;
+            case 'Altas':
+                return <AltasScreen />;
         }
     };
 
