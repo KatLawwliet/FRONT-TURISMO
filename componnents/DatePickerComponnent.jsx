@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DatePickerService from '../Services/DatePickerService';
+import DatePickerService from '../services/DatePickerService';
 
 const DatePicker = ({ onSelect, onClose }) => {
   const today = new Date();

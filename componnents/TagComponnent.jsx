@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Button from "./ButtonComponnent";
-import ExchangeRates from "./ExchangeRatesComponnent"; // Importa el componente ExchangeRates
+import ExchangeRates from "./ExchangeRatesComponnent";
 
 const Tags = ({ buttons, renderView, setSelected, children }) => {
     const [activeView, setActiveView] = useState(buttons[0].name);
@@ -29,7 +28,6 @@ const Tags = ({ buttons, renderView, setSelected, children }) => {
                         }} value={bt.name} onClick={() => actionButton(bt.name)}>{bt.name}</button>
                     </div>
                 ))}
-                {/* Coloca el componente ExchangeRates junto con los botones */}
                 <div>
                     <ExchangeRates />
                 </div>
