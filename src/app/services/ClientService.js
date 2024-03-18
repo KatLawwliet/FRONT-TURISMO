@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 const getClients = async (search) => {
-    const response = await axios.get('https://turismo-back-k5g5kslg2a-rj.a.run.app/clients?searcher='+search);
+    const response = await axios.get(baseURL+'/clients?searcher='+search);
     const clientsData = response.data;
     console.log(clientsData)
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 export const sendPaymentNotification = async (emailData) => {
-    await axios.post('https://turismo-back-k5g5kslg2a-rj.a.run.app/notification/send', emailData);
+    await axios.post(baseURL+'/notification/send', emailData);
 }
 

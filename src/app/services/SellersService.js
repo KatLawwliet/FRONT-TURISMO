@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 export const getSelles = async (search) => {
     try {
-        const response = await axios.get('https://turismo-back-k5g5kslg2a-rj.a.run.app/sellers?searcher='+search);
+        const response = await axios.get(baseURL+'/sellers?searcher='+search);
         const sellesData = response.data;
         console.log(sellesData)
 
@@ -15,7 +16,7 @@ export const getSelles = async (search) => {
 
 export const deleteSeller = async (id) => {
     try {
-        await axios.delete("https://turismo-back-k5g5kslg2a-rj.a.run.app/sellers/"+id)
+        await axios.delete(baseURL+"/sellers/"+id)
     }catch (error) {
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;

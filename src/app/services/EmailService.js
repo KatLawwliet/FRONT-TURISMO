@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from '../Modal';
 
+
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 const EmailService = ({ email }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
@@ -16,7 +18,7 @@ const EmailService = ({ email }) => {
     try {
       setIsModalOpen(false);
       console.log('Datos del correo electrónico a enviar:', emailData);
-      const response = await axios.post('https://turismo-back-k5g5kslg2a-rj.a.run.app/notification/send', emailData);
+      const response = await axios.post(baseURL+'/notification/send', emailData);
       console.log('Correo electrónico enviado correctamente:', response.data);
     } catch (error) {
       console.error('Error al enviar el correo electrónico:', error);

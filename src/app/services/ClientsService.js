@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export const getClients = async (search, isPdf = false) => {
     try {
-        const url = isPdf ? "https://turismo-back-k5g5kslg2a-rj.a.run.app/clients/pdf?searcher=" : 'https://turismo-back-k5g5kslg2a-rj.a.run.app/clients?searcher='
+        const url = isPdf ? baseURL+"/clients/pdf?searcher=" : baseURL+'/clients?searcher='
         if (isPdf) {
             return await fetch(url+search)
         }

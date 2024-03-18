@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 const getPackages = async (search) => {
     try {
-        const response = await axios.get('https://turismo-back-k5g5kslg2a-rj.a.run.app/packages?searcher='+search);
+        const response = await axios.get(baseURL+'/packages?searcher='+search);
         const packageData = response.data;
 
         console.log(`Código: ${packageData.code}`);
@@ -18,7 +20,7 @@ const getPackages = async (search) => {
 
 const getServices = async (search, typeId) => {
     try {
-        const response = await axios.get('https://turismo-back-k5g5kslg2a-rj.a.run.app/services?searcher='+search+'&typeId='+typeId);
+        const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId);
         const serviceData = response.data;
 
         console.log(`RESPUESTAAAA: ${serviceData}`);
@@ -53,7 +55,7 @@ const createPackage = async (name, destination, costo) => {
             }))
         }
 
-        const resp = await axios.post("https://turismo-back-k5g5kslg2a-rj.a.run.app/packages", request)
+        const resp = await axios.post(baseURL+"/packages", request)
         return resp.data
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
@@ -63,7 +65,7 @@ const createPackage = async (name, destination, costo) => {
 
 const createService = async (service) => {
     try {
-        const resp = await axios.post("https://turismo-back-k5g5kslg2a-rj.a.run.app/services", service)
+        const resp = await axios.post(baseURL+"/services", service)
         return resp.data
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
@@ -74,7 +76,7 @@ const createService = async (service) => {
 const deleteService = async (code) => {
     try {
         console.log("ESTOY ACAAA " + code)
-        await axios.delete("https://turismo-back-k5g5kslg2a-rj.a.run.app/services/"+code)
+        await axios.delete(baseURL+"/services/"+code)
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;
@@ -83,7 +85,7 @@ const deleteService = async (code) => {
 
 export const deletePackage = async (code) => {
     try {
-        await axios.delete("https://turismo-back-k5g5kslg2a-rj.a.run.app/packages/"+code)
+        await axios.delete(baseURL+"/packages/"+code)
     }catch (error) {
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;

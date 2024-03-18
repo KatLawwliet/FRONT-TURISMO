@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export const getSales = async (search, isPdf = false) => {
     try {
-        const url = isPdf ? "https://turismo-back-k5g5kslg2a-rj.a.run.app/sales/pdf?searcher=": 'https://turismo-back-k5g5kslg2a-rj.a.run.app/sales?searcher='
+        const url = isPdf ? baseURL+"/sales/pdf?searcher=": baseURL+'/sales?searcher='
         if (isPdf) {
             return await fetch(url+search)
         }
@@ -26,7 +28,7 @@ export const getSales = async (search, isPdf = false) => {
 
 export const createSale = async (sale) => {
     try {
-        await axios.post("https://turismo-back-k5g5kslg2a-rj.a.run.app/sales", sale)
+        await axios.post(baseURL+"/sales", sale)
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;
@@ -35,7 +37,7 @@ export const createSale = async (sale) => {
 
 export const calculate = async (services) => {
     try {
-        const response = await axios.post("https://turismo-back-k5g5kslg2a-rj.a.run.app/sales/calculate", services)
+        const response = await axios.post(baseURL+"/sales/calculate", services)
         const calculateData = response.data;
         console.log("DATA CALCULADA: " + calculateData.totalPrice)
         return calculateData
