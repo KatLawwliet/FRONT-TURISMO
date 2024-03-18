@@ -13,8 +13,8 @@ const Service = ({ service, onCheckChange, isChecked }) => {
         <div style={styles.item}>
             <div style={styles.imageContainer}>
                 <Image
-                    width={"100%"}
-                    height={"100%"}
+                    width={150}
+                    height={150}
                     style={styles.image}
                     alt={service.description}
                     src={service.pic !== "" ? service.pic : "https://img.freepik.com/free-vector/front-view-sketch-fuck-you-symbol_23-2148667363.jpg"}
@@ -83,14 +83,15 @@ const styles = {
         alignItems: 'center',
     },
     imageContainer: {
-        width: "50%",
-        height: "100%",
+        margin: 10,
+        borderRadius: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         overflow: 'hidden'
     },
     image: {
         objectFit: 'cover',
-        maxHeight: '100%',
-        maxWidth: '100%'
     }
 }
 
