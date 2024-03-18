@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 import Button from "./ButtonComponnent";
 
 const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    `https://${process.env.NEXT_PUBLIC_SUPABASE_URL}`,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
@@ -25,7 +25,7 @@ const FileUploader = ({setImage}) => {
 
             let { error: uploadError } = await supabase.storage.from("turismo").upload(filePath, file);
             if (uploadError) throw uploadError;
-            const urlImage = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${"turismo"}/${filePath}`
+            const urlImage = `https://${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${"turismo"}/${filePath}`
             setImage(urlImage)
             alert(`Archivo subido con éxito: ${urlImage}`);
         } catch (error) {
