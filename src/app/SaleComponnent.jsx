@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Button from "./ButtonComponnent";
 import SearchInput from "./SearchInputComponnet";
 import Table from "./TableComponnent";
-import ClientsBack from "./services/ClientService";
 import PackageBack from "./services/PackageBack";
 import {calculate} from "./services/SalesService";
 import {createSale} from "./services/SalesService";
 import {sendPaymentNotification} from './services/NotificationService'
 import FileUploader from "./UploadedComponent";
+import getClients from "./services/ClientService";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
@@ -15,6 +15,31 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     const [seachInput, setSeachInput] = useState("")
     const [selectedClient, setSelectedClient] = useState(null);
     const [calc, setCalc] = useState({});
+
+    useEffect(() => {
+        if (selectedClient) {
+            console.log("Cliente seleccionado: ", selectedClient);
+        }
+        const fetchData = async () => {
+            try {
+                const loadedClients = await getClients(seachInput);
+                const servi = {
+                    services: selectedServices.map(ss => {
+                        return {
+                            code: ss.codigo,
+                            price: ss.costo
+                        }
+                    })
+                }
+                const calculates = await calculate(servi)
+                setCalc(calculates)
+                setClients(loadedClients)
+            } catch (error) {
+                console.error('Error al cargar datos:', error);
+            }
+        };
+        fetchData();
+    }, [seachInput,selectedClient, selectedServices]);
 
     const handleSelectItem = (item) => {
         setSelectedClient(item);
@@ -67,30 +92,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
         }
     }
 
-    useEffect(() => {
-        if (selectedClient) {
-            console.log("Cliente seleccionado: ", selectedClient);
-        }
-        const fetchData = async () => {
-            try {
-                const loadedClients = await ClientsBack.getClients(seachInput);
-                const servi = {
-                    services: selectedServices.map(ss => {
-                        return {
-                            code: ss.codigo,
-                            price: ss.costo
-                        }
-                    })
-                }
-                const calculates = await calculate(servi)
-                setCalc(calculates)
-                setClients(loadedClients)
-            } catch (error) {
-                console.error('Error al cargar datos:', error);
-            }
-        };
-        fetchData();
-    }, [seachInput,selectedClient, selectedServices]);
+
 
 
     return (
@@ -105,8 +107,6 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                 <Button text={"Cerrar"} color={'#B32100'}
                                         clickAction={() => handleClosedClick()}></Button>
                             </div>
-
-                            <div style={{height: '10%'}}></div>
                             <div style={styles.containerServices}>
                                 <h4 style={{
                                     fontSize: 20,
@@ -120,19 +120,19 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                     margin: 1
                                 }}>Clientes</h4>
                                 <SearchInput seachInput={setSeachInput}/>
-                                {clients.length != 0 ? <Table
-                                    data={clients}
-                                    showCheckboxes={true}
-                                    selectedItem={selectedClient}
-                                    onSelectItem={handleSelectItem}
-                                ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                                {clients.length !== 0 ?
+                                    <Table
+                                        data={clients}
+                                        showCheckboxes={true}
+                                        selectedItem={selectedClient}
+                                        onSelectItem={handleSelectItem}
+                                    ></Table>
+                                    : <h1>No hay nada, gato, recatate</h1>}
                             </div>
                             <div style={{
                                 width: '70%',
                                 margin: 10
                             }}>
-
-
                                 <div style={{
                                     width: '90%',
                                     height: '10%',

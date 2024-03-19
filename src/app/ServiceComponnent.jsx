@@ -75,7 +75,7 @@ const styles = {
         flexDirection: 'row',
         margin: '8px',
         width: '30%',
-        height: 'auto',
+        height: 170,
         minWidth: 300,
         borderRadius: 10,
         display: 'flex',

@@ -12,19 +12,19 @@ const Tags = ({ buttons, renderView , setSelected, children}) => {
     }
 
     return (
-        <div style={{height: '100%'}}>
+        <div >
             <div style={{display: 'flex', flexDirection: 'row'}}>
                 {buttons.map((bt, index) => (
                     <div key={index}>
                         <button style={{
-                            width:160,
+                            width:100,
                             height:35,
-                            margin:20,
+                            margin:10,
                             backgroundColor: '#b3e2c6',
                             borderRadius:20,
                             borderColor:'lightgray',
                             borderWidth: 1,
-                            fontSize:18,
+                            fontSize:15,
                             color: "#475569"
                         }} value={bt.name} onClick={() => actionButton(bt.name)} >{bt.name}</button>
                     </div>

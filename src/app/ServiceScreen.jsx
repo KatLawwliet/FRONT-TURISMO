@@ -17,7 +17,7 @@ const ServiceScreen = () => {
     });
     const [seachInput, setSeachInput] = useState("");
     const [services, setServices] = useState([]);
-    const [tagSelected, setTagSelected] = useState("Hotel Por Noche");
+    const [tagSelected, setTagSelected] = useState("Hotel");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
@@ -70,7 +70,7 @@ const ServiceScreen = () => {
 
     const renderView = (condition) => {
         switch (condition) {
-            case 'Hotel Por Noche':
+            case 'Hotel':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -87,7 +87,7 @@ const ServiceScreen = () => {
                         }
                     </Presentation>
                 )
-            case 'Alquiler De Auto':
+            case 'Auto':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -104,7 +104,7 @@ const ServiceScreen = () => {
                         }
                     </Presentation>
                 )
-            case 'Pasajes De Colectivo':
+            case 'Colectivo':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -121,7 +121,7 @@ const ServiceScreen = () => {
                         }
                     </Presentation>
                 )
-            case 'Pasajes De Avion':
+            case 'Avion':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -138,7 +138,7 @@ const ServiceScreen = () => {
                         }
                     </Presentation>
                 )
-            case 'Pasajes De Tren':
+            case 'Tren':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -172,7 +172,7 @@ const ServiceScreen = () => {
                         }
                     </Presentation>
                 )
-            case 'Entradas a Eventos':
+            case 'Eventos':
                 return(
                     <Presentation data={services} seachInput={setSeachInput}>
                         {services.length !== 0 ? services.map((serv, index) => (
@@ -193,7 +193,7 @@ const ServiceScreen = () => {
     }
 
     return (
-        <div style={{ maxHeight: 770,}}>
+        <div style={{ width:'98%'}}>
 
             <Modal
                 isOpen={isModalOpen}
@@ -205,7 +205,7 @@ const ServiceScreen = () => {
                     isServiceSelected={selectedServices.length !== 0}
                     toggleModal={toggleModal}
                     services={services}
-                    selectedServices={selectedServices.map( srv => {
+                    selectedServices={selectedServices.map(srv => {
                         return {
                             codigo: srv.code,
                             nombre: srv.description,
@@ -219,19 +219,19 @@ const ServiceScreen = () => {
             </Modal>
             <Tags renderView={renderView}
                   buttons={[
-                      {name: "Hotel Por Noche"},
-                      {name: "Alquiler De Auto"},
-                      {name: "Pasajes De Colectivo"},
-                      {name: "Pasajes De Avion"},
-                      {name: "Pasajes De Tren"},
+                      {name: "Hotel"},
+                      {name: "Auto"},
+                      {name: "Colectivo"},
+                      {name: "Avion"},
+                      {name: "Tren"},
                       {name: "Excursiones"},
-                      {name: "Entradas a Eventos"}
+                      {name: "Eventos"}
                   ]}
                   setSelected={setTagSelected}>
-                <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%'}}>
-                    <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
-                </div>
             </Tags>
+            <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%'}}>
+                <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
+            </div>
         </div>
     );
 };

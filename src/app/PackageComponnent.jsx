@@ -4,10 +4,17 @@ import Image from "next/image";
 const Package = ({packagee}) => {
     return (
         <div style={styles.item}>
-            <div style={{width: "100%", height: "60%"}}>
+            <div style={{
+                margin: 10,
+                borderRadius: 10,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden'
+            }}>
                 <Image
-                    width={"100%"}
-                    height={"100%"}
+                    width={300}
+                    height={150}
                      src={packagee.pic ? packagee.pic : "https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg"}
                      alt={""}/>
             </div>

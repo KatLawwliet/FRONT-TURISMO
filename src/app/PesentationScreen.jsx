@@ -21,7 +21,7 @@ const Presentation = ({ data, seachInput, children }) => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '75vh', alignItems: 'flex-start' }}>
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -52,13 +52,10 @@ const styles = {
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        alignItems: 'stretch',
-        justifyContent: 'flex-start',
-        height: 'auto',
+        height: '70vh',
         width: '100%',
         padding:10,
         overflowY: 'auto',
-        alignContent: 'flex-start',
     }
 }
 
