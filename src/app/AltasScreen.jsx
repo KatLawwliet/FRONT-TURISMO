@@ -76,7 +76,7 @@ const AltasScreen = () => {
                         descripcion: ls.description,
                         destino: ls.destination,
                         tipo: ls.type,
-                        costo: ls.costo
+                        costo: '$ '+ls.cost
                     }
                 }))
                 setSellers(loadedSellers)
@@ -122,7 +122,11 @@ const AltasScreen = () => {
                 );
             case 'Servicios':
                 return (
-                    <Presentation data={packages} seachInput={setSeachInput}>
+                    <Presentation
+                        data={packages}
+                        seachInput={setSeachInput}
+                        presentationMenu={<CreateService isModalOpen={setIsModalAddOpen}/>}
+                        isMenuVisible={isModalAddOpen}>
                         <div style={{
                             display: 'flex',
                             justifyContent: 'flex-start',
@@ -131,9 +135,6 @@ const AltasScreen = () => {
                             height: '10%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddServiceClick()}></Button>
-                            <Modal isOpen={isModalAddOpen} onClose={toggleModal}>
-                                <CreateService isModalOpen={setIsModalAddOpen}/>
-                            </Modal>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteServiceClick()}></Button>
                         </div>
                         {services.length !== 0 ? <Table

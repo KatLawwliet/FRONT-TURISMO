@@ -6,7 +6,6 @@ import PackageBack from "./services/PackageBack";
 import {calculate} from "./services/SalesService";
 import {createSale} from "./services/SalesService";
 import {sendPaymentNotification} from './services/NotificationService'
-import FileUploader from "./UploadedComponent";
 import getClients from "./services/ClientService";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
@@ -101,34 +100,6 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                 isServiceSelected ?
                     (
                         <div style={styles.container}>
-
-                            <div style={{display: 'flex', height: '20%', width: '80%', justifyContent: 'flex-end'}}>
-                                <Button text={"Enviar"} clickAction={() => handleCreateSaleClick()}></Button>
-                                <Button text={"Cerrar"} color={'#B32100'}
-                                        clickAction={() => handleClosedClick()}></Button>
-                            </div>
-                            <div style={styles.containerServices}>
-                                <h4 style={{
-                                    fontSize: 20,
-                                    color: "#028035",
-                                    margin: 1
-                                }}>Servicios</h4>
-                                {<Table data={selectedServices}></Table>}
-                                <h4 style={{
-                                    fontSize: 20,
-                                    color: "#028035",
-                                    margin: 1
-                                }}>Clientes</h4>
-                                <SearchInput seachInput={setSeachInput}/>
-                                {clients.length !== 0 ?
-                                    <Table
-                                        data={clients}
-                                        showCheckboxes={true}
-                                        selectedItem={selectedClient}
-                                        onSelectItem={handleSelectItem}
-                                    ></Table>
-                                    : <h1>No hay nada, gato, recatate</h1>}
-                            </div>
                             <div style={{
                                 width: '70%',
                                 margin: 10
@@ -153,6 +124,30 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                 </div>
                             </div>
 
+                            <div style={styles.containerServices}>
+                                <h4 style={{
+                                    fontSize: 20,
+                                    color: "#028035",
+                                    margin: 1
+                                }}>Servicios</h4>
+                                {<Table data={selectedServices}></Table>}
+                                <h4 style={{
+                                    fontSize: 20,
+                                    color: "#028035",
+                                    margin: 1
+                                }}>Clientes</h4>
+                                <SearchInput seachInput={setSeachInput}/>
+                                {clients.length !== 0 ?
+                                    <Table
+                                        data={clients}
+                                        showCheckboxes={true}
+                                        selectedItem={selectedClient}
+                                        onSelectItem={handleSelectItem}
+                                    ></Table>
+                                    : <h1>No hay nada, gato, recatate</h1>}
+                            </div>
+
+
                             <div style={{display: 'flex', height: '20%', width: '75%', justifyContent: 'flex-end'}}>
                                 <Button text={"Enviar"} clickAction={() => handleCreateSaleClick()}></Button>
                                 <Button text={"Cerrar"} color={'#B32100'}
@@ -162,7 +157,10 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                         </div>
                     )
                     : (
-                        <FileUploader></FileUploader>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <h1>Debe seleccionar servicios</h1>
+                        </div>
+
                     )
             }
         </div>

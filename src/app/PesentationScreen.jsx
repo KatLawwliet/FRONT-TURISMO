@@ -6,7 +6,20 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import Modal from "./Modal";
 import DatePicker from "./DatePickerComponnent";
 
-const Presentation = ({ data, seachInput, children }) => {
+const Presentation = ({ data, seachInput, children , presentationMenu, isMenuVisible}) => {
+
+    const styles = {
+        container: {
+            display: 'flex',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            height: '65vh',
+            width: isMenuVisible ? '45%' : '100%',
+            padding:10,
+            overflowY: 'auto',
+        }
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
 
@@ -41,22 +54,27 @@ const Presentation = ({ data, seachInput, children }) => {
                     </div>
                 </Modal>
             </div>
-            <div style={styles.container}>
-                {children}
+            <div style={{display:'flex', flexDirection: 'row', width:'95%'}}>
+                <div style={styles.container}>
+                    {children}
+                </div>
+
+                {
+                    isMenuVisible ? (
+                        <div style={{
+                            height: '65vh',
+                            width: '55%',
+                            overflowY: 'auto',
+                        }}>
+                            {presentationMenu}
+                        </div>
+                    ): ""
+                }
             </div>
         </div>
     );
 };
 
-const styles = {
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        height: '70vh',
-        width: '100%',
-        padding:10,
-        overflowY: 'auto',
-    }
-}
+
 
 export default Presentation;

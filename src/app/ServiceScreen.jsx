@@ -68,11 +68,33 @@ const ServiceScreen = () => {
         fetchData();
     }, [seachInput, tagSelected, selectedServices]);
 
+
+    const saleMenu = () => {
+        return (
+            <Sale
+                isServiceSelected={selectedServices.length !== 0}
+                toggleModal={toggleModal}
+                services={services}
+                selectedServices={selectedServices.map(srv => {
+                    return {
+                        codigo: srv.code,
+                        nombre: srv.description,
+                        destino: srv.destination,
+                        costo: srv.cost
+                    }
+                })}
+                setSelectedServices={setSelectedServices}
+                setServices={setServices}
+            />
+        )
+    }
+
+
     const renderView = (condition) => {
         switch (condition) {
             case 'Hotel':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -89,7 +111,7 @@ const ServiceScreen = () => {
                 )
             case 'Auto':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -106,7 +128,7 @@ const ServiceScreen = () => {
                 )
             case 'Colectivo':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -123,7 +145,7 @@ const ServiceScreen = () => {
                 )
             case 'Avion':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -140,7 +162,7 @@ const ServiceScreen = () => {
                 )
             case 'Tren':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -157,7 +179,7 @@ const ServiceScreen = () => {
                 )
             case 'Excursiones':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -174,7 +196,7 @@ const ServiceScreen = () => {
                 )
             case 'Eventos':
                 return(
-                    <Presentation data={services} seachInput={setSeachInput}>
+                    <Presentation data={services} seachInput={setSeachInput} presentationMenu={saleMenu()} isMenuVisible={selectedServices.length !== 0}>
                         {services.length !== 0 ? services.map((serv, index) => (
                                 <Service
                                     key={serv.code}
@@ -195,28 +217,7 @@ const ServiceScreen = () => {
     return (
         <div style={{ width:'98%'}}>
 
-            <Modal
-                isOpen={isModalOpen}
-                onClose={toggleModal}
-                width={'50%'}
-                height={'80%'}
-            >
-                <Sale
-                    isServiceSelected={selectedServices.length !== 0}
-                    toggleModal={toggleModal}
-                    services={services}
-                    selectedServices={selectedServices.map(srv => {
-                        return {
-                            codigo: srv.code,
-                            nombre: srv.description,
-                            destino: srv.destination,
-                            costo: srv.cost
-                        }
-                    })}
-                    setSelectedServices={setSelectedServices}
-                    setServices={setServices}
-                />
-            </Modal>
+
             <Tags renderView={renderView}
                   buttons={[
                       {name: "Hotel"},
@@ -229,9 +230,6 @@ const ServiceScreen = () => {
                   ]}
                   setSelected={setTagSelected}>
             </Tags>
-            <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%'}}>
-                <Button text={"Vender"} clickAction={handleCreatePackage}></Button>
-            </div>
         </div>
     );
 };

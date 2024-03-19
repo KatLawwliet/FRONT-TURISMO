@@ -2,11 +2,37 @@ import React, {useState} from 'react';
 import './customCheckbox.css'
 import Image from "next/image";
 
-const Service = ({ service, onCheckChange, isChecked }) => {
+const Service = ({ service, onCheckChange, isChecked, isMenuVisible}) => {
 
     const handleCheckboxChange = (e) => {
         onCheckChange(service.code, e.target.checked);
     };
+
+    const styles = {
+        item: {
+            backgroundColor: 'white',
+            flexDirection: 'row',
+            margin: '2px',
+            width: isMenuVisible?'100%': "33%",
+            height: 180,
+            minWidth: 430,
+            borderRadius: 10,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        imageContainer: {
+            margin: 10,
+            borderRadius: 10,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden'
+        },
+        image: {
+            objectFit: 'cover',
+        }
+    }
 
 
     return (
@@ -44,11 +70,23 @@ const Service = ({ service, onCheckChange, isChecked }) => {
                             padding: 1
                         }}>{service.description}</h1>
                         <h1 style={{
-                            fontSize: 10,
+                            fontSize: 13,
                             color: "#475569",
                             marginTop: 1,
                             padding: 1
                         }}>{service.type}</h1>
+                        <h1 style={{
+                            fontSize: 15,
+                            color: "#028035",
+                            marginBottom: 1,
+                            padding: 1
+                        }}>{service.destination}</h1>
+                        <h1 style={{
+                            fontSize: 10,
+                            color: "#028035",
+                            marginBottom: 1,
+                            padding: 1
+                        }}>{service.date}</h1>
                     </div>
                     <div style={{
                         display: 'flex',
@@ -69,30 +107,6 @@ const Service = ({ service, onCheckChange, isChecked }) => {
     );
 };
 
-const styles = {
-    item: {
-        backgroundColor: 'white',
-        flexDirection: 'row',
-        margin: '8px',
-        width: '30%',
-        height: 170,
-        minWidth: 300,
-        borderRadius: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    imageContainer: {
-        margin: 10,
-        borderRadius: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden'
-    },
-    image: {
-        objectFit: 'cover',
-    }
-}
+
 
 export default Service;

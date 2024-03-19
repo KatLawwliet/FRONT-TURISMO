@@ -6,9 +6,9 @@ import PackageBack from "./services/PackageBack";
 
 const CreateService = ({isModalOpen}) => {
 
-    const [name, setName] = useState(null)
     const [destination, setDestination] = useState(null)
     const [description, setDescription] = useState(null)
+    const [type, setType] = useState(null)
     const [cost, setCost] = useState(null)
     const [pic, setPic] = useState(null)
     const [datetime, setDatetime] = useState(() => {
@@ -28,7 +28,7 @@ const CreateService = ({isModalOpen}) => {
             width: '100%',
         },
         containerInput:{
-            width: '30%',
+            width: '60%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -41,7 +41,7 @@ const CreateService = ({isModalOpen}) => {
 
     const handleClick = async () => {
         await PackageBack.createService({
-            type: "1",
+            type: type,
             description: description,
             destination: destination,
             date: datetime,
@@ -56,30 +56,27 @@ const CreateService = ({isModalOpen}) => {
 
     useEffect(() => {
 
-    }, []);
+    }, [type]);
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.text}>Creacion de servicio</h1>
             <div style={styles.containerInput}>
-                <div style={styles.text}>Nombre :</div>
-                <Input input={setName}/>
+                <div style={styles.text}>Tipo :</div>
+                <Input input={(value) => setType(value)} isSelect={true} list={
+                    [
+                        {value: "1", label: "Hotel"},
+                        {value: "6", label: "Auto"},
+                        {value: "7", label: "Colectivo"},
+                        {value: "8", label: "Avion"},
+                        {value: "9", label: "Tren"},
+                        {value: "10", label: "Excursiones"},
+                        {value: "11", label: "Eventos"},
+                    ]
+                }/>
             </div>
             <div style={styles.containerInput}>
-                <div style={styles.text}>Fecha y Hora :</div>
-                <input
-                    style={{
-                        width: '50%',
-                        height: 30,
-                        borderRadius: 20,
-                        color: '#475569',
-                        borderWidth: 2,
-                        borderColor: '#e1e7f0',
-                    }}
-                    type="datetime-local"
-                    onChange={(e) => setDatetime(e.target.value)}
-                    value={datetime}
-                />
+                <div style={styles.text}>Fecha :</div>
+                <Input input={setDatetime} isDatetime={true}/>
             </div>
             <div style={styles.containerInput}>
                 <div style={styles.text}>Descripcion :</div>
@@ -91,7 +88,7 @@ const CreateService = ({isModalOpen}) => {
             </div>
             <div style={styles.containerInput}>
                 <div style={styles.text}>Costo :</div>
-                <Input input={setCost}/>
+                <Input input={setCost} isNumeric={true}/>
             </div>
             <div style={styles.containerInput}>
                 <div style={styles.text}>Foto :</div>

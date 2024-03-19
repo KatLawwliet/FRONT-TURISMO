@@ -28,6 +28,7 @@ const getServices = async (search, typeId) => {
             console.log(servi.pic)
             return {
                 code: servi.code,
+                date: servi.date,
                 description: servi.description,
                 destination: servi.destination,
                 pic: servi.pic,
@@ -66,6 +67,7 @@ const createPackage = async (name, destination, costo) => {
 const createService = async (service) => {
     try {
         const resp = await axios.post(baseURL+"/services", service)
+        console.log("este es el tipo, genteee! " + service.type)
         return resp.data
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
