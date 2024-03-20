@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL+"/sellers"
 export const getSelles = async (search) => {
     try {
-        const response = await axios.get(baseURL+'/sellers?searcher='+search);
+        const response = await axios.get(baseURL+'?searcher='+search);
         const sellesData = response.data;
         console.log(sellesData)
 
@@ -14,9 +14,19 @@ export const getSelles = async (search) => {
     }
 }
 
+export const createSeller = async (seller) => {
+    try {
+        const resp = await axios.post(baseURL, seller)
+        return resp.data
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
 export const deleteSeller = async (id) => {
     try {
-        await axios.delete(baseURL+"/sellers/"+id)
+        await axios.delete(baseURL+"/"+id)
     }catch (error) {
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;

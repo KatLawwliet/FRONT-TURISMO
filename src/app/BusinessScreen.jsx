@@ -6,12 +6,15 @@ import Tags from "./TagComponnent";
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
 import Button from "./ButtonComponnent";
+import {deleteSClient} from "@/app/services/ClientService";
 
 const Business = () => {
     const [clients, setClients] = useState([]);
     const [sales, setSales] = useState([]);
     const [seachInput, setSeachInput] = useState("")
     const [pdfLoading, setPdfLoading] = useState(false);
+    const [selectedClient, setSelectedClient] = useState(null);
+    const [load, setLoad] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,7 +28,20 @@ const Business = () => {
             }
         }
         fetchData()
-    },[seachInput])
+    },[seachInput, load])
+
+    const handleSelectClient = (item) => {
+        setSelectedClient(item);
+    };
+
+    const handleDeletePackageClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
+        if (isConfirmed) {
+            await deleteSClient(selectedClient.id);
+            alert("Cliente eliminado exitosamente.");
+            setLoad(load + 1)
+        }
+    }
 
     const handleClientDownloadPdf = async () => {
         setPdfLoading(true);
@@ -74,15 +90,33 @@ const Business = () => {
             case 'Clientes':
                 return (
                     <Presentation data={clients} seachInput={setSeachInput}>
-                        {clients.length != 0 ? <Table data={clients}></Table> : <h1>No hay nada, gato, recatate</h1>}
-                        <Button text={"Descargar PDF"} clickAction={handleClientDownloadPdf} disabled={pdfLoading}></Button>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '10%'
+                        }}>
+                            <Button text={"Agregar"} clickAction={() => alert("Caca")}></Button>
+                            <Button text={"Borrar"} color={'#B32100'}
+                                    clickAction={() => handleDeletePackageClick()}></Button>
+                        </div>
+                        {clients.length != 0 ? <Table
+                            data={clients}
+                            selectedItem={selectedClient}
+                            onSelectItem={handleSelectClient}
+                            showCheckboxes={true}
+                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={handleClientDownloadPdf}
+                                disabled={pdfLoading}></Button>
                     </Presentation>
                 );
             case 'Ventas':
                 return (
                     <Presentation data={clients} seachInput={setSeachInput}>
                         {sales.length != 0 ? <Table data={sales}></Table> : <h1>No hay nada, gato, recatate</h1>}
-                        <Button text={"Descargar PDF"} clickAction={handleSalesDownloadPdf} disabled={pdfLoading}></Button>
+                        <Button text={"Descargar PDF"} clickAction={handleSalesDownloadPdf}
+                                disabled={pdfLoading}></Button>
                     </Presentation>
                 );
         }

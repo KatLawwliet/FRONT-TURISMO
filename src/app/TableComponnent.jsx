@@ -81,7 +81,7 @@ const styles = {
     },
     container: {
         height: '100%',
-        maxHeight: 500,
+        maxHeight: 400,
         width: '90%',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
         margin: '20px',

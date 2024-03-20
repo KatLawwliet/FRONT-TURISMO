@@ -8,6 +8,7 @@ import {deleteSeller, getSelles} from './services/SellersService'
 import Button from "./ButtonComponnent";
 import Modal from "./Modal";
 import CreateService from "./CreateServiceComponnent";
+import CreateEmployee from "@/app/CreateEmployeeComponnent";
 
 const AltasScreen = () => {
 
@@ -88,7 +89,11 @@ const AltasScreen = () => {
     },[seachInput, isModalAddOpen, load])
 
     const handleAddServiceClick = () => {
-        setIsModalAddOpen(true)
+        setIsModalAddOpen(!isModalAddOpen)
+    }
+
+    const handleAddEmployeClick = () => {
+        setIsModalAddOpen(!isModalAddOpen)
     }
 
 
@@ -118,6 +123,8 @@ const AltasScreen = () => {
                             onSelectItem={handleSelectPackage}
                             showCheckboxes={true}
                         ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                                disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
             case 'Servicios':
@@ -143,12 +150,19 @@ const AltasScreen = () => {
                             selectedItem={selectedService}
                             onSelectItem={handleSelectService}
                         ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                                disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
 
             case 'Empleados':
                 return (
-                    <Presentation data={sellers} seachInput={setSeachInput}>
+                    <Presentation
+                        data={sellers}
+                        seachInput={setSeachInput}
+                        presentationMenu={<CreateEmployee isModalOpen={setIsModalAddOpen}/>}
+                        isMenuVisible={isModalAddOpen}
+                    >
                         <div style={{
                             display: 'flex',
                             justifyContent: 'flex-start',
@@ -156,7 +170,7 @@ const AltasScreen = () => {
                             width: '100%',
                             height: '10%'
                         }}>
-                            <Button text={"Agregar"} clickAction={() => alert("Caca")}></Button>
+                            <Button text={"Agregar"} clickAction={() => handleAddEmployeClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteSellerClick()}></Button>
                         </div>
                         {sellers.length !== 0 ? <Table
@@ -165,6 +179,8 @@ const AltasScreen = () => {
                             selectedItem={selectedSeller}
                             onSelectItem={handleSelectSeller}
                         ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                                disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
         }

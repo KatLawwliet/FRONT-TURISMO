@@ -60,43 +60,45 @@ const CreateService = ({isModalOpen}) => {
 
     return (
         <div style={styles.container}>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Tipo :</div>
-                <Input input={(value) => setType(value)} isSelect={true} list={
-                    [
-                        {value: "1", label: "Hotel"},
-                        {value: "6", label: "Auto"},
-                        {value: "7", label: "Colectivo"},
-                        {value: "8", label: "Avion"},
-                        {value: "9", label: "Tren"},
-                        {value: "10", label: "Excursiones"},
-                        {value: "11", label: "Eventos"},
-                    ]
-                }/>
-            </div>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Fecha :</div>
-                <Input input={setDatetime} isDatetime={true}/>
-            </div>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Descripcion :</div>
-                <Input input={setDescription}/>
-            </div>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Destino :</div>
-                <Input input={setDestination}/>
-            </div>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Costo :</div>
-                <Input input={setCost} isNumeric={true}/>
-            </div>
-            <div style={styles.containerInput}>
-                <div style={styles.text}>Foto :</div>
-                <FileUploader setImage={setPic}/>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                <Button text={'Crear'} clickAction={() => handleClick()}></Button>
-                <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
+            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:30}}>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Tipo :</div>
+                    <Input input={(value) => setType(value)} isSelect={true} list={
+                        [
+                            {value: "1", label: "Hotel"},
+                            {value: "6", label: "Auto"},
+                            {value: "7", label: "Colectivo"},
+                            {value: "8", label: "Avion"},
+                            {value: "9", label: "Tren"},
+                            {value: "10", label: "Excursiones"},
+                            {value: "11", label: "Eventos"},
+                        ]
+                    }/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Fecha :</div>
+                    <Input input={setDatetime} isDatetime={true}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Descripcion :</div>
+                    <Input input={setDescription}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Destino :</div>
+                    <Input input={setDestination}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Costo :</div>
+                    <Input input={setCost} isNumeric={true}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Foto :</div>
+                    <FileUploader setImage={setPic}/>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <Button text={'Crear'} clickAction={() => handleClick()}></Button>
+                    <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
+                </div>
             </div>
         </div>
     );

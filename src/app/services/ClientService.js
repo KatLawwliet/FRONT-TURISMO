@@ -18,4 +18,13 @@ const getClients = async (search) => {
     })
 }
 
+export const deleteSClient = async (id) => {
+    try {
+        await axios.delete(baseURL+"/clients/"+id)
+    }catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
 export default getClients
