@@ -13,7 +13,6 @@ const getClients = async (search) => {
             nombre_completo: cl.name + " " + cl.lastname,
             email: cl.email,
             telefono: cl.cellPhone
-
         }
     })
 }
