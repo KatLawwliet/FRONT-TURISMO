@@ -37,20 +37,16 @@ const Business = () => {
         setSelectedClient(item);
     };
 
-<<<<<<< Updated upstream
+
     const handleAddClientClick = () => {
         setIsModalAddOpen(!isModalAddOpen)
     }
 
-
-    const handleDeleteClientClick = async () => {
-=======
     const handleSelectSale = (item) => {
         setSelectedSale(item);
     };
 
-    const handleDeletePackageClick = async () => {
->>>>>>> Stashed changes
+    const handleDeleteClientClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
         if (isConfirmed) {
             await deleteClient(selectedClient.id);
@@ -133,9 +129,6 @@ const Business = () => {
             case 'Ventas':
                 return (
                     <Presentation data={clients} seachInput={setSeachInput}>
-<<<<<<< Updated upstream
-                        {sales.length != 0 ? <Table data={sales}></Table> : <h1>No se encontraron ventas</h1>}
-=======
                         <div style={{
                             display: 'flex',
                             justifyContent: 'flex-start',
@@ -153,7 +146,6 @@ const Business = () => {
                             onSelectItem={handleSelectSale}
                             showCheckboxes={true}
                         ></Table> : <h1>No hay nada, gato, recatate</h1>}
->>>>>>> Stashed changes
                         <Button text={"Descargar PDF"} clickAction={handleSalesDownloadPdf}
                                 disabled={pdfLoading}></Button>
                     </Presentation>
@@ -166,7 +158,6 @@ const Business = () => {
         <div>
             <Tags renderView={renderView} buttons={[{name: "Clientes"}, {name: "Ventas"}]}></Tags>
         </div>
-
     );
 };
 
