@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Input from "@/app/InputComponnet";
 import Button from "@/app/ButtonComponnent";
-import {createSeller} from "@/app/services/SellersService";
+import {createSeller} from "./services/SellersService";
 
 const CreateEmployee = ({isModalOpen}) => {
 
@@ -39,6 +39,7 @@ const CreateEmployee = ({isModalOpen}) => {
             name: name,
             lastname: lastname,
             dni: dni,
+            birthday: birthdate,
             nationality: nationality,
             cellPhone: cellPhone,
             email: email,

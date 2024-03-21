@@ -8,7 +8,7 @@ const CreateService = ({isModalOpen}) => {
 
     const [destination, setDestination] = useState(null)
     const [description, setDescription] = useState(null)
-    const [type, setType] = useState(null)
+    const [type, setType] = useState("1")
     const [cost, setCost] = useState(null)
     const [pic, setPic] = useState(null)
     const [datetime, setDatetime] = useState(() => {

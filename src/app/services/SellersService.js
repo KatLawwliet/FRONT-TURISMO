@@ -16,10 +16,9 @@ export const getSelles = async (search) => {
 
 export const createSeller = async (seller) => {
     try {
-        const resp = await axios.post(baseURL, seller)
-        return resp.data
+        await axios.post(baseURL, seller)
     }catch (error){
-        console.error('Hubo un error al realizar la solicitud:', error);
+        console.error('Hubo un error al realizar la solicitud:', error.response ? error.response.data : error);
         throw error;
     }
 }
