@@ -138,7 +138,7 @@ const Business = () => {
                         }}>
                             <Button text={"Modificar"} clickAction={() => alert("Caca")}></Button>
                             <Button text={"Borrar"} color={'#B32100'}
-                                    clickAction={() => handleDeletePackageClick()}></Button>
+                                    clickAction={() => handleDeleteClientClick()}></Button>
                         </div>
                         {sales.length != 0 ? <Table
                             data={sales}
