@@ -14,6 +14,7 @@ export const getClients = async (search, isPdf = false) => {
         console.log(clientsData)
         return clientsData.map(cli => {
             return {
+                id: cli.id,
                 nombre_completo: `${cli.lastname} ${cli.name}`,
                 dni: cli.dni,
                 cumpleaños: cli.birthday,
