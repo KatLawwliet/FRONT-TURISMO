@@ -7,6 +7,8 @@ import {calculate} from "./services/SalesService";
 import {createSale} from "./services/SalesService";
 import {sendPaymentNotification} from './services/NotificationService'
 import getClients from "./services/ClientService";
+import Modal from "@/app/Modal";
+import Input from "@/app/InputComponnet";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
@@ -14,6 +16,10 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     const [seachInput, setSeachInput] = useState("")
     const [selectedClient, setSelectedClient] = useState(null);
     const [calc, setCalc] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState(false);
+
+    const toggleModalConfirmPayment = () => setIsModalOpen(!isModalOpen);
 
     useEffect(() => {
         if (selectedClient) {
@@ -65,14 +71,14 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             if(isPackage){
                 const code = await PackageBack.createPackage("Un paquete", "La Plata")
                 await createSale({
-                    paymentMethod: "Con la cola",
+                    paymentMethod: paymentMethod,
                     client: selectedClient.id,
                     packagee: code,
                     cost: calc.totalPrice
                 })
             }else {
                 await createSale({
-                    paymentMethod: "Con la cola",
+                    paymentMethod: paymentMethod,
                     client: selectedClient.id,
                     service: selectedServices[0].codigo,
                     cost: calc.totalPrice
@@ -91,11 +97,24 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
         }
     }
 
-
+    const renderPaymentDetails = () => {
+        return (
+        <>
+            <h4 style={{
+                fontSize: 20,
+                color: "#028035",
+                marginBottom: 10,
+            }}>Resumen</h4>
+            <h1 style={styles.text}>Servicios seleccionados: {calc.servicesCount}</h1>
+            <h1 style={styles.text}>Descuento: {calc.discoutn}</h1>
+            <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
+        </>
+    )
+    }
 
 
     return (
-        <div >
+        <div>
             {
                 isServiceSelected ?
                     (
@@ -113,14 +132,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                     flexDirection: 'column',
                                     alignItems: 'flex-end'
                                 }}>
-                                    <h4 style={{
-                                        fontSize: 20,
-                                        color: "#028035",
-                                        marginBottom: 10,
-                                    }}>Resumen</h4>
-                                    <h1 style={styles.text}>Servicios seleccionados: {calc.servicesCount}</h1>
-                                    <h1 style={styles.text}>Descuento: {calc.discoutn}</h1>
-                                    <h1 style={styles.text}>Precio Total: $ {calc.totalPrice}</h1>
+                                    {renderPaymentDetails()}
                                 </div>
                             </div>
 
@@ -149,10 +161,33 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
 
 
                             <div style={{display: 'flex', height: '20%', width: '75%', justifyContent: 'flex-end'}}>
-                                <Button text={"Enviar"} clickAction={() => handleCreateSaleClick()}></Button>
+                                <Button text={"Enviar"} clickAction={() => toggleModalConfirmPayment()}></Button>
                                 <Button text={"Cerrar"} color={'#B32100'}
                                         clickAction={() => handleClosedClick()}></Button>
                             </div>
+                            <Modal isOpen={isModalOpen} onClose={toggleModalConfirmPayment}>
+                                <div style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    flexDirection: "column"
+                                }}>
+                                    <div>
+                                        {renderPaymentDetails()}
+                                    </div>
+                                    <div style={styles.containerInput}>
+                                        <div style={styles.text}>Medio de Pago :</div>
+                                        <Input input={setPaymentMethod} isSelect={true} list={[
+                                            {value: 'Mercado Pago', label: 'Mercado Pago'},
+                                            {value: 'Efectivo', label: 'Efectivo'},
+                                            {value: 'Con la Cola', label: 'Con la Cola'}
+                                        ]}/>
+                                    </div>
+                                    <Button text={"Confirmar"} clickAction={() => handleCreateSaleClick()}></Button>
+                                </div>
+                            </Modal>
 
                         </div>
                     )
@@ -176,6 +211,13 @@ const styles = {
         width: '100%',
         height: '100%',
         minHeight: 400
+    },
+    containerInput:{
+        width: '60%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        margin: 10
     },
 
     containerServices: {
