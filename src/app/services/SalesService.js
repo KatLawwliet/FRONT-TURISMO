@@ -35,6 +35,15 @@ export const createSale = async (sale) => {
     }
 }
 
+export const deleteSale = async (id) => {
+    try {
+        await axios.delete(baseURL+"/sales/"+id)
+    }catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+}
+
 export const calculate = async (services) => {
     try {
         const response = await axios.post(baseURL+"/sales/calculate", services)
