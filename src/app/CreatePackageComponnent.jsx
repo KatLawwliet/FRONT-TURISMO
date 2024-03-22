@@ -6,11 +6,14 @@ import TableCheck from "@/app/services/TableCkeck";
 import Button from "@/app/ButtonComponnent";
 import {calculate} from "@/app/services/SalesService";
 import Modal from "@/app/Modal";
+import FileUploader from "@/app/UploadedComponent";
 
 const CreatePackage = ({isModalOpen}) => {
 
     const [name, setName] = useState("")
-    const [serviceType, setServiceType] = useState("")
+    const [pic, setPic] = useState("")
+    const [destination, setDestination] = useState("")
+    const [serviceType, setServiceType] = useState("Hotel")
     const [services, setServices] = useState([])
     const [seachInput, setSeachInput] = useState("")
     const [selectedServices, setSelectedServices] = useState([]);
@@ -20,12 +23,14 @@ const CreatePackage = ({isModalOpen}) => {
     const [isModalOpennn, setIsModalOpennn] = useState(false);
 
     const toggleModal = async () => {
-        const calcul = await calculate(selectedServices.map(ss => {
-            return {
-                code: ss.codigo,
-                price: ss.costo
-            }
-        }))
+        const calcul = await calculate({
+            services: selectedServices.map(ss => {
+                return {
+                    code: ss.codigo,
+                    price: ss.costo
+                }
+            })
+        })
         setCalc(calcul)
         setIsModalOpennn(!isModalOpennn);
     }
@@ -64,6 +69,7 @@ const CreatePackage = ({isModalOpen}) => {
             try {
                 const loadedServices = await PackageBack.getServices(seachInput, serviceType);
                 setServices(loadedServices.map(service => ({
+                    tipo: service.type,
                     codigo: service.code,
                     descripcion: service.description,
                     destino: service.destination,
@@ -107,6 +113,14 @@ const CreatePackage = ({isModalOpen}) => {
                     <Input input={setName}/>
                 </div>
                 <div style={styles.containerInput}>
+                    <div style={styles.text}>Destino :</div>
+                    <Input input={setDestination}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Foto :</div>
+                    <FileUploader setImage={setPic}/>
+                </div>
+                <div style={styles.containerInput}>
                     <div style={styles.text}>Tipo de Servicio :</div>
                     <Input input={setServiceType} isSelect={true} list={[
                         {value: "Hotel", label: "Hotel"},
@@ -130,18 +144,29 @@ const CreatePackage = ({isModalOpen}) => {
                         </div>
                     </>
                 ) : ""}
-                <div>
-                    {selectedServices.length !== 0 ? selectedServices.map(ser => (<h4>{ser.codigo}</h4>)) : <h4></h4>}
+                <div style={styles.text}>
+                    {selectedServices.length !== 0 ? selectedServices.map(ser => {
+                        return (
+                            <div style={{margin: 10, display: "flex", justifyContent: 'space-between', width: '100%'}}>
+                                <b style={{color: '#028035'}}>{`${ser.tipo} `}</b>
+                                <div>
+                                    {`${ser.descripcion}  /  ${ser.destino}`}
+                                </div>
+
+                            </div>
+                        )
+                    }) : <h4></h4>}
                 </div>
                 <div style={{height: '10%', display: "flex", justifyContent: 'flex-end'}}>
                     <Button text={'Crear'} clickAction={() => toggleModal()}></Button>
                     <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
                 </div>
                 <Modal isOpen={isModalOpennn} onClose={toggleModal}>
-                    <div style={{height: '10%', display: "flex", flexDirection: "column"}}>
+                    <div style={{height: '100%', display: "flex", flexDirection: "column", width: '100%', alignItems: 'center', justifyContent: 'center'}}>
                         <h1 style={{fontSize: 20}}>Servicios seleccionados: {calc.servicesCount}</h1>
                         <h1 style={{fontSize: 20}}>Descuento: {calc.discoutn}</h1>
                         <h1 style={{fontSize: 20}}>Precio Total: $ {calc.totalPrice}</h1>
+
                     </div>
                 </Modal>
             </div>
