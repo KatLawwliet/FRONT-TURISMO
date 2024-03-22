@@ -87,6 +87,7 @@ const styles = {
         maxHeight: 400,
         width: '90%',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+        margin: '10px',
         overflowX: 'auto',
         borderRadius: 10,
     },
