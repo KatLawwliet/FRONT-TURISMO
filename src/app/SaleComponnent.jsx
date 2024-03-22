@@ -156,7 +156,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                         selectedItem={selectedClient}
                                         onSelectItem={handleSelectItem}
                                     ></Table>
-                                    : <h1>No hay nada, gato, recatate</h1>}
+                                    : <h1>No se encuentra el cliente</h1>}
                             </div>
 
 
@@ -181,8 +181,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                                         <div style={styles.text}>Medio de Pago :</div>
                                         <Input input={setPaymentMethod} isSelect={true} list={[
                                             {value: 'Mercado Pago', label: 'Mercado Pago'},
-                                            {value: 'Efectivo', label: 'Efectivo'},
-                                            {value: 'Con la Cola', label: 'Con la Cola'}
+                                            {value: 'Efectivo', label: 'Efectivo'}
                                         ]}/>
                                     </div>
                                     <Button text={"Confirmar"} clickAction={() => handleCreateSaleClick()}></Button>
