@@ -127,7 +127,7 @@ const AltasScreen = () => {
                             selectedItem={sellectedPackages}
                             onSelectItem={handleSelectPackage}
                             showCheckboxes={true}
-                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        ></Table> : <h1>No se encontararon paquetes </h1>}
                         <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
@@ -154,7 +154,7 @@ const AltasScreen = () => {
                             showCheckboxes={true}
                             selectedItem={selectedService}
                             onSelectItem={handleSelectService}
-                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        ></Table> : <h1>No se encontraron servicios</h1>}
                         <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
@@ -183,7 +183,7 @@ const AltasScreen = () => {
                             showCheckboxes={true}
                             selectedItem={selectedSeller}
                             onSelectItem={handleSelectSeller}
-                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
+                        ></Table> : <h1>No se encontraron empleados</h1>}
                         <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
