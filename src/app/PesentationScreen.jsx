@@ -1,10 +1,10 @@
-'use client'
 import React, { useEffect, useState } from 'react';
 import SearchInput from "./SearchInputComponnet";
 import Button from "./ButtonComponnent";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import Modal from "./Modal";
 import DatePicker from "./DatePickerComponnent";
+import ExchangeRates from "./ExchangeRatesComponnent";
 
 const Presentation = ({ data, seachInput, children , presentationMenu, isMenuVisible}) => {
 
@@ -47,6 +47,7 @@ const Presentation = ({ data, seachInput, children , presentationMenu, isMenuVis
                 <SearchInput seachInput={seachInput}/>
                 <div style={{ width: '55%', display: 'flex', alignItems: 'center' }}>
                     <Button text={<FaRegCalendarAlt />} clickAction={() => toggleModal()}/>
+                    <ExchangeRates />
                 </div>
                 <Modal isOpen={isModalOpen} onClose={toggleModal}>
                     <div style={{ width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -74,7 +75,5 @@ const Presentation = ({ data, seachInput, children , presentationMenu, isMenuVis
         </div>
     );
 };
-
-
 
 export default Presentation;
