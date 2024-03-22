@@ -80,7 +80,17 @@ const AltasScreen = () => {
                         costo: '$ '+ls.cost
                     }
                 }))
-                setSellers(loadedSellers)
+                setSellers(loadedSellers.map(sel => {
+                    return {
+                        nombre_completo: `${sel.lastname} ${sel.name}`,
+                        dni: sel.dni,
+                        nacionalidad: sel.nationality,
+                        telefono: sel.cellPhone,
+                        email: sel.email,
+                        cargo: sel.charge,
+                        sueldo: sel.salary
+                    }
+                }))
             }catch (error){
                 console.error('Error al cargar datos:', error);
             }
