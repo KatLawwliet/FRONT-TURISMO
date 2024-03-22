@@ -9,7 +9,7 @@ import {useState} from "react";
 
 const MenuNavigate = ({navigation}) => {
 
-    const [activeView, setActiveView] = useState('Altas');
+    const [activeView, setActiveView] = useState('Paquetes');
 
     const renderView = () => {
         switch(activeView) {

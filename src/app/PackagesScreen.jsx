@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Tags from "./TagComponnent";
 import Package from "./PackageComponnent";
 import Presentation from "./PesentationScreen";
 import PackageBack from "./services/PackageBack";
@@ -21,28 +20,18 @@ const PackagesScreen = () => {
         fetchData()
     },[seachInput])
 
-    const renderView= (condition) => {
-        switch (condition) {
-            case "Package" :
-                return (
-                <Presentation data={packages} seachInput={setSeachInput} >
-                    {packages.length !== 0 ? packages.map((pack, index) => (
-                            <Package key={pack.code} packagee={pack}/>
-                        )) :
-                        <div style={styles.nothing}>
-                            <h1 style={{ fontSize:20, color: "#475569"}}>No se encontraron Paquetes</h1>
-                        </div>
-                    }
-                </Presentation>
-            )
-            case "Crear Paquete":
-                return (<h1>Pantalla para crear paquete</h1>)
-        }
-    }
 
     return (
         <div style={{height: '100%',}}>
-            <Tags renderView={renderView} buttons={[{name: "Package"}, {name: "Crear Paquete"}]}/>
+            <Presentation data={packages} seachInput={setSeachInput} >
+                {packages.length !== 0 ? packages.map((pack, index) => (
+                        <Package key={pack.code} packagee={pack}/>
+                    )) :
+                    <div style={styles.nothing}>
+                        <h1 style={{ fontSize:20, color: "#475569"}}>No se encontraron Paquetes</h1>
+                    </div>
+                }
+            </Presentation>
         </div>
     );
 };

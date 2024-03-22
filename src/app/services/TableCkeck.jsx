@@ -1,4 +1,5 @@
 import React from 'react';
+import '../customCheckbox.css'
 
 const TableCheck = ({ data, onCheckboxChange }) => {
     const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);
@@ -31,7 +32,7 @@ const TableCheck = ({ data, onCheckboxChange }) => {
                             <input
                                 type="checkbox"
                                 checked={item.isChecked}
-                                onChange={() => onCheckboxChange(item.codigo)} // Llamar a la función pasada por props para manejar el cambio
+                                onChange={() => onCheckboxChange(item.codigo)}
                             />
                         </td>
                         {Object.entries(item).filter(([key, _]) => key !== 'isChecked').map(([key, val], i) => (

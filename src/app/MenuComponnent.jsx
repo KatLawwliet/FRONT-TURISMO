@@ -16,7 +16,7 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'flex-end',
-            height: '50%', // Ajusta el tamaño según necesites
+            height: '50%',
             width: '100%',
             flexDirection: 'column',
         },
@@ -24,7 +24,7 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'flex-end',
-            height: '50%', // Ajusta el tamaño según necesites
+            height: '50%',
             width: '100%',
             flexDirection: 'column',
         },
