@@ -104,7 +104,7 @@ const CreatePackage = ({isModalOpen}) => {
                 fontSize: 15,
                 display: "flex",
                 flexDirection: 'column',
-                width: '100%',
+                width: '90%',
                 height: '100%',
                 alignItems: 'flex-start',
                 margin: 30
@@ -140,6 +140,7 @@ const CreatePackage = ({isModalOpen}) => {
                         <div style={{width: '100%', height: '20%'}}>
                             {services.length !== 0 ? <TableCheck data={services.map(service => ({
                                 ...service,
+                                costo:`$ ${service.costo}`,
                                 isChecked: selectedServices.some(s => s.codigo === service.codigo)
                             }))} onCheckboxChange={handleCheckboxChange}></TableCheck> : <div>CACA</div>}
                         </div>
