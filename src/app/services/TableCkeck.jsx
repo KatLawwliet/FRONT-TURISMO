@@ -13,7 +13,7 @@ const TableCheck = ({ data, onCheckboxChange }) => {
             <table style={styles.table}>
                 <thead style={styles.thead}>
                 <tr>
-                    <th style={styles.th}>SELECT</th> {/* Header para el checkbox */}
+                    <th style={styles.th}>{'>'}</th> {/* Header para el checkbox */}
                     {data && data.length > 0 && Object.keys(data[0]).filter(key => key !== 'isChecked').map((key) => (
                         <th key={key} style={styles.th}>{key.replace(/_/g, " ").toUpperCase()}</th>
                     ))}

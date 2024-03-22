@@ -101,6 +101,7 @@ const CreatePackage = ({isModalOpen}) => {
     return (
         <div style={styles.container}>
             <div style={{
+                fontSize: 15,
                 display: "flex",
                 flexDirection: 'column',
                 width: '100%',
