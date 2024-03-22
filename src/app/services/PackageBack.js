@@ -43,18 +43,20 @@ const getServices = async (search, typeId) => {
     }
 }
 
-const createPackage = async (name, destination, costo) => {
+const createPackage = async (name, destination, costo, pic = "", isCustom = false, services) => {
 
     try {
-        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        const selectedServices = services || JSON.parse(localStorage.getItem('selectedServices'));
 
         const request = {
             name: name,
             destination: destination,
             cost: costo,
+            pic: pic,
             services: selectedServices.map(service => ({
                 code: service.code,
-            }))
+            })),
+            isCustom: isCustom
         }
 
         const resp = await axios.post(baseURL+"/packages", request)

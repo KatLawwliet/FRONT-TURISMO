@@ -8,7 +8,7 @@ import {calculate} from "@/app/services/SalesService";
 import Modal from "@/app/Modal";
 import FileUploader from "@/app/UploadedComponent";
 
-const CreatePackage = ({isModalOpen}) => {
+const CreatePackage = ({isModalOpen, setLoad}) => {
 
     const [name, setName] = useState("")
     const [pic, setPic] = useState("")
@@ -92,7 +92,22 @@ const CreatePackage = ({isModalOpen}) => {
         setIsSearch(!isSearch)
     }
 
-    const handleClick = () => {}
+    const handleClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que decea crear paquete?");
+        if (isConfirmed){
+            try {
+                await PackageBack.createPackage(name, destination, calc.totalPrice, pic, true, selectedServices.map(s => {
+                    return {
+                        code: s.codigo
+                    }
+                }))
+            } catch (error){
+                console.log(error.message)
+            }
+            setLoad(calc.totalPrice * 3)
+            isModalOpen(false)
+        }
+    }
 
     const handleClose = () => {
         isModalOpen(false)
@@ -164,12 +179,23 @@ const CreatePackage = ({isModalOpen}) => {
                     <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
                 </div>
                 <Modal isOpen={isModalOpennn} onClose={toggleModal}>
-                    <div style={{height: '100%', display: "flex", flexDirection: "column", width: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                    <div style={{
+                        height: '100%',
+                        display: "flex",
+                        flexDirection: "column",
+                        width: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
                         <h1 style={{fontSize: 20}}>Servicios seleccionados: {calc.servicesCount}</h1>
                         <h1 style={{fontSize: 20}}>Descuento: {calc.discoutn}</h1>
                         <h1 style={{fontSize: 20}}>Precio Total: $ {calc.totalPrice}</h1>
-
+                        <div style={{height: '10%', display: "flex", justifyContent: 'flex-end'}}>
+                            <Button text={'Crear'} clickAction={() => handleClick()}></Button>
+                            <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
+                        </div>
                     </div>
+
                 </Modal>
             </div>
 

@@ -19,13 +19,13 @@ const CreateService = ({isModalOpen}) => {
 
     const styles = {
         container: {
-            fontSize:20,
+            fontSize:15,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'column',
             height: '100%',
-            width: '100%',
+            width: '90%',
         },
         containerInput:{
             width: '60%',

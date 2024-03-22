@@ -109,7 +109,7 @@ const AltasScreen = () => {
                     <Presentation
                         data={packages}
                         isMenuVisible={isModalAddOpen}
-                        presentationMenu={<CreatePackage/>}
+                        presentationMenu={<CreatePackage isModalOpen={setIsModalAddOpen} setLoad={setLoad}/>}
                         seachInput={setSeachInput}
                     >
                         <div style={{

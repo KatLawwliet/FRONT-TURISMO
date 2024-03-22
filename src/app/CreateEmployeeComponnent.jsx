@@ -18,7 +18,7 @@ const CreateEmployee = ({isModalOpen}) => {
 
     const styles = {
         container: {
-            fontSize:20,
+            fontSize:15,
             height: '100%',
             width: '90%',
         },
