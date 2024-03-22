@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import Image from "next/image";
+import './customCheckbox.css'
 
 const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,6 +62,7 @@ const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
                                     color: isHovered ? "#028035" : "#475569", 
                                     marginBottom: 1,
                                     padding: 1,
+                                    width: '50%',
                                     cursor: 'pointer', 
                                     transition: 'color 0.3s', 
                                 }}

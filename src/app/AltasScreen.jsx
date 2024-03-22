@@ -6,9 +6,9 @@ import Tags from "./TagComponnent";
 import PackageBack from './services/PackageBack'
 import {deleteSeller, getSelles} from './services/SellersService'
 import Button from "./ButtonComponnent";
-import Modal from "./Modal";
 import CreateService from "./CreateServiceComponnent";
 import CreateEmployee from "@/app/CreateEmployeeComponnent";
+import CreatePackage from "@/app/CreatePackageComponnent";
 
 const AltasScreen = () => {
 
@@ -106,7 +106,12 @@ const AltasScreen = () => {
         switch(condition) {
             case 'Paquetes':
                 return (
-                    <Presentation data={packages} seachInput={setSeachInput}>
+                    <Presentation
+                        data={packages}
+                        isMenuVisible={isModalAddOpen}
+                        presentationMenu={<CreatePackage/>}
+                        seachInput={setSeachInput}
+                    >
                         <div style={{
                             display: 'flex',
                             justifyContent: 'flex-start',
@@ -114,7 +119,7 @@ const AltasScreen = () => {
                             width: '100%',
                             height:'10%'
                         }}>
-                            <Button text={"Agregar"} clickAction={() => alert("Caca")}></Button>
+                            <Button text={"Agregar"} clickAction={() => handleAddServiceClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeletePackageClick()}></Button>
                         </div>
                         {packages.length !== 0 ? <Table

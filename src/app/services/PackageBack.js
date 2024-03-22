@@ -20,9 +20,10 @@ const getPackages = async (search) => {
 
 const getServices = async (search, typeId) => {
     try {
+        console.log(`RESPUESTAAAA: ${search} y tambien ${typeId} `);
         const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId);
-        const serviceData = response.data;
 
+        const serviceData = response.data;
         console.log(`RESPUESTAAAA: ${serviceData}`);
         return serviceData.map(servi => {
             console.log(servi.pic)
@@ -37,7 +38,7 @@ const getServices = async (search, typeId) => {
             }
         })
     } catch (error) {
-        console.error('Hubo un error al realizar la solicitud:', error);
+        console.log('Hubo un error al realizar la solicitud:', error);
         throw error;
     }
 }

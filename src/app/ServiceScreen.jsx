@@ -3,8 +3,6 @@ import Service from "./ServiceComponnent";
 import Presentation from "./PesentationScreen";
 import Tags from "./TagComponnent";
 import PackageBack from "./services/PackageBack";
-import Button from "./ButtonComponnent";
-import Modal from "./Modal";
 import Sale from "./SaleComponnent";
 
 const ServiceScreen = () => {
@@ -51,7 +49,6 @@ const ServiceScreen = () => {
     }
 
     useEffect(() => {
-        // No es necesario actualizar localStorage aquí porque ya lo hacemos en handleServiceCheckChange
         const fetchData = async () => {
             try {
                 const loadedServices = await PackageBack.getServices(seachInput, tagSelected);

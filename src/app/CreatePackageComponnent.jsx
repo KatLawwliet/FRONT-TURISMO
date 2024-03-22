@@ -1,9 +1,151 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Input from "@/app/InputComponnet";
+import PackageBack from "@/app/services/PackageBack";
+import SearchInput from "@/app/SearchInputComponnet";
+import TableCheck from "@/app/services/TableCkeck";
+import Button from "@/app/ButtonComponnent";
+import {calculate} from "@/app/services/SalesService";
+import Modal from "@/app/Modal";
 
-const CreatePackage = () => {
+const CreatePackage = ({isModalOpen}) => {
+
+    const [name, setName] = useState("")
+    const [serviceType, setServiceType] = useState("")
+    const [services, setServices] = useState([])
+    const [seachInput, setSeachInput] = useState("")
+    const [selectedServices, setSelectedServices] = useState([]);
+    const [isSearch, setIsSearch] = useState(false)
+    const [calc, setCalc] = useState({})
+
+    const [isModalOpennn, setIsModalOpennn] = useState(false);
+
+    const toggleModal = async () => {
+        const calcul = await calculate(selectedServices.map(ss => {
+            return {
+                code: ss.codigo,
+                price: ss.costo
+            }
+        }))
+        setCalc(calcul)
+        setIsModalOpennn(!isModalOpennn);
+    }
+
+    const styles = {
+        container: {
+            fontSize:20,
+            width: '100%',
+        },
+        containerInput:{
+            width: '60%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            margin: 10
+        },
+        text: {
+            color: '#475569'
+        }
+    }
+
+    const handleCheckboxChange = (codigo) => {
+        setSelectedServices(prev => {
+            if (prev.some(service => service.codigo === codigo)) {
+
+                return prev.filter(service => service.codigo !== codigo);
+            } else {
+                const addedService = services.find(service => service.codigo === codigo);
+                return [...prev, addedService];
+            }
+        });
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const loadedServices = await PackageBack.getServices(seachInput, serviceType);
+                setServices(loadedServices.map(service => ({
+                    codigo: service.code,
+                    descripcion: service.description,
+                    destino: service.destination,
+                    costo: service.cost,
+                    isChecked: selectedServices.some(s => s.code === service.code)
+                })));
+
+
+
+
+            } catch (error) {
+                console.error('Error al cargar datos:', error);
+            }
+        };
+
+        fetchData();
+    }, [serviceType, seachInput, selectedServices, isModalOpennn]);
+
+    const searchService = () => {
+        setIsSearch(!isSearch)
+    }
+
+    const handleClick = () => {}
+
+    const handleClose = () => {
+        isModalOpen(false)
+    }
+
     return (
-        <div style={{backgroundColor: "red"}}>
-            <h1>Pantalla para crear paquete</h1>
+        <div style={styles.container}>
+            <div style={{
+                display: "flex",
+                flexDirection: 'column',
+                width: '100%',
+                height: '100%',
+                alignItems: 'flex-start',
+                margin: 30
+            }}>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Nombre :</div>
+                    <Input input={setName}/>
+                </div>
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Tipo de Servicio :</div>
+                    <Input input={setServiceType} isSelect={true} list={[
+                        {value: "Hotel", label: "Hotel"},
+                        {value: "Auto", label: "Auto"},
+                        {value: "Colectivo", label: "Colectivo"},
+                        {value: "Avion", label: "Avion"},
+                        {value: "Tren", label: "Tren"},
+                        {value: "Excursiones", label: "Excursiones"},
+                        {value: "Eventos", label: "Eventos"},
+                    ]}/>
+                </div>
+                <Button text={"Buscar servicio"} clickAction={() => searchService()}></Button>
+                {isSearch ? (
+                    <>
+                        <SearchInput seachInput={setSeachInput}/>
+                        <div style={{width: '100%', height: '20%'}}>
+                            {services.length !== 0 ? <TableCheck data={services.map(service => ({
+                                ...service,
+                                isChecked: selectedServices.some(s => s.codigo === service.codigo)
+                            }))} onCheckboxChange={handleCheckboxChange}></TableCheck> : <div>CACA</div>}
+                        </div>
+                    </>
+                ) : ""}
+                <div>
+                    {selectedServices.length !== 0 ? selectedServices.map(ser => (<h4>{ser.codigo}</h4>)) : <h4></h4>}
+                </div>
+                <div style={{height: '10%', display: "flex", justifyContent: 'flex-end'}}>
+                    <Button text={'Crear'} clickAction={() => toggleModal()}></Button>
+                    <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
+                </div>
+                <Modal isOpen={isModalOpennn} onClose={toggleModal}>
+                    <div style={{height: '10%', display: "flex", flexDirection: "column"}}>
+                        <h1 style={{fontSize: 20}}>Servicios seleccionados: {calc.servicesCount}</h1>
+                        <h1 style={{fontSize: 20}}>Descuento: {calc.discoutn}</h1>
+                        <h1 style={{fontSize: 20}}>Precio Total: $ {calc.totalPrice}</h1>
+                    </div>
+                </Modal>
+            </div>
+
         </div>
     );
 };
