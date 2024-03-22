@@ -119,7 +119,7 @@ const Business = () => {
                             justifyContent: 'flex-start',
                             alignItems: 'center',
                             width: '100%',
-                            height: '10%'
+                            height: '2%',
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddClientClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'}
@@ -143,7 +143,7 @@ const Business = () => {
                             justifyContent: 'flex-start',
                             alignItems: 'center',
                             width: '100%',
-                            height: '10%'
+                            height: '2%',
                         }}>
                             <Button text={"Modificar"} clickAction={() => alert("Caca")}></Button>
                             <Button text={"Borrar"} color={'#B32100'}

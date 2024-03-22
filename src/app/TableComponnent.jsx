@@ -72,6 +72,9 @@ const styles = {
     td: {
         padding: '10px 15px',
         borderBottom: '1px solid #ddd',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     tr: {
         color: "#475569"
@@ -84,7 +87,6 @@ const styles = {
         maxHeight: 400,
         width: '90%',
         boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-        margin: '20px',
         overflowX: 'auto',
         borderRadius: 10,
     },

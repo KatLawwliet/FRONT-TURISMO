@@ -59,7 +59,7 @@ const CreateEmployee = ({isModalOpen}) => {
 
     return (
         <div style={styles.container}>
-            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:30}}>
+            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:1}}>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nombre :</div>
                     <Input input={setName}/>

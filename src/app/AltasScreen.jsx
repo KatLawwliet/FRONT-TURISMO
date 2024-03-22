@@ -117,7 +117,7 @@ const AltasScreen = () => {
                             justifyContent: 'flex-start',
                             alignItems: 'center',
                             width: '100%',
-                            height:'10%'
+                            height:'2%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddServiceClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeletePackageClick()}></Button>
@@ -144,7 +144,7 @@ const AltasScreen = () => {
                             justifyContent: 'flex-start',
                             alignItems: 'center',
                             width: '100%',
-                            height: '10%'
+                            height:'2%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddServiceClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteServiceClick()}></Button>
@@ -173,7 +173,7 @@ const AltasScreen = () => {
                             justifyContent: 'flex-start',
                             alignItems: 'center',
                             width: '100%',
-                            height: '10%'
+                            height:'2%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddEmployeClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteSellerClick()}></Button>

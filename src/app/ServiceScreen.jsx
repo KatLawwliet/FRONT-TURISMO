@@ -54,7 +54,6 @@ const ServiceScreen = () => {
                 const loadedServices = await PackageBack.getServices(seachInput, tagSelected);
                 setServices(loadedServices.map(service => ({
                     ...service,
-                    // Verifica si el servicio está en el arreglo de seleccionados
                     isChecked: selectedServices.some(s => s.code === service.code)
                 })));
             } catch (error) {
