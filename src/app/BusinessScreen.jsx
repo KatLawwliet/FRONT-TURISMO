@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {getClients} from "./services/ClientsService";
-import {getSales} from "./services/SalesService";
+import {deleteSale, getSales} from "./services/SalesService";
 import Tags from "./TagComponnent";
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
@@ -52,6 +52,15 @@ const Business = () => {
             await deleteClient(selectedClient.id);
             alert("Cliente eliminado exitosamente.");
             setLoad(load + 1)
+        }
+    }
+    const handleDeleteSaleClick = async () => {
+        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar esta venta?");
+        if (isConfirmed) {
+            await deleteSale(selectedSale.codigo);
+            alert("Venta eliminada exitosamente.");
+            setLoad(load + 1)
+            setSelectedClient(null)
         }
     }
 
@@ -138,7 +147,7 @@ const Business = () => {
                         }}>
                             <Button text={"Modificar"} clickAction={() => alert("Caca")}></Button>
                             <Button text={"Borrar"} color={'#B32100'}
-                                    clickAction={() => handleDeleteClientClick()}></Button>
+                                    clickAction={() => handleDeleteSaleClick()}></Button>
                         </div>
                         {sales.length != 0 ? <Table
                             data={sales}

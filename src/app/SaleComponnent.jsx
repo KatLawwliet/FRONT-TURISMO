@@ -17,7 +17,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     const [selectedClient, setSelectedClient] = useState(null);
     const [calc, setCalc] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState('Mercado Pago');
 
     const toggleModalConfirmPayment = () => setIsModalOpen(!isModalOpen);
 
