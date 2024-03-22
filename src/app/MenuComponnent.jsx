@@ -1,9 +1,8 @@
-'use client'
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Select from "./SellectMenuComponnent";
+import Modal from "./Modal";
 
-const Menu = ({setActiveView, activeView, navigation}) => {
-
+const Menu = ({ setActiveView, activeView, navigation }) => {
     const style = {
         container: {
             display: 'flex',
@@ -13,12 +12,20 @@ const Menu = ({setActiveView, activeView, navigation}) => {
             width: 250,
             height: '100%',
         },
-        containerButtons: {
+        containerButtonsTop: {
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'flex-end',
-            height: '100%',
-            width: 210,
+            height: '50%', // Ajusta el tamaño según necesites
+            width: '100%',
+            flexDirection: 'column',
+        },
+        containerButtonsBottom: {
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-end',
+            height: '50%', // Ajusta el tamaño según necesites
+            width: '100%',
             flexDirection: 'column',
         },
         button: {
@@ -36,48 +43,82 @@ const Menu = ({setActiveView, activeView, navigation}) => {
         }
     }
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 768px)");
-        const handleMediaChange = (e) => {
-            setIsMobile(e.matches);
-        };
+    const openProfileModal = async () => {
+        setIsModalOpen(true);
+    };
 
-        mediaQuery.addListener(handleMediaChange);
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
-        return () => mediaQuery.removeListener(handleMediaChange);
-    }, []);
+    const menuItemsTop = [
+        { name: 'Paquetes' },
+        { name: 'Servicios' },
+        { name: 'Negocio' },
+        { name: 'Altas' },
+    ];
 
-    const menuItems = [
-        { name: 'Paquetes'},
-        { name: 'Servicios'},
-        { name: 'Negocio'},
-        { name: 'Altas'},
-        { name: 'Cerrar Session'},
+    const menuItemsBottom = [
+        { name: 'Perfil' },
+        { name: 'Salir' },
     ];
 
     const handleClick = () => {
-        navigation.navigate('Login');
+        alert("?!Click?!");
     }
 
     return (
         <div style={style.container}>
-            <div style={style.containerButtons}>
-                {menuItems.map(item => (
+            <div style={style.containerButtonsTop}>
+                {menuItemsTop.map(item => (
                     <Select
                         key={item.name}
                         text={item.name}
-                        clickAction={() => item.name === "Cerrar Session"? handleClick(): setActiveView(item.name)}
+                        clickAction={() => setActiveView(item.name)}
                         isActive={activeView === item.name}
                     />
                 ))}
             </div>
-            <div style={style.containerButtons}>
-                {<Select text={'Cerrar Session'} clickAction={() => handleClick()}
-                         style={style.button}/>}
+
+            <div style={style.containerButtonsBottom}>
+                {menuItemsBottom.map(item => (
+                    <Select
+                        key={item.name}
+                        text={item.name}
+                        clickAction={item.name === "Perfil" ? openProfileModal : handleClick}
+                        isActive={activeView === item.name}
+                    />
+                ))}
             </div>
+
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <div style={{textAlign: 'center'}}>
+                    <h1>Perfil</h1>
+                        <div>
+                            <p>Nombre: </p>
+                            <p>Apellido: </p>
+                            <p>DNI: </p>
+                            <p>Fecha de nacimiento: </p>
+                            <p>Email: </p>
+                            <p>Celular: </p>
+                            <p>Cargo: </p>
+                            <p>Nacionalidad: </p>
+                            <p>Salario: </p>
+                        </div>
+                    <button onClick={closeModal}>Cerrar</button>
+                </div>
+            </Modal>
         </div>
     )
 }
 
-export default Menu
+export default Menu;
+
+
+
+
+
+
+
