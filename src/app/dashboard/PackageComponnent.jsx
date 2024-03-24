@@ -31,7 +31,7 @@ const Package = ({ packagee }) => {
                 <Image
                     width={300}
                     height={150}
-                    src={packagee.pic ? packagee.pic : "https://kyrxwczgntdzbcamjivn.supabase.co/storage/v1/object/public/branded-storage/ims.png"}
+                    src={packagee.pic ? packagee.pic : "https://snxhqkypetprgogliayo.supabase.co/storage/v1/object/public/turismo/uploads/cataratas_fondo.jpg"}
                     alt={""}/>
             </div>
             <div style={{ display: 'flex', flexDirection: "column", width: "100%" }}>

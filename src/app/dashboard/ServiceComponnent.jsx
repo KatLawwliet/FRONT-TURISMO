@@ -115,7 +115,7 @@ const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
                         <Image
                             width={400}
                             height={250}
-                            src={service.pic ? service.pic : "https://kyrxwczgntdzbcamjivn.supabase.co/storage/v1/object/public/branded-storage/ims.png"}
+                            src={service.pic ? service.pic : "https://snxhqkypetprgogliayo.supabase.co/storage/v1/object/public/turismo/uploads/cataratas_fondo.jpg"}
                             alt={""}
                         />
                     </div>
