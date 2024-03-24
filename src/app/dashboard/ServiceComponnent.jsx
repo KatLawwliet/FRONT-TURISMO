@@ -115,7 +115,7 @@ const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
                         <Image
                             width={400}
                             height={250}
-                            src={service.pic ? service.pic : "https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg"}
+                            src={service.pic ? service.pic : "https://kyrxwczgntdzbcamjivn.supabase.co/storage/v1/object/public/branded-storage/ims.png"}
                             alt={""}
                         />
                     </div>

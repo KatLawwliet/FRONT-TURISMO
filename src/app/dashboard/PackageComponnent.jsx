@@ -31,7 +31,7 @@ const Package = ({ packagee }) => {
                 <Image
                     width={300}
                     height={150}
-                    src={packagee.pic ? packagee.pic : "https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg"}
+                    src={packagee.pic ? packagee.pic : "https://kyrxwczgntdzbcamjivn.supabase.co/storage/v1/object/public/branded-storage/ims.png"}
                     alt={""}/>
             </div>
             <div style={{ display: 'flex', flexDirection: "column", width: "100%" }}>
