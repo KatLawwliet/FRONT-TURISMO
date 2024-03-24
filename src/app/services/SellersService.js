@@ -3,7 +3,11 @@ import axios from 'axios';
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL+"/sellers"
 const register = process.env.NEXT_PUBLIC_BACKEND_URL+"/users/register"
 const notification = process.env.NEXT_PUBLIC_BACKEND_URL+"/notification/send/seller"
-const credentials = localStorage.getItem('auth');
+let credentials
+
+if (typeof window !== "undefined") {
+    credentials = localStorage.getItem('auth');
+}
 
 export const getSelles = async (search) => {
     try {

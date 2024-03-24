@@ -2,7 +2,11 @@ import axios from 'axios';
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL+"/clients"
-const credentials = localStorage.getItem('auth');
+let credentials
+
+if (typeof window !== "undefined") {
+    credentials = localStorage.getItem('auth');
+}
 
 const getClients = async (search) => {
     const response = await axios.get(baseURL+'?searcher='+search,{
