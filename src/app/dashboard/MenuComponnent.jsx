@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "./SellectMenuComponnent";
 import Modal from "./Modal";
+import { logout } from "../services/AuthService";
+import { useRouter } from 'next/navigation'
 
 const Menu = ({ setActiveView, activeView, navigation }) => {
     const style = {
@@ -64,9 +66,10 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
         { name: 'Perfil' },
         { name: 'Salir' },
     ];
-
+    const router = useRouter()
     const handleClick = () => {
-        alert("?!Click?!");
+        logout()
+        router.replace('/')
     }
 
     return (

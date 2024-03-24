@@ -4,6 +4,7 @@ import Modal from '../dashboard/Modal';
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
+const credentials = localStorage.getItem('auth');
 const EmailService = ({ email }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
@@ -18,7 +19,11 @@ const EmailService = ({ email }) => {
     try {
       setIsModalOpen(false);
       console.log('Datos del correo electrónico a enviar:', emailData);
-      const response = await axios.post(baseURL+'/notification/send', emailData);
+      const response = await axios.post(baseURL+'/notification/send', emailData,{
+        headers: {
+            'Authorization': `Basic ${credentials}`
+        }
+    });
       console.log('Correo electrónico enviado correctamente:', response.data);
     } catch (error) {
       console.error('Error al enviar el correo electrónico:', error);

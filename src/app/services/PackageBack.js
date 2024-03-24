@@ -2,13 +2,14 @@ import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-const base64Credentials = Buffer.from('martuto93@gmail.com:1234').toString('base64');
+const credentials = localStorage.getItem('auth');
 
 const getPackages = async (search) => {
     try {
+        console.log("CREDENCIALES: " + credentials)
         const response = await axios.get(baseURL+'/packages?searcher='+search, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         });
         const packageData = response.data;
@@ -29,7 +30,7 @@ const getServices = async (search, typeId) => {
         console.log(`RESPUESTAAAA: ${search} y tambien ${typeId} `);
         const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         });
 
@@ -71,7 +72,7 @@ const createPackage = async (name, destination, costo, pic = "", isCustom = fals
 
         const resp = await axios.post(baseURL+"/packages", request, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         })
         return resp.data
@@ -85,7 +86,7 @@ const createService = async (service) => {
     try {
         const resp = await axios.post(baseURL+"/services", service, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         })
         console.log("este es el tipo, genteee! " + service.type)
@@ -101,7 +102,7 @@ const deleteService = async (code) => {
         console.log("ESTOY ACAAA " + code)
         await axios.delete(baseURL+"/services/"+code, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         })
     }catch (error){
@@ -114,7 +115,7 @@ export const deletePackage = async (code) => {
     try {
         await axios.delete(baseURL+"/packages/"+code, {
             headers: {
-                'Authorization': `Basic ${base64Credentials}`
+                'Authorization': `Basic ${credentials}`
             }
         })
     }catch (error) {
