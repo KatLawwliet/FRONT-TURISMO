@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import Input from "@/app/InputComponnet";
+import Input from "@/app/dashboard/InputComponnet";
 import PackageBack from "@/app/services/PackageBack";
-import SearchInput from "@/app/SearchInputComponnet";
-import TableCheck from "@/app/services/TableCkeck";
-import Button from "@/app/ButtonComponnent";
+import SearchInput from "@/app/dashboard/SearchInputComponnet";
+import TableCheck from "@/app/dashboard/TableCkeck";
+import Button from "@/app/dashboard/ButtonComponnent";
 import {calculate} from "@/app/services/SalesService";
-import Modal from "@/app/Modal";
-import FileUploader from "@/app/UploadedComponent";
+import Modal from "@/app/dashboard/Modal";
+import FileUploader from "@/app/dashboard/UploadedComponent";
 
 const CreatePackage = ({isModalOpen, setLoad}) => {
 

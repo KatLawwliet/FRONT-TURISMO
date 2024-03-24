@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import Button from "./ButtonComponnent";
 import SearchInput from "./SearchInputComponnet";
 import Table from "./TableComponnent";
-import PackageBack from "./services/PackageBack";
-import {calculate} from "./services/SalesService";
-import {createSale} from "./services/SalesService";
-import {sendPaymentNotification} from './services/NotificationService'
-import getClients from "./services/ClientService";
-import Modal from "@/app/Modal";
-import Input from "@/app/InputComponnet";
+import PackageBack from "../services/PackageBack";
+import {calculate} from "../services/SalesService";
+import {createSale} from "../services/SalesService";
+import {sendPaymentNotification} from '../services/NotificationService'
+import getClients from "../services/ClientService";
+import Modal from "@/app/dashboard/Modal";
+import Input from "@/app/dashboard/InputComponnet";
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 

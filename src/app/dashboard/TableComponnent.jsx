@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from './Modal';
-import EmailService from './services/EmailService';
+import EmailService from '../services/EmailService';
 
 const Table = ({ data, showCheckboxes, selectedItem, onSelectItem, onEmailClick }) => {
     const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);

@@ -2,9 +2,15 @@ import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 
+const base64Credentials = Buffer.from('martuto93@gmail.com:1234').toString('base64');
+
 const getPackages = async (search) => {
     try {
-        const response = await axios.get(baseURL+'/packages?searcher='+search);
+        const response = await axios.get(baseURL+'/packages?searcher='+search, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        });
         const packageData = response.data;
 
         console.log(`Código: ${packageData.code}`);
@@ -21,7 +27,11 @@ const getPackages = async (search) => {
 const getServices = async (search, typeId) => {
     try {
         console.log(`RESPUESTAAAA: ${search} y tambien ${typeId} `);
-        const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId);
+        const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        });
 
         const serviceData = response.data;
         console.log(`RESPUESTAAAA: ${serviceData}`);
@@ -59,7 +69,11 @@ const createPackage = async (name, destination, costo, pic = "", isCustom = fals
             isCustom: isCustom
         }
 
-        const resp = await axios.post(baseURL+"/packages", request)
+        const resp = await axios.post(baseURL+"/packages", request, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        })
         return resp.data
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
@@ -69,7 +83,11 @@ const createPackage = async (name, destination, costo, pic = "", isCustom = fals
 
 const createService = async (service) => {
     try {
-        const resp = await axios.post(baseURL+"/services", service)
+        const resp = await axios.post(baseURL+"/services", service, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        })
         console.log("este es el tipo, genteee! " + service.type)
         return resp.data
     }catch (error){
@@ -81,7 +99,11 @@ const createService = async (service) => {
 const deleteService = async (code) => {
     try {
         console.log("ESTOY ACAAA " + code)
-        await axios.delete(baseURL+"/services/"+code)
+        await axios.delete(baseURL+"/services/"+code, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        })
     }catch (error){
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;
@@ -90,7 +112,11 @@ const deleteService = async (code) => {
 
 export const deletePackage = async (code) => {
     try {
-        await axios.delete(baseURL+"/packages/"+code)
+        await axios.delete(baseURL+"/packages/"+code, {
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`
+            }
+        })
     }catch (error) {
         console.error('Hubo un error al realizar la solicitud:', error);
         throw error;

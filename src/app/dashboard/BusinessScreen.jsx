@@ -1,13 +1,13 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {getClients} from "./services/ClientsService";
-import {deleteSale, getSales} from "./services/SalesService";
+import {getClients} from "../services/ClientsService";
+import {deleteSale, getSales} from "../services/SalesService";
 import Tags from "./TagComponnent";
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
 import Button from "./ButtonComponnent";
 import {deleteClient} from "@/app/services/ClientService";
-import CreateClient from "@/app/CreateClientComponnent";
+import CreateClient from "@/app/dashboard/CreateClientComponnent";
 
 const Business = () => {
     const [clients, setClients] = useState([]);

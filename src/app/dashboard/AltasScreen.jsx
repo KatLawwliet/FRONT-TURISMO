@@ -3,12 +3,12 @@ import React, {useEffect, useState} from 'react';
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
 import Tags from "./TagComponnent";
-import PackageBack from './services/PackageBack'
-import {deleteSeller, getSelles} from './services/SellersService'
+import PackageBack from '../services/PackageBack'
+import {deleteSeller, getSelles} from '../services/SellersService'
 import Button from "./ButtonComponnent";
 import CreateService from "./CreateServiceComponnent";
-import CreateEmployee from "@/app/CreateEmployeeComponnent";
-import CreatePackage from "@/app/CreatePackageComponnent";
+import CreateEmployee from "@/app/dashboard/CreateEmployeeComponnent";
+import CreatePackage from "@/app/dashboard/CreatePackageComponnent";
 
 const AltasScreen = () => {
 

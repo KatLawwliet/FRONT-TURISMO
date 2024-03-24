@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import Input from "@/app/InputComponnet";
-import Button from "@/app/ButtonComponnent";
-import {createClient} from "./services/ClientService";
+import Input from "@/app/dashboard/InputComponnet";
+import Button from "@/app/dashboard/ButtonComponnent";
+import {createSeller} from "../services/SellersService";
 
-const CreateClient = ({isModalOpen}) => {
+const CreateEmployee = ({isModalOpen}) => {
 
     const [name, setName] = useState(null)
     const [lastname, setLastname] = useState(null)
@@ -12,6 +12,8 @@ const CreateClient = ({isModalOpen}) => {
     const [cellPhone, setCellPhone] = useState(null)
     const [nationality, setNationality] = useState(null)
     const [email, setEmail] = useState(null)
+    const [charge, setCharge] = useState(null)
+    const [salary, setSalary] = useState(null)
 
 
     const styles = {
@@ -33,7 +35,7 @@ const CreateClient = ({isModalOpen}) => {
     }
 
     const handleClick = async () => {
-        await createClient({
+        await createSeller({
             name: name,
             lastname: lastname,
             dni: dni,
@@ -41,6 +43,8 @@ const CreateClient = ({isModalOpen}) => {
             nationality: nationality,
             cellPhone: cellPhone,
             email: email,
+            charge: charge,
+            salary: salary,
 
         })
         isModalOpen(false)
@@ -49,10 +53,13 @@ const CreateClient = ({isModalOpen}) => {
         isModalOpen(false)
     }
 
+    useEffect(() => {
+
+    }, [charge]);
 
     return (
         <div style={styles.container}>
-            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:30}}>
+            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:1}}>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nombre :</div>
                     <Input input={setName}/>
@@ -85,6 +92,20 @@ const CreateClient = ({isModalOpen}) => {
                     <Input input={setEmail}/>
                 </div>
 
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Cargo :</div>
+                    <Input input={setCharge} isSelect={true} list={[
+                        {value: 'VENDEDOR', label: 'Vendedor'},
+                        {value: 'GERENTE', label: 'Gerente'}
+                    ]}/>
+                </div>
+
+                <div style={styles.containerInput}>
+                    <div style={styles.text}>Salario :</div>
+                    <Input input={setSalary} isNumeric={true}/>
+                </div>
+
+
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     <Button text={'Crear'} clickAction={() => handleClick()}></Button>
                     <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
@@ -94,4 +115,4 @@ const CreateClient = ({isModalOpen}) => {
     );
 };
 
-export default CreateClient;
+export default CreateEmployee;

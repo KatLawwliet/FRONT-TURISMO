@@ -1,5 +1,5 @@
 import React from 'react';
-import '../customCheckbox.css'
+import './customCheckbox.css'
 
 const TableCheck = ({ data, onCheckboxChange }) => {
     const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);

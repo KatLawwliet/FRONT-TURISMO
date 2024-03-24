@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Button from "./ButtonComponnent";
 import Input from "./InputComponnet";
 import FileUploader from "./UploadedComponent";
-import PackageBack from "./services/PackageBack";
+import PackageBack from "../services/PackageBack";
 
 const CreateService = ({isModalOpen}) => {
 

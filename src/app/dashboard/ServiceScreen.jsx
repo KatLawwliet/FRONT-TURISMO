@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Service from "./ServiceComponnent";
 import Presentation from "./PesentationScreen";
 import Tags from "./TagComponnent";
-import PackageBack from "./services/PackageBack";
+import PackageBack from "../services/PackageBack";
 import Sale from "./SaleComponnent";
 
 const ServiceScreen = () => {

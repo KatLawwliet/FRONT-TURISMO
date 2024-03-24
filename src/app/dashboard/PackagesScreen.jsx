@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Package from "./PackageComponnent";
 import Presentation from "./PesentationScreen";
-import PackageBack from "./services/PackageBack";
+import PackageBack from "../services/PackageBack";
 
 const PackagesScreen = () => {
 

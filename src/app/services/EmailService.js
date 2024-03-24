@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Modal from '../Modal';
+import Modal from '../dashboard/Modal';
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
