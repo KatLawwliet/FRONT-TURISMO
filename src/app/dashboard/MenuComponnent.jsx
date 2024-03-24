@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Select from "./SellectMenuComponnent";
 import Modal from "./Modal";
 import { logout } from "../services/AuthService";
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import {getSelleByEmail} from '../services/SellersService'
 
 const Menu = ({ setActiveView, activeView }) => {
-    const auth = localStorage.getItem('authorities');
-
+    
+    const [auth, setAuth] = useState("")
     const [seller, setSeller] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -61,6 +61,9 @@ const Menu = ({ setActiveView, activeView }) => {
                 console.error('Error al cargar datos:', error);
             }
         }
+
+        setAuth(localStorage.getItem('authorities'))
+
         fetchData()
     },[isModalOpen])
 
@@ -89,10 +92,10 @@ const Menu = ({ setActiveView, activeView }) => {
         { name: 'Perfil' },
         { name: 'Salir' },
     ];
-    const router = useRouter()
+    
     const handleClick = () => {
         logout()
-        router.replace('/')
+        redirect('/')
     }
 
     return (

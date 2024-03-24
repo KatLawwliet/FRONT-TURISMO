@@ -8,9 +8,13 @@ export const login = async (username, password) => {
         const loginData = response.data;
         console.log(loginData)
         const base64Credentials = Buffer.from(username+':'+password).toString('base64');
+
+        
         localStorage.setItem('auth', base64Credentials);
         localStorage.setItem('userLogin', username);
         localStorage.setItem('authorities', loginData.authorities);
+        
+
         return true
     } catch (error) {
         console.log(error)
@@ -19,6 +23,9 @@ export const login = async (username, password) => {
 }
 
 export const logout = () => {
+    
     localStorage.removeItem('auth');
     localStorage.removeItem('authorities');
+    
+    
 }
