@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Input from "@/app/dashboard/InputComponnet";
 import Button from "@/app/dashboard/ButtonComponnent";
-import {createClient} from "../services/ClientService";
+import {createClient, updateClient} from "../services/ClientService";
 
-const CreateClient = ({isModalOpen}) => {
+const CreateClient = ({isModalOpen, selectedClient = null}) => {
 
+    const [id, setId] = useState(null)
     const [name, setName] = useState(null)
     const [lastname, setLastname] = useState(null)
     const [dni, setDni] = useState(null)
@@ -32,17 +33,43 @@ const CreateClient = ({isModalOpen}) => {
         }
     }
 
-    const handleClick = async () => {
-        await createClient({
-            name: name,
-            lastname: lastname,
-            dni: dni,
-            birthday: birthdate,
-            nationality: nationality,
-            cellPhone: cellPhone,
-            email: email,
+    useEffect(() => {
+        if(selectedClient) {
+            console.log("uqddsdffgfagag: " + selectedClient.nombre_completo)
+            setName(selectedClient.nombre_completo)
+            setDni(selectedClient.dni)
+            setBirthdate(selectedClient.cumpleaños)
+            setCellPhone(selectedClient.telefono)
+            setNationality(selectedClient.nacionalidad)
+            setEmail(selectedClient.email)
+            setId(selectedClient.id)
+        }
+    }, [isModalOpen])
 
-        })
+    const handleClick = async () => {
+        if(selectedClient){
+            await updateClient({
+                name: name,
+                lastname: lastname,
+                dni: dni,
+                birthday: birthdate,
+                nationality: nationality,
+                cellPhone: cellPhone,
+                email: email,
+    
+            }, id)
+        }else {
+            await createClient({
+                name: name,
+                lastname: lastname,
+                dni: dni,
+                birthday: birthdate,
+                nationality: nationality,
+                cellPhone: cellPhone,
+                email: email,
+    
+            })
+        }
         isModalOpen(false)
     }
     const handleClose = () => {
@@ -55,34 +82,34 @@ const CreateClient = ({isModalOpen}) => {
             <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:30}}>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nombre :</div>
-                    <Input input={setName}/>
+                    <Input input={setName}  defaultText={name}/>
                 </div>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Apellido :</div>
-                    <Input input={setLastname}/>
+                    <Input input={setLastname}  defaultText={lastname}/>
                 </div>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>DNI :</div>
-                    <Input input={setDni}/>
+                    <Input input={setDni}  defaultText={dni}/>
                 </div>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Fecha de Nacimiento :</div>
-                    <Input input={setBirthdate}/>
+                    <Input input={setBirthdate} defaultText={birthdate}/>
                 </div>
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nacionalidad :</div>
-                    <Input input={setNationality}/>
+                    <Input input={setNationality} defaultText={nationality}/>
                 </div>
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Telefono :</div>
-                    <Input input={setCellPhone}/>
+                    <Input input={setCellPhone} defaultText={cellPhone}/>
                 </div>
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Email :</div>
-                    <Input input={setEmail}/>
+                    <Input input={setEmail} defaultText={email}/>
                 </div>
 
                 <div style={{display: 'flex', flexDirection: 'row'}}>

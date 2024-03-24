@@ -51,7 +51,7 @@ export const createSeller = async (seller) => {
                 'Authorization': `Basic ${credentials}`
             }
         })
-        await axios.post(notification+'?email='+seller.email+'&password=', {},{
+        await axios.post(notification+'?email='+seller.email+'&password=12345', {},{
             headers: {
                 'Authorization': `Basic ${credentials}`
             }

@@ -36,6 +36,18 @@ export const createClient = async (client) => {
     }
 }
 
+export const updateClient = async (client, id) => {
+    try {
+        await axios.patch(baseURL+'/'+id, client,{
+            headers: {
+                'Authorization': `Basic ${credentials}`
+            }
+        })
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error.response ? error.response.data : error);
+        throw error;
+    }
+}
 
 export const deleteClient = async (id) => {
     try {

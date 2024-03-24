@@ -33,6 +33,11 @@ const Business = () => {
         fetchData()
     },[seachInput, load, isModalAddOpen])
 
+    const clean = () => {
+        setSelectedClient(null);
+        setLoad(load + 1)
+    };
+
     const handleSelectClient = (item) => {
         setSelectedClient(item);
     };
@@ -40,11 +45,16 @@ const Business = () => {
 
     const handleAddClientClick = () => {
         setIsModalAddOpen(!isModalAddOpen)
+        setSelectedClient(null)
     }
 
     const handleSelectSale = (item) => {
         setSelectedSale(item);
     };
+
+    const handleModifyClientClick = () => {
+        setIsModalAddOpen(!isModalAddOpen)
+    }
 
     const handleDeleteClientClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
@@ -112,7 +122,7 @@ const Business = () => {
                 return (
                     <Presentation data={clients}
                                   seachInput={setSeachInput}
-                                  presentationMenu={<CreateClient isModalOpen={setIsModalAddOpen}/>}
+                                  presentationMenu={<CreateClient isModalOpen={setIsModalAddOpen} selectedClient={selectedClient}/>}
                                   isMenuVisible={isModalAddOpen}>
                         <div style={{
                             display: 'flex',
@@ -122,8 +132,10 @@ const Business = () => {
                             height: '2%',
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddClientClick()}></Button>
+                            {selectedClient ? <Button text={"Modificar"} clickAction={() => handleModifyClientClick()}></Button> : ""}
                             <Button text={"Borrar"} color={'#B32100'}
                                     clickAction={() => handleDeleteClientClick()}></Button>
+                            
                         </div>
                         {clients.length != 0 ? <Table
                             data={clients}

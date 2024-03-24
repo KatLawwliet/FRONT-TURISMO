@@ -5,10 +5,11 @@ const Input = ({
                    isNumeric = false,
                    isDatetime = false,
                    isSelect = false,
-                   list = []
+                   list = [],
+                   defaultText = ""
                }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(defaultText);
     const [isError, setIsError] = useState(false);
 
     const focusStyles = isFocused ? { boxShadow: '0 0 10px #03A143' } : {};
@@ -63,7 +64,7 @@ const Input = ({
                 <input
                     type={getInputType()}
                     style={{ ...styles.input, ...focusStyles, ...errorStyles }}
-                    value={inputValue}
+                    value={defaultText?defaultText:inputValue}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     onChange={handleInputChange}
