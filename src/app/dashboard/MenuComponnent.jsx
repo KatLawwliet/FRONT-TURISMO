@@ -3,8 +3,14 @@ import Select from "./SellectMenuComponnent";
 import Modal from "./Modal";
 import { logout } from "../services/AuthService";
 import { useRouter } from 'next/navigation'
+import {getSelleByEmail} from '../services/SellersService'
 
-const Menu = ({ setActiveView, activeView, navigation }) => {
+const Menu = ({ setActiveView, activeView }) => {
+    const auth = localStorage.getItem('authorities');
+
+    const [seller, setSeller] = useState({})
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const style = {
         container: {
             display: 'flex',
@@ -45,7 +51,20 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
         }
     }
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = localStorage.getItem('userLogin');
+                const loadedSeller = await getSelleByEmail(user)
+                setSeller(loadedSeller)
+            }catch (error){
+                console.error('Error al cargar datos:', error);
+            }
+        }
+        fetchData()
+    },[isModalOpen])
+
+    
 
     const openProfileModal = async () => {
         setIsModalOpen(true);
@@ -55,11 +74,15 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
         setIsModalOpen(false);
     };
 
-    const menuItemsTop = [
+    const menuItemsTop = auth.includes("GERENTE") ?[
         { name: 'Paquetes' },
         { name: 'Servicios' },
         { name: 'Negocio' },
         { name: 'Altas' },
+    ] : [
+        { name: 'Paquetes' },
+        { name: 'Servicios' },
+        { name: 'Negocio' }
     ];
 
     const menuItemsBottom = [
@@ -100,15 +123,15 @@ const Menu = ({ setActiveView, activeView, navigation }) => {
                 <div style={{textAlign: 'center'}}>
                     <h1>Perfil</h1>
                         <div>
-                            <p>Nombre: </p>
-                            <p>Apellido: </p>
-                            <p>DNI: </p>
-                            <p>Fecha de nacimiento: </p>
-                            <p>Email: </p>
-                            <p>Celular: </p>
-                            <p>Cargo: </p>
-                            <p>Nacionalidad: </p>
-                            <p>Salario: </p>
+                            <p>Nombre: {seller.name}</p>
+                            <p>Apellido: {seller.lastname}</p>
+                            <p>DNI: {seller.dni}</p>
+                            <p>Fecha de nacimiento: {seller.birthday}</p>
+                            <p>Email: {seller.email}</p>
+                            <p>Celular: {seller.cellPhone}</p>
+                            <p>Cargo: {seller.charge}</p>
+                            <p>Nacionalidad: {seller.nationality}</p>
+                            <p>Salario: {seller.salary}</p>
                         </div>
                     <button onClick={closeModal}>Cerrar</button>
                 </div>

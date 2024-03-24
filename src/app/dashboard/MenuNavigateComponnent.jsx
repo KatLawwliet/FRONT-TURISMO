@@ -7,7 +7,7 @@ import ServiceScreen from "./ServiceScreen";
 import AltasScreen from "./AltasScreen";
 import {useState} from "react";
 
-const MenuNavigate = ({navigation}) => {
+const MenuNavigate = () => {
 
     const [activeView, setActiveView] = useState('Paquetes');
 
@@ -26,7 +26,7 @@ const MenuNavigate = ({navigation}) => {
 
     return (
         <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: "row"}}>
-            <Menu setActiveView={setActiveView} activeView={activeView} navigation={navigation}/>
+            <Menu setActiveView={setActiveView} activeView={activeView}/>
             <div style={{
                 backgroundColor: '#f1f5f9',
                 width: '100%',

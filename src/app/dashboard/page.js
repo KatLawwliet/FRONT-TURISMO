@@ -8,7 +8,7 @@ export default function Home() {
       <main>
           <div style={style.container}>
               <Header/>
-              <MenuNavigate navigation={""}></MenuNavigate>
+              <MenuNavigate></MenuNavigate>
           </div>
       </main>
 

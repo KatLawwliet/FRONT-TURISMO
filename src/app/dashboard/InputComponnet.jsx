@@ -41,7 +41,7 @@ const Input = ({
             {isSelect ? (
                 <select
                     style={{ ...{
-                            width: '110%',
+                            width: '100%',
                             borderRadius: 20,
                             color: '#475569',
                             borderWidth: 2,
@@ -80,14 +80,16 @@ const Input = ({
 const styles = {
     input: {
         width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
         height: 20,
         borderRadius: 20,
         color: '#475569',
         borderWidth: 2,
         borderColor: '#e1e7f0',
-        fontSize: 20,
+        fontSize: 15,
         outline: 'none',
-        padding: '5px 10px',
+        padding: '5px',
     },
     tooltip: {
         position: 'absolute',
