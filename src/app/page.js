@@ -32,7 +32,7 @@ export default function Page() {
                     />
                     <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                         <div style={styles.containerInput}>
-                            <div style={styles.text}>Email</div>
+                            <div style={styles.text}>Usuario</div>
                             <Input input={setEmail} />
                         </div>
                         <div style={styles.containerInput}>
