@@ -31,16 +31,16 @@ const ExchangeRates = () => {
     return (
         <div style={styles.container}>
             <div style={styles.rateContainer}>
-                <h3>Oficial: $</h3>
-                {officialRate ? <div>{officialRate}</div> : <div>Cargando...</div>}
+                <div style={{color: '#028035'}}>Oficial</div>
+                {officialRate ? <div style={{color: '#475569'}}>$ {officialRate}</div> : <div>Cargando...</div>}
             </div>
             <div style={styles.rateContainer}>
-                <h3>Blue: $</h3>
-                {blueRate ? <div>{blueRate}</div> : <div>Cargando...</div>}
+                <div style={{color: '#028035'}}>Blue</div>
+                {blueRate ? <div style={{color: '#475569'}}>$ {blueRate}</div> : <div>Cargando...</div>}
             </div>
             <div style={styles.rateContainer}>
-                <h3>€: $</h3>
-                {euroRate ? <div>{euroRate}</div> : <div>Cargando...</div>}
+                <div style={{color: '#028035'}}>€</div>
+                {euroRate ? <div style={{color: '#475569'}}>$ {euroRate}</div> : <div>Cargando...</div>}
             </div>
         </div>
     );
@@ -49,15 +49,19 @@ const ExchangeRates = () => {
 const styles = {
     container: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 20,
+        justifyContent: 'center',
+        fontSize: 20
     },
     rateContainer: {
-        marginRight: 10,
+        margin: 1,
         display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
+        justifyContent: 'space-between',
+        width: '100%'
+
     },
 };
 

@@ -47,7 +47,9 @@ const Presentation = ({ data, seachInput, children , presentationMenu, isMenuVis
                 <SearchInput seachInput={seachInput}/>
                 <div style={{ width: '55%', display: 'flex', alignItems: 'center' }}>
                     <Button text={<FaRegCalendarAlt />} clickAction={() => toggleModal()}/>
-                    <ExchangeRates />
+                    <div style={{width: '75%', display: 'flex', justifyContent: 'flex-end'}}>
+                        <ExchangeRates />
+                    </div>
                 </div>
                 <Modal isOpen={isModalOpen} onClose={toggleModal}>
                     <div style={{ width: 700, height: 700, display: "flex", justifyContent: "center", alignItems: "center" }}>

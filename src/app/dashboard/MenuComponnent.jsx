@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import {getSelleByEmail} from '../services/SellersService'
 import Button from "./ButtonComponnent";
 import useLocalStorage from './UseLocalStorage'
+import { useRouter } from 'next/navigation'
 
 const Menu = ({ setActiveView, activeView }) => {
     
@@ -102,10 +103,12 @@ const Menu = ({ setActiveView, activeView }) => {
         { name: 'Perfil' },
         { name: 'Salir' },
     ];
+
+    const router = useRouter()
     
     const handleClick = () => {
         logout()
-        redirect('/')
+        router.back()
     }
 
     return (
