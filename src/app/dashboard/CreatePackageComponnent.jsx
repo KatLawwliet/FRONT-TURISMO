@@ -167,7 +167,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
                 <div style={styles.text}>
                     {selectedServices.length !== 0 ? selectedServices.map(ser => {
                         return (
-                            <div style={{margin: 10, display: "flex", justifyContent: 'space-between', width: '100%'}}>
+                            <div key={ser.codigo} style={{margin: 10, display: "flex", justifyContent: 'space-between', width: '100%'}}>
                                 <b style={{color: '#028035'}}>{`${ser.tipo} `}</b>
                                 <div>
                                     {`${ser.descripcion}  /  ${ser.destino}`}

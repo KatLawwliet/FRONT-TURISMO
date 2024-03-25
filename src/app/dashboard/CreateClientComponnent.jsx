@@ -46,7 +46,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
             setEmail(selectedClient.email)
             setId(selectedClient.id)
         }
-    }, [isModalOpen, auth])
+    }, [ auth])
 
     const handleClick = async () => {
         if(selectedClient){

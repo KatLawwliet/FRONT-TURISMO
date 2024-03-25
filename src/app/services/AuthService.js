@@ -22,10 +22,10 @@ export const login = async (username, password) => {
     }
 }
 
-export const logout = () => {
+export const logout = (auth2, auth) => {
     
-    localStorage.removeItem('auth');
-    localStorage.removeItem('authorities');
+    auth2(null);
+    auth(null);
     
     
 }

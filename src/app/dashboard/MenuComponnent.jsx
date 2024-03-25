@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Select from "./SellectMenuComponnent";
 import Modal from "./Modal";
 import { logout } from "../services/AuthService";
-import { redirect } from 'next/navigation'
 import {getSelleByEmail} from '../services/SellersService'
 import Button from "./ButtonComponnent";
 import useLocalStorage from './UseLocalStorage'
@@ -88,7 +87,7 @@ const Menu = ({ setActiveView, activeView }) => {
         setIsModalOpen(false);
     };
 
-    const menuItemsTop = auth.includes("GERENTE") ?[
+    const menuItemsTop = auth ? auth.includes("GERENTE") ?[
         { name: 'Paquetes' },
         { name: 'Servicios' },
         { name: 'Negocio' },
@@ -97,7 +96,7 @@ const Menu = ({ setActiveView, activeView }) => {
         { name: 'Paquetes' },
         { name: 'Servicios' },
         { name: 'Negocio' }
-    ];
+    ] : [];
 
     const menuItemsBottom = [
         { name: 'Perfil' },
@@ -107,7 +106,7 @@ const Menu = ({ setActiveView, activeView }) => {
     const router = useRouter()
     
     const handleClick = () => {
-        logout()
+        logout(setAuth2, setAuth)
         router.back()
     }
 

@@ -122,11 +122,11 @@ const deleteService = async (code, auth) => {
     }
 }
 
-export const deletePackage = async (code) => {
+export const deletePackage = async (code, auth) => {
     try {
         await axios.delete(baseURL+"/packages/"+code, {
             headers: {
-                'Authorization': `Basic ${localStorage.getItem('auth')}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error) {
