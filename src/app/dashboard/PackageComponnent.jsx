@@ -78,40 +78,46 @@ const Package = ({ packagee }) => {
                     Desde <b>$ {packagee.cost}</b>
                 </p>
             </div>
-            <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{textAlign: 'center'}}>
-                    <h1>{packagee.name}</h1>
-                    <div>
-                        <h2>Servicios incluidos:</h2>
-                        <ul style={{listStyleType: 'none', padding: 0}}>
-                            {packagee.services.map(serv => (
-                                <li key={serv.code} style={{
-                                    fontSize: 12,
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    margin: 'auto',
-                                    maxWidth: '5%',
-                                    color: "#475569",
-                                    backgroundColor: "#c0c4c7",
-                                    padding: 5,
-                                    borderRadius: 15,
-                                }}>
-                                    <b>{serv.type}</b>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div style={{maxWidth: '80%', margin: 'auto'}}>
+            <Modal 
+                isOpen={isModalOpen} 
+                onClose={closeModal}
+                width={'50%'}
+                height={'55%'}
+            >
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    
+                    <div >
+                        <h2 style={{color: '#475569'}}>{packagee.name}</h2>
                         <Image
                             width={400}
                             height={250}
+                            style={{borderRadius: 10}}
                             src={packagee.pic ? packagee.pic : "https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg"}
                             alt={""}
                         />
                     </div>
-                    <div style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                        <Button text="Cerrar" clickAction={closeModal}/>
-                        <Button text="Vender" color={'#B32100'} clickAction={salePackage}/>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                            {packagee.services.map(serv => (
+                                <div key={serv.code} style={{
+                                    fontSize: 12,
+                                    width: 50, 
+                                    height: 8,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: "#475569",
+                                    backgroundColor: "#c0c4c7",
+                                    padding: 10,
+                                    margin: 10,
+                                    borderRadius: 15,
+                                }}>
+                                    <div>{serv.type}</div>
+                                </div>
+                            ))}
+                        </div>
+                    <div style={{display: 'flex', justifyContent: 'flex-end',alignItems: 'flex-end', margin: 10}}>
+                        <Button text="Vender" clickAction={salePackage}/>
+                        <Button text="Cerrar" color={'#B32100'} clickAction={closeModal}/>
                     </div>
                 </div>
             </Modal>

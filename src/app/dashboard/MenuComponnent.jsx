@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import { logout } from "../services/AuthService";
 import { redirect } from 'next/navigation'
 import {getSelleByEmail} from '../services/SellersService'
+import Button from "./ButtonComponnent";
 
 const Menu = ({ setActiveView, activeView }) => {
     
@@ -49,6 +50,15 @@ const Menu = ({ setActiveView, activeView }) => {
             padding: 20,
             borderWidth: 1,
             fontSize: 25
+        },
+        profileRow: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            margin: 10
+        },
+        profileRowTitle: {
+            fontSize: 20,
+            color: "#028035"
         }
     }
 
@@ -125,21 +135,54 @@ const Menu = ({ setActiveView, activeView }) => {
                 ))}
             </div>
 
-            <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{textAlign: 'center'}}>
+            <Modal 
+            isOpen={isModalOpen} 
+            onClose={closeModal}
+            width={'30%'}
+            height={'60%'}
+            >
+                <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center', flexDirection: 'column'}}>
                     <h1>Perfil</h1>
-                        <div>
-                            <p>Nombre: {seller.name}</p>
-                            <p>Apellido: {seller.lastname}</p>
-                            <p>DNI: {seller.dni}</p>
-                            <p>Fecha de nacimiento: {seller.birthday}</p>
-                            <p>Email: {seller.email}</p>
-                            <p>Celular: {seller.cellPhone}</p>
-                            <p>Cargo: {seller.charge}</p>
-                            <p>Nacionalidad: {seller.nationality}</p>
-                            <p>Salario: {seller.salary}</p>
+                        <div style={{width: '90%'}}>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Nombre: </div>
+                                <div>{seller.name}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Apellido:</div>
+                                <div>{seller.lastname}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>DNI:</div>
+                                <div>{seller.dni}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Fecha de nacimiento:</div>
+                                <div>{seller.birthday}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Email: </div>
+                                <div>{seller.email}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Celular: </div>
+                                <div>{seller.cellPhone}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Cargo: </div>
+                                <div>{seller.charge}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Nacionalidad: </div>
+                                <div>{seller.nationality}</div>
+                            </div>
+                            <div style={style.profileRow}>
+                                <div style={style.profileRowTitle}>Salario:</div>
+                                <div>{seller.salary}</div>
+                            </div>
+                            
                         </div>
-                    <button onClick={closeModal}>Cerrar</button>
+                    <Button clickAction={closeModal} text={"Cerrar"}/>
                 </div>
             </Modal>
         </div>

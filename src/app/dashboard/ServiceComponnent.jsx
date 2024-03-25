@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 import Image from "next/image";
 import './customCheckbox.css'
+import Button from './ButtonComponnent';
 
 const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,21 +109,39 @@ const Service = ({ service, onCheckChange, isChecked, isMenuVisible }) => {
                 </div>
             </div>
 
-            <Modal isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{ textAlign: 'center' }}>
-                    <h1>{service.description}</h1>
-                    <div style={{ margin: 'auto', width: '80%' }}>
-                        <Image
-                            width={400}
-                            height={250}
-                            src={service.pic ? service.pic : "https://snxhqkypetprgogliayo.supabase.co/storage/v1/object/public/turismo/uploads/cataratas_fondo.jpg"}
-                            alt={""}
-                        />
+            <Modal 
+                isOpen={isModalOpen} 
+                onClose={closeModal}
+                width={'50%'}
+                height={'50%'}
+            >
+                <div style={{ display:'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    
+                    <div style={{width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+                        <div>
+                            <h2 style={{color: '#475569'}}>{service.description}</h2>
+                            <Image
+                                width={400}
+                                height={250}
+                                style={{borderRadius: 10}}
+                                src={service.pic ? service.pic : "https://snxhqkypetprgogliayo.supabase.co/storage/v1/object/public/turismo/uploads/cataratas_fondo.jpg"}
+                                alt={""}
+                            />
+                        </div>
+                        <div style={{width: '50%'}}>
+                            <div style={{height: '50%', display: 'flex', justifyContent: 'center'}}>
+                                <p style={{color: '#475569', fontSize: 20}}>Detalles del servicio:</p>
+                                <p style={{color: '#475569'}}>{service.details}</p>
+                                
+                            </div>
+                            <div style={{height: '50%', display: 'flex', justifyContent:'flex-end', alignItems:'flex-end'}}>
+                                <p style={{color: '#028035', fontSize: 30}}><b style={{fontSize: 25}}>Costo: </b>${service.cost}</p>
+                            </div>
+                        </div>
                     </div>
-                    <p>Detalles del servicio:</p>
-                    <p>{service.details}</p>
-                    <p>Costo: ${service.cost}</p>
-                    <button onClick={closeModal}>Cerrar</button>
+                    
+                    
+                    <Button clickAction={closeModal} text={'Cerrar'}/>
                 </div>
             </Modal>
         </>
