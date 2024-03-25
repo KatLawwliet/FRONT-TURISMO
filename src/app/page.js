@@ -5,15 +5,22 @@ import Button from "./dashboard/ButtonComponnent"
 import Input from './dashboard/InputComponnet'
 import { useRouter } from 'next/navigation'
 import {login} from './services/AuthService'
+import useLocalStorage from './dashboard/UseLocalStorage'
 
 export default function Page() {
     const router = useRouter()
 
     const [email, setEmail] = useState("")
     const [passw, setPassw] = useState("")
+    const [auth, setAuth] = useLocalStorage('auth','');
+    const [authorities, setAuthorities] = useLocalStorage('authorities','');
+    const [userLogin, setUserLogin] = useLocalStorage('userLogin','');
 
     const handleClick = async () => {
         const caca = await login(email, passw)
+        setAuth(caca.auth)
+        setAuthorities(caca.authorities)
+        setUserLogin(caca.userLogin)
         if(caca){
             router.push('/dashboard')
         }

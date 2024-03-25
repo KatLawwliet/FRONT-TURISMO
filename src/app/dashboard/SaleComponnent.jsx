@@ -6,9 +6,10 @@ import PackageBack from "../services/PackageBack";
 import {calculate} from "../services/SalesService";
 import {createSale} from "../services/SalesService";
 import {sendPaymentNotification} from '../services/NotificationService'
-import getClients from "../services/ClientService";
+import {getClients} from "../services/ClientService";
 import Modal from "@/app/dashboard/Modal";
 import Input from "@/app/dashboard/InputComponnet";
+import useLocalStorage from "./UseLocalStorage"
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
@@ -18,7 +19,8 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     const [calc, setCalc] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('Mercado Pago');
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
+    const [savedServices, setSavedServices] = useLocalStorage('selectedServices', '')
 
     const toggleModalConfirmPayment = () => setIsModalOpen(!isModalOpen);
 
@@ -27,8 +29,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             console.log("Cliente seleccionado: ", selectedClient);
         }
         const fetchData = async () => {
-            const authData = localStorage.getItem('auth');
-            setAuth(authData);
+            
             try {
                 const loadedClients = await getClients(seachInput, auth);
                 const servi = {
@@ -39,7 +40,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                         }
                     })
                 }
-                const calculates = await calculate(servi)
+                const calculates = await calculate(servi, auth)
                 setCalc(calculates)
                 setClients(loadedClients)
             } catch (error) {
@@ -56,7 +57,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
         toggleModal()
         setSelectedServices([]);
         setServices(services.map(service => ({ ...service, isChecked: false })));
-        localStorage.removeItem('selectedServices');
+        setSavedServices(null);
     }
 
     const handleCreateSaleClick = async () => {
@@ -96,7 +97,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             toggleModal()
             setSelectedServices([]);
             setServices(services.map(service => ({ ...service, isChecked: false })));
-            localStorage.removeItem('selectedServices');
+            setSavedServices(null);
         }
     }
 

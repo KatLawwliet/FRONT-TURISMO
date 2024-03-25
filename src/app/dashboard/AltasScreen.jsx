@@ -9,6 +9,7 @@ import Button from "./ButtonComponnent";
 import CreateService from "@/app/dashboard/CreateServiceComponnent";
 import CreateEmployee from "@/app/dashboard/CreateEmployeeComponnent";
 import CreatePackage from "@/app/dashboard/CreatePackageComponnent";
+import useLocalStorage from "./UseLocalStorage"
 
 const AltasScreen = () => {
 
@@ -21,7 +22,7 @@ const AltasScreen = () => {
     const [selectedSeller, setSelectedSeller] = useState(null);
     const [sellectedPackages, setSellectedPackages] = useState(null)
     const [load, setLoad] = useState(0)
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
     const clean = () => {
         setSelectedService(null);
@@ -65,8 +66,6 @@ const AltasScreen = () => {
     }
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
         const fetchData = async () => {
             try {
                 

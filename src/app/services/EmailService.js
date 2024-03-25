@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from '../dashboard/Modal';
+import useLocalStorage from '../dashboard/UseLocalStorage'
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -9,7 +10,7 @@ const EmailService = ({ email }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
   const [text, setText] = useState('');
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useLocalStorage('auth', '');
 
   const handleEmailClick = () => {
     console.log('Se hizo clic en el enlace de correo electrónico');
@@ -42,8 +43,6 @@ const EmailService = ({ email }) => {
   };
 
   useEffect(() => {
-    const authData = localStorage.getItem('auth');
-    setAuth(authData);
   }, [ auth]);
 
   return (

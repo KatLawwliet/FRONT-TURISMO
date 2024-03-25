@@ -32,15 +32,15 @@ const ExchangeRates = () => {
         <div style={styles.container}>
             <div style={styles.rateContainer}>
                 <h3>Oficial: $</h3>
-                {officialRate ? <p>{officialRate}</p> : <p>Cargando...</p>}
+                {officialRate ? <div>{officialRate}</div> : <div>Cargando...</div>}
             </div>
             <div style={styles.rateContainer}>
                 <h3>Blue: $</h3>
-                {blueRate ? <p>{blueRate}</p> : <p>Cargando...</p>}
+                {blueRate ? <div>{blueRate}</div> : <div>Cargando...</div>}
             </div>
             <div style={styles.rateContainer}>
                 <h3>€: $</h3>
-                {euroRate ? <p>{euroRate}</p> : <p>Cargando...</p>}
+                {euroRate ? <div>{euroRate}</div> : <div>Cargando...</div>}
             </div>
         </div>
     );

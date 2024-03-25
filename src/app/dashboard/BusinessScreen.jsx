@@ -8,6 +8,7 @@ import Table from "./TableComponnent";
 import Button from "./ButtonComponnent";
 import {deleteClient, getClients} from "../services/ClientService";
 import CreateClient from "@/app/dashboard/CreateClientComponnent";
+import useLocalStorage from "./UseLocalStorage"
 
 const Business = () => {
     const [clients, setClients] = useState([]);
@@ -18,13 +19,11 @@ const Business = () => {
     const [selectedClient, setSelectedClient] = useState(null);
     const [selectedSale, setSelectedSale] = useState(null);
     const [load, setLoad] = useState(0)
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
  
     useEffect(() => {
         
         const fetchData = async () => {
-            const authData = localStorage.getItem('auth');
-            setAuth(authData);
             try {
                 const loadedClients = await getClients(seachInput, auth)
                 const loadedSales = await getSales(seachInput, false, auth)

@@ -3,6 +3,7 @@ import Button from "./ButtonComponnent";
 import Input from "./InputComponnet";
 import FileUploader from "./UploadedComponent";
 import PackageBack from "../services/PackageBack";
+import useLocalStorage from "./UseLocalStorage"
 
 const CreateService = ({ isModalOpen, selectedService = null }) => {
     const [code, setCode] = useState(null);
@@ -15,7 +16,7 @@ const CreateService = ({ isModalOpen, selectedService = null }) => {
         const now = new Date();
         return now.toISOString().slice(0, 16);
     });
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
     const styles = {
         container: {
@@ -64,8 +65,6 @@ const CreateService = ({ isModalOpen, selectedService = null }) => {
     };
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
         if(selectedService) {
             console.log("uqddsdffgfagag: "+selectedService.destination)
             setDestination(selectedService.destino)

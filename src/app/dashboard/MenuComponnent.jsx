@@ -5,11 +5,13 @@ import { logout } from "../services/AuthService";
 import { redirect } from 'next/navigation'
 import {getSelleByEmail} from '../services/SellersService'
 import Button from "./ButtonComponnent";
+import useLocalStorage from './UseLocalStorage'
 
 const Menu = ({ setActiveView, activeView }) => {
     
-    const [auth, setAuth] = useState("")
-    const [auth2, setAuth2] = useState(null)
+    const [auth, setAuth] = useLocalStorage('authorities','')
+    const [auth2, setAuth2] = useLocalStorage('auth','');
+    const [userLogin, setUserLogin] = useLocalStorage('userLogin', '')
     const [seller, setSeller] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -63,19 +65,14 @@ const Menu = ({ setActiveView, activeView }) => {
     }
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth2(authData);
         const fetchData = async () => {
             try {
-                const user = localStorage.getItem('userLogin');
-                const loadedSeller = await getSelleByEmail(user, auth2)
+                const loadedSeller = await getSelleByEmail(userLogin, auth2)
                 setSeller(loadedSeller)
             }catch (error){
                 console.error('Error al cargar datos:', error);
             }
         }
-
-        setAuth(localStorage.getItem('authorities'))
 
         fetchData()
     },[isModalOpen, auth2])

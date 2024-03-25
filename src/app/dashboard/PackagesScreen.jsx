@@ -2,18 +2,17 @@ import React, {useEffect, useState} from 'react';
 import Package from "./PackageComponnent";
 import Presentation from "./PesentationScreen";
 import PackageBack from "../services/PackageBack";
+import useLocalStorage from "./UseLocalStorage"
 
 const PackagesScreen = () => {
 
     const [packages, setPackages] = useState([])
     const [seachInput, setSeachInput] = useState("")
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const authData = localStorage.getItem('auth');
-                setAuth(authData);
                 const loadedPackages = await PackageBack.getPackages(seachInput, auth)
                 setPackages(loadedPackages)
             }catch (error){

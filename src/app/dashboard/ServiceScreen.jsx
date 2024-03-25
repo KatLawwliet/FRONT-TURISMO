@@ -4,11 +4,12 @@ import Presentation from "./PesentationScreen";
 import Tags from "./TagComponnent";
 import PackageBack from "../services/PackageBack";
 import Sale from "./SaleComponnent";
+import useLocalStorage from "./UseLocalStorage"
 
 const ServiceScreen = () => {
+    const [savedServices, setSavedServices] = useLocalStorage('selectedServices', '')
     const [selectedServices, setSelectedServices] = useState(() => {
-        const savedServices = localStorage.getItem('selectedServices');
-        const parsedServices = savedServices ? JSON.parse(savedServices) : [];
+        const parsedServices = savedServices ? savedServices : [];
 
         const arrayService = Array.isArray(parsedServices) ? parsedServices : [];
         return arrayService
@@ -20,7 +21,7 @@ const ServiceScreen = () => {
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
     };
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth','');
 
     const handleServiceCheckChange = (serviceCode, isChecked) => {
         setSelectedServices(prevSelectedServices => {
@@ -32,7 +33,7 @@ const ServiceScreen = () => {
                 newSelectedServices = prevSelectedServices.filter(s => s.code !== serviceCode);
             }
 
-            localStorage.setItem('selectedServices', JSON.stringify(newSelectedServices));
+            setSavedServices(newSelectedServices);
             return newSelectedServices;
         });
     };
@@ -50,8 +51,6 @@ const ServiceScreen = () => {
     }
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
         const fetchData = async () => {
             try {
                 const loadedServices = await PackageBack.getServices(seachInput, tagSelected, auth);

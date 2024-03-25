@@ -53,7 +53,7 @@ const FileUploader = ({setImage}) => {
                 clickAction={triggerFileInput}
                 color="#028035"
             />
-            {uploading && <p>Cargando imagen...</p>}
+            {uploading && <div>Cargando imagen...</div>}
         </div>
     );
 };

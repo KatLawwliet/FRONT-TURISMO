@@ -7,6 +7,7 @@ import Button from "@/app/dashboard/ButtonComponnent";
 import {calculate} from "@/app/services/SalesService";
 import Modal from "@/app/dashboard/Modal";
 import FileUploader from "@/app/dashboard/UploadedComponent";
+import useLocalStorage from "./UseLocalStorage"
 
 const CreatePackage = ({isModalOpen, setLoad}) => {
 
@@ -19,7 +20,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
     const [selectedServices, setSelectedServices] = useState([]);
     const [isSearch, setIsSearch] = useState(false)
     const [calc, setCalc] = useState({})
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
     const [isModalOpennn, setIsModalOpennn] = useState(false);
 
@@ -66,8 +67,6 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
     };
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
 
         const fetchData = async () => {
             try {

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Input from "@/app/dashboard/InputComponnet";
 import Button from "@/app/dashboard/ButtonComponnent";
 import {createSeller} from "../services/SellersService";
+import useLocalStorage from "./UseLocalStorage"
 
 const CreateEmployee = ({isModalOpen}) => {
 
@@ -14,7 +15,7 @@ const CreateEmployee = ({isModalOpen}) => {
     const [email, setEmail] = useState(null)
     const [charge, setCharge] = useState(null)
     const [salary, setSalary] = useState(null)
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
 
     const styles = {
@@ -55,8 +56,7 @@ const CreateEmployee = ({isModalOpen}) => {
     }
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
+        
     }, [charge, auth]);
 
     return (

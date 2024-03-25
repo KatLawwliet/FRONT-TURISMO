@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Input from "@/app/dashboard/InputComponnet";
 import Button from "@/app/dashboard/ButtonComponnent";
 import {createClient, updateClient} from "../services/ClientService";
+import useLocalStorage from "./UseLocalStorage"
 
 const CreateClient = ({isModalOpen, selectedClient = null}) => {
 
@@ -13,7 +14,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
     const [cellPhone, setCellPhone] = useState(null)
     const [nationality, setNationality] = useState(null)
     const [email, setEmail] = useState(null)
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useLocalStorage('auth', '');
 
 
     const styles = {
@@ -35,8 +36,6 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
     }
 
     useEffect(() => {
-        const authData = localStorage.getItem('auth');
-        setAuth(authData);
         if(selectedClient) {
             console.log("uqddsdffgfagag: " + selectedClient.nombre_completo)
             setName(selectedClient.nombre_completo)
