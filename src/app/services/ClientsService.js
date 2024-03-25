@@ -2,13 +2,8 @@ import axios from 'axios';
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
-
-export const getClients = async (search, isPdf = false) => {
+export const getClientsPdf = async (search, isPdf = false, auth) => {
     try {
         const url = isPdf ? baseURL+"/clients/pdf?searcher=" : baseURL+'/clients?searcher='
         if (isPdf) {
@@ -16,7 +11,7 @@ export const getClients = async (search, isPdf = false) => {
         }
         const response = await axios.get(url+search,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
         const clientsData = response.data;

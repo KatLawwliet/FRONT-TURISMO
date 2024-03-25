@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from './Modal';
 import EmailService from '../services/EmailService';
 
-const Table = ({ data, showCheckboxes, selectedItem, onSelectItem, onEmailClick }) => {
+const Table = ({ data = [], showCheckboxes, selectedItem, onSelectItem, onEmailClick }) => {
     const [hoveredRowIndex, setHoveredRowIndex] = React.useState(null);
 
     const getRowStyle = (index) => ({
@@ -27,28 +27,28 @@ const Table = ({ data, showCheckboxes, selectedItem, onSelectItem, onEmailClick 
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
-                        <tr
-                            key={index}
-                            style={getRowStyle(index)}
-                            onMouseEnter={() => setHoveredRowIndex(index)}
-                            onMouseLeave={() => setHoveredRowIndex(null)}
-                        >
-                            {showCheckboxes && (
-                                <td style={styles.td}>
-                                    <input
-                                        type="radio"
-                                        name="selectedItem"
-                                        checked={item.code}
-                                        onChange={handleCheckboxChange(item)}
-                                    />
-                                </td>
-                            )}
-                            {Object.values(item).map((val, i) => (
-                                <td key={i} style={styles.td}>{val}</td>
-                            ))}
-                        </tr>
+                {Array.isArray(data) && data.map((item, index) => (
+                    <tr
+                    key={index}
+                    style={getRowStyle(index)}
+                    onMouseEnter={() => setHoveredRowIndex(index)}
+                    onMouseLeave={() => setHoveredRowIndex(null)}
+                    >
+                    {showCheckboxes && (
+                        <td style={styles.td}>
+                        <input
+                            type="radio"
+                            name="selectedItem"
+                            checked={selectedItem && item.code === selectedItem.code}
+                            onChange={handleCheckboxChange(item)}
+                        />
+                        </td>
+                    )}
+                    {Object.values(item).map((val, i) => (
+                        <td key={i} style={styles.td}>{val}</td>
                     ))}
+                    </tr>
+                ))}
                 </tbody>
             </table>
         </div>

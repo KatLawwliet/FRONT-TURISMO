@@ -8,6 +8,7 @@ import {getSelleByEmail} from '../services/SellersService'
 const Menu = ({ setActiveView, activeView }) => {
     
     const [auth, setAuth] = useState("")
+    const [auth2, setAuth2] = useState(null)
     const [seller, setSeller] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,10 +53,12 @@ const Menu = ({ setActiveView, activeView }) => {
     }
 
     useEffect(() => {
+        const authData = localStorage.getItem('auth');
+        setAuth2(authData);
         const fetchData = async () => {
             try {
                 const user = localStorage.getItem('userLogin');
-                const loadedSeller = await getSelleByEmail(user)
+                const loadedSeller = await getSelleByEmail(user, auth2)
                 setSeller(loadedSeller)
             }catch (error){
                 console.error('Error al cargar datos:', error);
@@ -65,7 +68,7 @@ const Menu = ({ setActiveView, activeView }) => {
         setAuth(localStorage.getItem('authorities'))
 
         fetchData()
-    },[isModalOpen])
+    },[isModalOpen, auth2])
 
     
 

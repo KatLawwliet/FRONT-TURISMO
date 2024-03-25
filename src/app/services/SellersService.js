@@ -3,17 +3,13 @@ import axios from 'axios';
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL+"/sellers"
 const register = process.env.NEXT_PUBLIC_BACKEND_URL+"/users/register"
 const notification = process.env.NEXT_PUBLIC_BACKEND_URL+"/notification/send/seller"
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
 
-export const getSelles = async (search) => {
+export const getSelles = async (search, auth) => {
     try {
         const response = await axios.get(baseURL+'?searcher='+search,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
         const sellesData = response.data;
@@ -26,11 +22,11 @@ export const getSelles = async (search) => {
     }
 }
 
-export const getSelleByEmail = async (email) => {
+export const getSelleByEmail = async (email, auth) => {
     try {
         const response = await axios.get(baseURL+'/'+email,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
         const sellesData = response.data;
@@ -43,21 +39,21 @@ export const getSelleByEmail = async (email) => {
     }
 }
 
-export const createSeller = async (seller) => {
+export const createSeller = async (seller, auth) => {
     try {
         await axios.post(baseURL, seller,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
         await axios.post(register, {username: seller.email, password: '12345'},{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
         await axios.post(notification+'?email='+seller.email+'&password=12345', {},{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error){
@@ -66,11 +62,11 @@ export const createSeller = async (seller) => {
     }
 }
 
-export const deleteSeller = async (id) => {
+export const deleteSeller = async (id, auth) => {
     try {
         await axios.delete(baseURL+"/"+id,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error) {

@@ -21,7 +21,8 @@ export default function Page() {
     }
 
     return (
-        <div style={styles.background}>
+        <main>
+            <div style={styles.background}>
             <div style={styles.container}>
                 <div style={styles.subcontainer}>
                     <Image
@@ -48,6 +49,7 @@ export default function Page() {
                 </div>
             </div>
         </div>
+        </main>
     );
 }
 

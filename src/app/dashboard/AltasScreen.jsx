@@ -21,6 +21,7 @@ const AltasScreen = () => {
     const [selectedSeller, setSelectedSeller] = useState(null);
     const [sellectedPackages, setSellectedPackages] = useState(null)
     const [load, setLoad] = useState(0)
+    const [auth, setAuth] = useState(null);
 
     const handleSelectService = (item) => {
         setSelectedService(item);
@@ -35,7 +36,7 @@ const AltasScreen = () => {
     const handleDeleteServiceClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este servicio?");
         if (isConfirmed) {
-            await PackageBack.deleteService(selectedService.codigo);
+            await PackageBack.deleteService(selectedService.codigo, auth);
             alert("Servicio eliminado exitosamente.");
             setLoad(load + 1)
         }
@@ -43,7 +44,7 @@ const AltasScreen = () => {
     const handleDeletePackageClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este paquete?");
         if (isConfirmed) {
-            await PackageBack.deletePackage(sellectedPackages.codigo);
+            await PackageBack.deletePackage(sellectedPackages.codigo, auth);
             alert("Servicio eliminado exitosamente.");
             setLoad(load + 1)
         }
@@ -52,18 +53,21 @@ const AltasScreen = () => {
     const handleDeleteSellerClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este empleado?");
         if (isConfirmed) {
-            await deleteSeller(selectedSeller.id);
+            await deleteSeller(selectedSeller.id, auth);
             alert("Servicio eliminado exitosamente.");
             setLoad(load + 1)
         }
     }
 
     useEffect(() => {
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
         const fetchData = async () => {
             try {
-                const loadedPackages = await PackageBack.getPackages(seachInput)
-                const loadedServices = await PackageBack.getServices(seachInput, "")
-                const loadedSellers = await getSelles(seachInput)
+                
+                const loadedPackages = await PackageBack.getPackages(seachInput, auth)
+                const loadedServices = await PackageBack.getServices(seachInput, "", auth)
+                const loadedSellers = await getSelles(seachInput, auth)
                 setPackages(loadedPackages.map(lp => {
                     return {
                         codigo: lp.code,
@@ -96,7 +100,7 @@ const AltasScreen = () => {
             }
         }
         fetchData()
-    },[seachInput, isModalAddOpen, load])
+    },[seachInput, isModalAddOpen, load, auth])
 
     const handleAddServiceClick = () => {
         setIsModalAddOpen(!isModalAddOpen)

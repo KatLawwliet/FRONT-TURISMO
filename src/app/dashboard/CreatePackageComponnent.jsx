@@ -19,6 +19,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
     const [selectedServices, setSelectedServices] = useState([]);
     const [isSearch, setIsSearch] = useState(false)
     const [calc, setCalc] = useState({})
+    const [auth, setAuth] = useState(null);
 
     const [isModalOpennn, setIsModalOpennn] = useState(false);
 
@@ -65,9 +66,12 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
     };
 
     useEffect(() => {
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
+
         const fetchData = async () => {
             try {
-                const loadedServices = await PackageBack.getServices(seachInput, serviceType);
+                const loadedServices = await PackageBack.getServices(seachInput, serviceType, auth);
                 setServices(loadedServices.map(service => ({
                     tipo: service.type,
                     codigo: service.code,
@@ -86,7 +90,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
         };
 
         fetchData();
-    }, [serviceType, seachInput, selectedServices, isModalOpennn]);
+    }, [serviceType, seachInput, selectedServices, isModalOpennn, auth]);
 
     const searchService = () => {
         setIsSearch(!isSearch)
@@ -100,7 +104,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
                     return {
                         code: s.codigo
                     }
-                }))
+                }), auth)
             } catch (error){
                 console.log(error.message)
             }

@@ -20,6 +20,7 @@ const ServiceScreen = () => {
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
     };
+    const [auth, setAuth] = useState(null);
 
     const handleServiceCheckChange = (serviceCode, isChecked) => {
         setSelectedServices(prevSelectedServices => {
@@ -49,9 +50,11 @@ const ServiceScreen = () => {
     }
 
     useEffect(() => {
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
         const fetchData = async () => {
             try {
-                const loadedServices = await PackageBack.getServices(seachInput, tagSelected);
+                const loadedServices = await PackageBack.getServices(seachInput, tagSelected, auth);
                 setServices(loadedServices.map(service => ({
                     ...service,
                     isChecked: selectedServices.some(s => s.code === service.code)
@@ -62,7 +65,7 @@ const ServiceScreen = () => {
         };
 
         fetchData();
-    }, [seachInput, tagSelected, selectedServices]);
+    }, [seachInput, tagSelected, selectedServices, auth]);
 
 
     const saleMenu = () => {

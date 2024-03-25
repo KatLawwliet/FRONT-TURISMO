@@ -1,13 +1,9 @@
 import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
 
-export const getSales = async (search, isPdf = false) => {
+export const getSales = async (search, isPdf = false, auth) => {
     try {
         const url = isPdf ? baseURL+"/sales/pdf?searcher=": baseURL+'/sales?searcher='
         if (isPdf) {
@@ -15,7 +11,7 @@ export const getSales = async (search, isPdf = false) => {
         }
         const response = await axios.get(url+search,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
         const salesData = response.data;
@@ -35,11 +31,11 @@ export const getSales = async (search, isPdf = false) => {
     }
 }
 
-export const createSale = async (sale) => {
+export const createSale = async (sale, auth) => {
     try {
         await axios.post(baseURL+"/sales", sale,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error){
@@ -48,11 +44,11 @@ export const createSale = async (sale) => {
     }
 }
 
-export const deleteSale = async (id) => {
+export const deleteSale = async (id, auth) => {
     try {
         await axios.delete(baseURL+"/sales/"+id,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error) {
@@ -61,11 +57,11 @@ export const deleteSale = async (id) => {
     }
 }
 
-export const calculate = async (services) => {
+export const calculate = async (services, auth) => {
     try {
         const response = await axios.post(baseURL+"/sales/calculate", services,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
         const calculateData = response.data;

@@ -2,18 +2,12 @@ import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
-
-const getPackages = async (search) => {
+const getPackages = async (search, auth) => {
     try {
-        console.log("CREDENCIALES: " + credentials)
         const response = await axios.get(baseURL+'/packages?searcher='+search, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
         const packageData = response.data;
@@ -29,12 +23,12 @@ const getPackages = async (search) => {
     }
 }
 
-const getServices = async (search, typeId) => {
+const getServices = async (search, typeId, auth) => {
     try {
         console.log(`RESPUESTAAAA: ${search} y tambien ${typeId} `);
         const response = await axios.get(baseURL+'/services?searcher='+search+'&typeId='+typeId, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         });
 
@@ -58,10 +52,10 @@ const getServices = async (search, typeId) => {
     }
 }
 
-const createPackage = async (name, destination, costo, pic = "", isCustom = false, services) => {
+const createPackage = async (name, destination, costo, pic = "", isCustom = false, services, auth) => {
 
     try {
-        const selectedServices = services || JSON.parse(localStorage.getItem('selectedServices'));
+        const selectedServices = services || JSON.parse(auth);
 
         const request = {
             name: name,
@@ -76,7 +70,7 @@ const createPackage = async (name, destination, costo, pic = "", isCustom = fals
 
         const resp = await axios.post(baseURL+"/packages", request, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
         return resp.data
@@ -86,11 +80,11 @@ const createPackage = async (name, destination, costo, pic = "", isCustom = fals
     }
 }
 
-const createService = async (service) => {
+const createService = async (service, auth) => {
     try {
         const resp = await axios.post(baseURL+"/services", service, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
         console.log("este es el tipo, genteee! " + service.type)
@@ -101,12 +95,12 @@ const createService = async (service) => {
     }
 }
 
-const deleteService = async (code) => {
+const deleteService = async (code, auth) => {
     try {
         console.log("ESTOY ACAAA " + code)
         await axios.delete(baseURL+"/services/"+code, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error){
@@ -119,7 +113,7 @@ export const deletePackage = async (code) => {
     try {
         await axios.delete(baseURL+"/packages/"+code, {
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${localStorage.getItem('auth')}`
             }
         })
     }catch (error) {

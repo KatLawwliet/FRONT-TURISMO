@@ -15,6 +15,7 @@ const CreateService = ({isModalOpen}) => {
         const now = new Date();
         return now.toISOString().slice(0, 16);
     });
+    const [auth, setAuth] = useState(null);
 
 
     const styles = {
@@ -47,7 +48,7 @@ const CreateService = ({isModalOpen}) => {
             date: datetime,
             cost: cost,
             pic: pic
-        })
+        }, auth)
         isModalOpen(false)
     }
     const handleClose = () => {
@@ -55,8 +56,9 @@ const CreateService = ({isModalOpen}) => {
     }
 
     useEffect(() => {
-
-    }, [type]);
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
+    }, [type, auth]);
 
     return (
         <div style={styles.container}>

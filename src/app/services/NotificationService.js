@@ -1,16 +1,11 @@
 import axios from 'axios';
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
-
-export const sendPaymentNotification = async (emailData) => {
+export const sendPaymentNotification = async (emailData, auth) => {
     await axios.post(baseURL+'/notification/send', emailData,{
         headers: {
-            'Authorization': `Basic ${credentials}`
+            'Authorization': `Basic ${auth}`
         }
     });
 }

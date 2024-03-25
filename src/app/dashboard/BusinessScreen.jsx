@@ -1,12 +1,12 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {getClients} from "../services/ClientsService";
+import {getClientsPdf} from "../services/ClientsService";
 import {deleteSale, getSales} from "../services/SalesService";
 import Tags from "./TagComponnent";
 import Presentation from "./PesentationScreen";
 import Table from "./TableComponnent";
 import Button from "./ButtonComponnent";
-import {deleteClient} from "@/app/services/ClientService";
+import {deleteClient, getClients} from "../services/ClientService";
 import CreateClient from "@/app/dashboard/CreateClientComponnent";
 
 const Business = () => {
@@ -18,12 +18,16 @@ const Business = () => {
     const [selectedClient, setSelectedClient] = useState(null);
     const [selectedSale, setSelectedSale] = useState(null);
     const [load, setLoad] = useState(0)
+    const [auth, setAuth] = useState(null);
  
     useEffect(() => {
+        
         const fetchData = async () => {
+            const authData = localStorage.getItem('auth');
+            setAuth(authData);
             try {
-                const loadedClients = await getClients(seachInput)
-                const loadedSales = await getSales(seachInput)
+                const loadedClients = await getClients(seachInput, auth)
+                const loadedSales = await getSales(seachInput, false, auth)
                 setClients(loadedClients)
                 setSales(loadedSales)
             }catch (error){
@@ -31,7 +35,7 @@ const Business = () => {
             }
         }
         fetchData()
-    },[seachInput, load, isModalAddOpen])
+    },[seachInput, load, isModalAddOpen, auth])
 
     const clean = () => {
         setSelectedClient(null);
@@ -59,7 +63,7 @@ const Business = () => {
     const handleDeleteClientClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
         if (isConfirmed) {
-            await deleteClient(selectedClient.id);
+            await deleteClient(selectedClient.id, auth);
             alert("Cliente eliminado exitosamente.");
             setLoad(load + 1)
         }
@@ -67,7 +71,7 @@ const Business = () => {
     const handleDeleteSaleClick = async () => {
         const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar esta venta?");
         if (isConfirmed) {
-            await deleteSale(selectedSale.codigo);
+            await deleteSale(selectedSale.codigo, auth);
             alert("Venta eliminada exitosamente.");
             setLoad(load + 1)
             setSelectedClient(null)
@@ -77,7 +81,7 @@ const Business = () => {
     const handleClientDownloadPdf = async () => {
         setPdfLoading(true);
         try {
-            const response = await getClients(seachInput, true);
+            const response = await getClientsPdf(seachInput, true, auth);
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -97,7 +101,7 @@ const Business = () => {
     const handleSalesDownloadPdf = async () => {
         setPdfLoading(true);
         try {
-            const response = await getSales(seachInput, true);
+            const response = await getSales(seachInput, true, auth);
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

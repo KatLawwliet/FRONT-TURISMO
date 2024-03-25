@@ -14,6 +14,7 @@ const CreateEmployee = ({isModalOpen}) => {
     const [email, setEmail] = useState(null)
     const [charge, setCharge] = useState(null)
     const [salary, setSalary] = useState(null)
+    const [auth, setAuth] = useState(null);
 
 
     const styles = {
@@ -46,7 +47,7 @@ const CreateEmployee = ({isModalOpen}) => {
             charge: charge,
             salary: salary,
 
-        })
+        }, auth)
         isModalOpen(false)
     }
     const handleClose = () => {
@@ -54,8 +55,9 @@ const CreateEmployee = ({isModalOpen}) => {
     }
 
     useEffect(() => {
-
-    }, [charge]);
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
+    }, [charge, auth]);
 
     return (
         <div style={styles.container}>

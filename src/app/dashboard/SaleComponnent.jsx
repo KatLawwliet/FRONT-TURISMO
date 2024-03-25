@@ -18,6 +18,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
     const [calc, setCalc] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('Mercado Pago');
+    const [auth, setAuth] = useState(null);
 
     const toggleModalConfirmPayment = () => setIsModalOpen(!isModalOpen);
 
@@ -26,8 +27,10 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             console.log("Cliente seleccionado: ", selectedClient);
         }
         const fetchData = async () => {
+            const authData = localStorage.getItem('auth');
+            setAuth(authData);
             try {
-                const loadedClients = await getClients(seachInput);
+                const loadedClients = await getClients(seachInput, auth);
                 const servi = {
                     services: selectedServices.map(ss => {
                         return {
@@ -44,7 +47,7 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
             }
         };
         fetchData();
-    }, [seachInput,selectedClient, selectedServices]);
+    }, [seachInput,selectedClient, selectedServices, auth]);
 
     const handleSelectItem = (item) => {
         setSelectedClient(item);
@@ -75,21 +78,21 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                     client: selectedClient.id,
                     packagee: code,
                     cost: calc.totalPrice
-                })
+                }, auth)
             }else {
                 await createSale({
                     paymentMethod: paymentMethod,
                     client: selectedClient.id,
                     service: selectedServices[0].codigo,
                     cost: calc.totalPrice
-                })
+                }, auth)
             }
             await sendPaymentNotification({
                 to: selectedClient.email,
                 services: selectedServices,
                 totalPrice: calc.totalPrice,
                 discount: calc.discoutn
-            })
+            }, auth)
             toggleModal()
             setSelectedServices([]);
             setServices(services.map(service => ({ ...service, isChecked: false })));

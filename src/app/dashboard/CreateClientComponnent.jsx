@@ -13,6 +13,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
     const [cellPhone, setCellPhone] = useState(null)
     const [nationality, setNationality] = useState(null)
     const [email, setEmail] = useState(null)
+    const [auth, setAuth] = useState(null);
 
 
     const styles = {
@@ -34,6 +35,8 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
     }
 
     useEffect(() => {
+        const authData = localStorage.getItem('auth');
+        setAuth(authData);
         if(selectedClient) {
             console.log("uqddsdffgfagag: " + selectedClient.nombre_completo)
             setName(selectedClient.nombre_completo)
@@ -44,7 +47,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
             setEmail(selectedClient.email)
             setId(selectedClient.id)
         }
-    }, [isModalOpen])
+    }, [isModalOpen, auth])
 
     const handleClick = async () => {
         if(selectedClient){
@@ -57,7 +60,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
                 cellPhone: cellPhone,
                 email: email,
     
-            }, id)
+            }, id, auth)
         }else {
             await createClient({
                 name: name,
@@ -68,7 +71,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
                 cellPhone: cellPhone,
                 email: email,
     
-            })
+            }, auth)
         }
         isModalOpen(false)
     }

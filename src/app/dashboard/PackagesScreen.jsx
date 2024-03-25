@@ -7,18 +7,21 @@ const PackagesScreen = () => {
 
     const [packages, setPackages] = useState([])
     const [seachInput, setSeachInput] = useState("")
+    const [auth, setAuth] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const loadedPackages = await PackageBack.getPackages(seachInput)
+                const authData = localStorage.getItem('auth');
+                setAuth(authData);
+                const loadedPackages = await PackageBack.getPackages(seachInput, auth)
                 setPackages(loadedPackages)
             }catch (error){
                 console.error('Error al cargar datos:', error);
             }
         }
         fetchData()
-    },[seachInput])
+    },[seachInput, auth])
 
 
     return (

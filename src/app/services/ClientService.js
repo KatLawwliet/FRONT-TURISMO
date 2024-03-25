@@ -2,16 +2,12 @@ import axios from 'axios';
 
 
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL+"/clients"
-let credentials
 
-if (typeof window !== "undefined") {
-    credentials = localStorage.getItem('auth');
-}
 
-const getClients = async (search) => {
+export const getClients = async (search, auth) => {
     const response = await axios.get(baseURL+'?searcher='+search,{
         headers: {
-            'Authorization': `Basic ${credentials}`
+            'Authorization': `Basic ${auth}`
         }
     });
     const clientsData = response.data;
@@ -27,11 +23,11 @@ const getClients = async (search) => {
     })
 }
 
-export const createClient = async (client) => {
+export const createClient = async (client, auth) => {
     try {
         await axios.post(baseURL, client,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error){
@@ -40,11 +36,11 @@ export const createClient = async (client) => {
     }
 }
 
-export const updateClient = async (client, id) => {
+export const updateClient = async (client, id, auth ) => {
     try {
         await axios.patch(baseURL+'/'+id, client,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error){
@@ -53,11 +49,11 @@ export const updateClient = async (client, id) => {
     }
 }
 
-export const deleteClient = async (id) => {
+export const deleteClient = async (id, auth) => {
     try {
         await axios.delete(baseURL+"/"+id,{
             headers: {
-                'Authorization': `Basic ${credentials}`
+                'Authorization': `Basic ${auth}`
             }
         })
     }catch (error) {
@@ -65,5 +61,3 @@ export const deleteClient = async (id) => {
         throw error;
     }
 }
-
-export default getClients
