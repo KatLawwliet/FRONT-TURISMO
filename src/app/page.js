@@ -8,6 +8,7 @@ import {login} from './services/AuthService'
 import useLocalStorage from './dashboard/UseLocalStorage'
 
 const Page = () => {
+    
     const router = useRouter()
 
     const [email, setEmail] = useState("")
