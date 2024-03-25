@@ -45,7 +45,7 @@ const Page = () => {
                         </div>
                         <div style={styles.containerInput}>
                             <div style={styles.text}>Contraseña</div>
-                            <Input input={setPassw} />
+                            <Input input={setPassw} isPassword={true} />
                         </div>
                         <Button
                             text='Iniciar Sesion'

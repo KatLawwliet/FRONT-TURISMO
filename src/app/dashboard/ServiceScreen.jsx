@@ -38,17 +38,6 @@ const ServiceScreen = () => {
         });
     };
 
-    const handleCreatePackage = async () => {
-        try {
-            //await PackageBack.createPackage("name", "destination");
-            toggleModal()
-
-
-            console.log("Paquete creado con éxito");
-        } catch (error) {
-            console.error('Hubo un error al realizar la solicitud:', error);
-        }
-    }
 
     useEffect(() => {
         const fetchData = async () => {

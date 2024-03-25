@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from "@/app/dashboard/InputComponnet";
 import Button from "@/app/dashboard/ButtonComponnent";
-import {createClient, updateClient} from "../services/ClientService";
+import { createClient, updateClient } from "../services/ClientService";
 import useLocalStorage from "./UseLocalStorage"
 
-const CreateClient = ({isModalOpen, selectedClient = null}) => {
+const CreateClient = ({ isModalOpen, selectedClient = null }) => {
 
     const [id, setId] = useState(null)
     const [name, setName] = useState(null)
@@ -19,11 +19,11 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
 
     const styles = {
         container: {
-            fontSize:15,
+            fontSize: 15,
             height: '100%',
             width: '90%',
         },
-        containerInput:{
+        containerInput: {
             width: '60%',
             display: 'flex',
             alignItems: 'center',
@@ -36,9 +36,10 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
     }
 
     useEffect(() => {
-        if(selectedClient) {
+        if (selectedClient) {
             console.log("uqddsdffgfagag: " + selectedClient.nombre_completo)
-            setName(selectedClient.nombre_completo)
+            setName(selectedClient.nombre)
+            setLastname(selectedClient.apellido)
             setDni(selectedClient.dni)
             setBirthdate(selectedClient.cumpleaños)
             setCellPhone(selectedClient.telefono)
@@ -46,10 +47,10 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
             setEmail(selectedClient.email)
             setId(selectedClient.id)
         }
-    }, [ auth])
+    }, [auth])
 
     const handleClick = async () => {
-        if(selectedClient){
+        if (selectedClient) {
             await updateClient({
                 name: name,
                 lastname: lastname,
@@ -58,9 +59,9 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
                 nationality: nationality,
                 cellPhone: cellPhone,
                 email: email,
-    
+
             }, id, auth)
-        }else {
+        } else {
             await createClient({
                 name: name,
                 lastname: lastname,
@@ -69,7 +70,7 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
                 nationality: nationality,
                 cellPhone: cellPhone,
                 email: email,
-    
+
             }, auth)
         }
         isModalOpen(false)
@@ -81,40 +82,44 @@ const CreateClient = ({isModalOpen, selectedClient = null}) => {
 
     return (
         <div style={styles.container}>
-            <div style={{display: "flex", flexDirection: 'column', width:'100%', height:'100%', alignItems:'flex-start', margin:30}}>
+            <div style={{ display: "flex", flexDirection: 'column', width: '100%', height: '100%', alignItems: 'flex-start', margin: 30 }}>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nombre :</div>
-                    <Input input={setName}  defaultText={name}/>
+                    <Input input={setName} defaultText={name} />
                 </div>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Apellido :</div>
-                    <Input input={setLastname}  defaultText={lastname}/>
+                    <Input input={setLastname} defaultText={lastname} />
                 </div>
                 <div style={styles.containerInput}>
                     <div style={styles.text}>DNI :</div>
-                    <Input input={setDni}  defaultText={dni}/>
+                    <Input input={setDni} defaultText={dni} />
                 </div>
-                <div style={styles.containerInput}>
-                    <div style={styles.text}>Fecha de Nacimiento :</div>
-                    <Input input={setBirthdate} defaultText={birthdate}/>
-                </div>
+                {
+                    selectedClient ? "" : (
+                        <div style={styles.containerInput}>
+                            <div style={styles.text}>Fecha de Nacimiento :</div>
+                            <Input input={setBirthdate} defaultText={birthdate} />
+                        </div>
+                    )
+                }
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Nacionalidad :</div>
-                    <Input input={setNationality} defaultText={nationality}/>
+                    <Input input={setNationality} defaultText={nationality} />
                 </div>
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Telefono :</div>
-                    <Input input={setCellPhone} defaultText={cellPhone}/>
+                    <Input input={setCellPhone} defaultText={cellPhone} />
                 </div>
 
                 <div style={styles.containerInput}>
                     <div style={styles.text}>Email :</div>
-                    <Input input={setEmail} defaultText={email}/>
+                    <Input input={setEmail} defaultText={email} />
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'row'}}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <Button text={'Crear'} clickAction={() => handleClick()}></Button>
                     <Button text={'Cerrar'} color={'#B32100'} clickAction={() => handleClose()}></Button>
                 </div>

@@ -93,7 +93,18 @@ const ClientTag = () => {
                 
             </div>
             {clients.length != 0 ? <Table
-                data={clients}
+                data={clients.map(cl => {
+                    return {
+                        id: cl.id,
+                        nombre: cl.name,
+                        apellido: cl.lastname,
+                        email: cl.email,
+                        dni: cl.dni,
+                        compleanios: cl.birthday,
+                        nacionalidad: cl.nationality,
+                        telefono: cl.cellPhone
+                    }
+                })}
                 selectedItem={selectedClient}
                 onSelectItem={handleSelectClient}
                 showCheckboxes={true}

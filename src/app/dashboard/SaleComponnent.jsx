@@ -42,7 +42,18 @@ const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices,
                 }
                 const calculates = await calculate(servi, auth)
                 setCalc(calculates)
-                setClients(loadedClients)
+                setClients(loadedClients.map(cl => {
+                    return {
+                        id: cl.id,
+                        nombre: cl.name,
+                        apellido: cl.lastname,
+                        email: cl.email,
+                        dni: cl.dni,
+                        compleanios: cl.birthday,
+                        nacionalidad: cl.nationality,
+                        telefono: cl.cellPhone
+                    }
+                }))
             } catch (error) {
                 console.error('Error al cargar datos:', error);
             }

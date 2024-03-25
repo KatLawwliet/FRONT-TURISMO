@@ -5,6 +5,7 @@ const Input = ({
                    isNumeric = false,
                    isDatetime = false,
                    isSelect = false,
+                   isPassword = false,
                    list = [],
                    defaultText = ""
                }) => {
@@ -33,6 +34,7 @@ const Input = ({
     };
 
     const getInputType = () => {
+        if (isPassword) return "password";
         if (isDatetime) return "datetime-local";
         return "text";
     };

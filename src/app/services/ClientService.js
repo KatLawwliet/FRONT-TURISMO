@@ -11,16 +11,8 @@ export const getClients = async (search, auth) => {
         }
     });
     const clientsData = response.data;
-    console.log(clientsData)
 
-    return clientsData.map(cl => {
-        return {
-            id: cl.id,
-            nombre_completo: cl.name + " " + cl.lastname,
-            email: cl.email,
-            telefono: cl.cellPhone
-        }
-    })
+    return clientsData
 }
 
 export const createClient = async (client, auth) => {
