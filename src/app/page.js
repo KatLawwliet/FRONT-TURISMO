@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import {login} from './services/AuthService'
 import useLocalStorage from './dashboard/UseLocalStorage'
 
-export default function Page() {
+const Page = () => {
     const router = useRouter()
 
     const [email, setEmail] = useState("")
@@ -96,3 +96,6 @@ const styles = {
         color: '#475569'
     }
 };
+
+
+export default Page

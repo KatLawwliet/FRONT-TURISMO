@@ -1,178 +1,20 @@
 'use client'
-import React, {useEffect, useState} from 'react';
-import {getClientsPdf} from "../services/ClientsService";
-import {deleteSale, getSales} from "../services/SalesService";
+import React from 'react';
 import Tags from "./TagComponnent";
-import Presentation from "./PesentationScreen";
-import Table from "./TableComponnent";
-import Button from "./ButtonComponnent";
-import {deleteClient, getClients} from "../services/ClientService";
-import CreateClient from "@/app/dashboard/CreateClientComponnent";
-import useLocalStorage from "./UseLocalStorage"
+import ClientTagB from './ClientTagB'
+import  SalesTagB  from './SalesTagB';
 
 const Business = () => {
-    const [clients, setClients] = useState([]);
-    const [sales, setSales] = useState([]);
-    const [seachInput, setSeachInput] = useState("")
-    const [isModalAddOpen, setIsModalAddOpen] = useState(false);
-    const [pdfLoading, setPdfLoading] = useState(false);
-    const [selectedClient, setSelectedClient] = useState(null);
-    const [selectedSale, setSelectedSale] = useState(null);
-    const [load, setLoad] = useState(0)
-    const [auth, setAuth] = useLocalStorage('auth', '');
- 
-    useEffect(() => {
-        
-        const fetchData = async () => {
-            try {
-                const loadedClients = await getClients(seachInput, auth)
-                const loadedSales = await getSales(seachInput, false, auth)
-                setClients(loadedClients)
-                setSales(loadedSales)
-            }catch (error){
-                console.error('Error al cargar datos:', error);
-            }
-        }
-        fetchData()
-    },[seachInput, load, isModalAddOpen, auth])
-
-    const clean = () => {
-        setSelectedClient(null);
-        setLoad(load + 1)
-    };
-
-    const handleSelectClient = (item) => {
-        setSelectedClient(item);
-    };
-
-
-    const handleAddClientClick = () => {
-        setIsModalAddOpen(!isModalAddOpen)
-        setSelectedClient(null)
-    }
-
-    const handleSelectSale = (item) => {
-        setSelectedSale(item);
-    };
-
-    const handleModifyClientClick = () => {
-        setIsModalAddOpen(!isModalAddOpen)
-    }
-
-    const handleDeleteClientClick = async () => {
-        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar este cliente?");
-        if (isConfirmed) {
-            await deleteClient(selectedClient.id, auth);
-            alert("Cliente eliminado exitosamente.");
-            setLoad(load + 1)
-        }
-    }
-    const handleDeleteSaleClick = async () => {
-        const isConfirmed = window.confirm("¿Estás seguro de que deseas eliminar esta venta?");
-        if (isConfirmed) {
-            await deleteSale(selectedSale.codigo, auth);
-            alert("Venta eliminada exitosamente.");
-            setLoad(load + 1)
-            setSelectedClient(null)
-        }
-    }
-
-    const handleClientDownloadPdf = async () => {
-        setPdfLoading(true);
-        try {
-            const response = await getClientsPdf(seachInput, true, auth);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'clients.pdf';
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        } catch (error) {
-            console.error('Error al descargar PDF:', error);
-        } finally {
-            setPdfLoading(false);
-        }
-    };
-
-    const handleSalesDownloadPdf = async () => {
-        setPdfLoading(true);
-        try {
-            const response = await getSales(seachInput, true, auth);
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'sales.pdf';
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        } catch (error) {
-            console.error('Error al descargar PDF:', error);
-        } finally {
-            setPdfLoading(false);
-        }
-    };
-
-
 
     const renderView = (condition) => {
         switch(condition) {
             case 'Clientes':
                 return (
-                    <Presentation data={clients}
-                                  seachInput={setSeachInput}
-                                  presentationMenu={<CreateClient isModalOpen={setIsModalAddOpen} selectedClient={selectedClient}/>}
-                                  isMenuVisible={isModalAddOpen}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            width: '100%',
-                            height: '2%',
-                        }}>
-                            <Button text={"Agregar"} clickAction={() => handleAddClientClick()}></Button>
-                            {selectedClient ? <Button text={"Modificar"} clickAction={() => handleModifyClientClick()}></Button> : ""}
-                            <Button text={"Borrar"} color={'#B32100'}
-                                    clickAction={() => handleDeleteClientClick()}></Button>
-                            
-                        </div>
-                        {clients.length != 0 ? <Table
-                            data={clients}
-                            selectedItem={selectedClient}
-                            onSelectItem={handleSelectClient}
-                            showCheckboxes={true}
-                        ></Table> : <h1>No se encontraron clientes</h1>}
-                        <Button text={"Descargar PDF"} clickAction={handleClientDownloadPdf}
-                                disabled={pdfLoading}></Button>
-                    </Presentation>
+                    <ClientTagB ></ClientTagB>
                 );
             case 'Ventas':
                 return (
-                    <Presentation data={clients} seachInput={setSeachInput}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            width: '100%',
-                            height: '2%',
-                        }}>
-                            <Button text={"Modificar"} clickAction={() => alert("Caca")}></Button>
-                            <Button text={"Borrar"} color={'#B32100'}
-                                    clickAction={() => handleDeleteSaleClick()}></Button>
-                        </div>
-                        {sales.length != 0 ? <Table
-                            data={sales}
-                            selectedItem={selectedSale}
-                            onSelectItem={handleSelectSale}
-                            showCheckboxes={true}
-                        ></Table> : <h1>No hay nada, gato, recatate</h1>}
-                        <Button text={"Descargar PDF"} clickAction={handleSalesDownloadPdf}
-                                disabled={pdfLoading}></Button>
-                    </Presentation>
+                    <SalesTagB ></SalesTagB>
                 );
         }
     };
