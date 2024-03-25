@@ -9,27 +9,27 @@ const DatePicker = ({ onSelect, onClose }) => {
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [selectingStartDate, setSelectingStartDate] = useState(true);
 
-const handleDateSelect = (day) => {
-  const selectedDate = new Date(currentYear, currentMonth, day);
+  const handleDateSelect = (day) => {
+    const selectedDate = new Date(currentYear, currentMonth, day);
 
-  if (!selectedStartDate || selectedEndDate) {
-    setSelectedStartDate(selectedDate);
-    setSelectedEndDate(null);
-  } else if (!selectedEndDate && selectedDate < selectedStartDate) {
-    setSelectedStartDate(selectedDate);
-  } else if (!selectedEndDate && selectedDate > selectedStartDate) {
-    setSelectedEndDate(selectedDate);
-  } else if (selectedEndDate && selectedDate < selectedStartDate) {
-    setSelectedStartDate(selectedDate);
-    setSelectedEndDate(null);
-  } else if (selectedEndDate && selectedDate > selectedStartDate) {
-    setSelectedEndDate(selectedDate);
-  }
+    if (!selectedStartDate || selectedEndDate) {
+      setSelectedStartDate(selectedDate);
+      setSelectedEndDate(null);
+    } else if (!selectedEndDate && selectedDate < selectedStartDate) {
+      setSelectedStartDate(selectedDate);
+    } else if (!selectedEndDate && selectedDate > selectedStartDate) {
+      setSelectedEndDate(selectedDate);
+    } else if (selectedEndDate && selectedDate < selectedStartDate) {
+      setSelectedStartDate(selectedDate);
+      setSelectedEndDate(null);
+    } else if (selectedEndDate && selectedDate > selectedStartDate) {
+      setSelectedEndDate(selectedDate);
+    }
 
-  console.log("Día seleccionado:", day);
-  console.log("Fecha de inicio seleccionada:", selectedStartDate);
-  console.log("Fecha final seleccionada:", selectedEndDate);
-};
+    console.log("Día seleccionado:", day);
+    console.log("Fecha de inicio seleccionada:", selectedStartDate);
+    console.log("Fecha final seleccionada:", selectedEndDate);
+  };
 
   const handlePrevMonth = () => {
     setCurrentMonth(prevMonth => {
@@ -56,35 +56,35 @@ const handleDateSelect = (day) => {
   const daysOfMonth = DatePickerService.getDaysOfMonth(currentYear, currentMonth);
 
   return (
-    <div style={styles.datePickerContainer}>
-      <div style={styles.header}>
-        <button style={styles.navigationButton} onClick={handlePrevMonth}>Mes Anterior</button>
-        <h3 style={styles.monthName}>{DatePickerService.getMonthName(currentMonth)}</h3>
-        <button style={styles.navigationButton} onClick={handleNextMonth}>Mes Siguiente</button>
+      <div style={styles.datePickerContainer}>
+        <div style={styles.header}>
+          <button style={styles.navigationButton} onClick={handlePrevMonth}>Mes Anterior</button>
+          <h3 style={styles.monthName}>{DatePickerService.getMonthName(currentMonth)}</h3>
+          <button style={styles.navigationButton} onClick={handleNextMonth}>Mes Siguiente</button>
+        </div>
+        <div style={styles.daysContainer}>
+          {daysOfMonth.map(day => (
+              <button
+                  key={day}
+                  style={{
+                    ...styles.dayButton,
+                    backgroundColor:
+                        (selectedStartDate && !selectedEndDate && day === selectedStartDate.getDate()) ||
+                        (selectedStartDate && selectedEndDate && day >= selectedStartDate.getDate() && day <= selectedEndDate.getDate()) ? '#028035' :
+                            day === today.getDate() ? '#ccc' :
+                                'transparent',
+                    color: day === today.getDate() ? 'white' : '#000'
+                  }}
+                  onClick={() => handleDateSelect(day)}
+              >
+                {day}
+              </button>
+          ))}
+        </div>
+        <div>
+          <button style={styles.closeButton} onClick={handleCloseClick}>Cerrar</button>
+        </div>
       </div>
-      <div style={styles.daysContainer}>
-        {daysOfMonth.map(day => (
-          <button
-            key={day}
-            style={{
-              ...styles.dayButton,
-              backgroundColor:
-                (selectedStartDate && !selectedEndDate && day === selectedStartDate.getDate()) ||
-                (selectedStartDate && selectedEndDate && day >= selectedStartDate.getDate() && day <= selectedEndDate.getDate()) ? '#028035' :
-                day === today.getDate() ? '#ccc' :
-                'transparent',
-              color: day === today.getDate() ? 'white' : '#000'
-            }}
-            onClick={() => handleDateSelect(day)}
-          >
-            {day}
-          </button>
-        ))}
-      </div>
-      <div>
-        <button style={styles.closeButton} onClick={handleCloseClick}>Cerrar</button>
-      </div>
-    </div>
   );
 };
 
@@ -94,6 +94,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     margin: '20px',
+    width: 'fit-content', // Ajusta el ancho del contenedor al contenido interno
+    maxWidth: '400px', // Define un ancho máximo para el contenedor
   },
   header: {
     display: 'flex',
@@ -141,6 +143,9 @@ const styles = {
 };
 
 export default DatePicker;
+
+
+
 
 
 

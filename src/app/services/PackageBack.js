@@ -94,8 +94,21 @@ const createService = async (service, auth) => {
         throw error;
     }
 }
-
+const updateService = async (service, code, auth) => {
+    try {
+        const resp = await axios.patch(baseURL+"/services/"+code, {
+            headers: {
+                'Authorization': `Basic ${auth}`
+            }
+        });
+        return resp.data;
+    } catch (error) {
+        console.error('Hubo un error al realizar la solicitud:', error);
+        throw error;
+    }
+};
 const deleteService = async (code, auth) => {
+
     try {
         console.log("ESTOY ACAAA " + code)
         await axios.delete(baseURL+"/services/"+code, {
@@ -122,4 +135,4 @@ export const deletePackage = async (code) => {
     }
 }
 
-export default {getPackages, getServices,createPackage, createService, deleteService, deletePackage}
+export default {getPackages, getServices,createPackage, createService, updateService, deleteService, deletePackage}

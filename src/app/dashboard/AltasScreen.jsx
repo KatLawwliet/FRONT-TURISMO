@@ -6,7 +6,7 @@ import Tags from "./TagComponnent";
 import PackageBack from '../services/PackageBack'
 import {deleteSeller, getSelles} from '../services/SellersService'
 import Button from "./ButtonComponnent";
-import CreateService from "./CreateServiceComponnent";
+import CreateService from "@/app/dashboard/CreateServiceComponnent";
 import CreateEmployee from "@/app/dashboard/CreateEmployeeComponnent";
 import CreatePackage from "@/app/dashboard/CreatePackageComponnent";
 
@@ -22,6 +22,11 @@ const AltasScreen = () => {
     const [sellectedPackages, setSellectedPackages] = useState(null)
     const [load, setLoad] = useState(0)
     const [auth, setAuth] = useState(null);
+
+    const clean = () => {
+        setSelectedService(null);
+        setLoad(load + 1)
+    };
 
     const handleSelectService = (item) => {
         setSelectedService(item);
@@ -81,7 +86,8 @@ const AltasScreen = () => {
                         descripcion: ls.description,
                         destino: ls.destination,
                         tipo: ls.type,
-                        costo: '$ '+ls.cost
+                        costo: '$ '+ls.cost,
+                        fecha: ls.datetime
                     }
                 }))
                 setSellers(loadedSellers.map(sel => {
@@ -102,15 +108,19 @@ const AltasScreen = () => {
         fetchData()
     },[seachInput, isModalAddOpen, load, auth])
 
+
     const handleAddServiceClick = () => {
         setIsModalAddOpen(!isModalAddOpen)
+        setSelectedService(null)
     }
+
+    const handleModifyServiceClick = () => {
+        setIsModalAddOpen(!isModalAddOpen); 
+    };
 
     const handleAddEmployeClick = () => {
         setIsModalAddOpen(!isModalAddOpen)
     }
-
-
 
     const toggleModal = () => {
         setIsModalAddOpen(!isModalAddOpen)
@@ -142,7 +152,7 @@ const AltasScreen = () => {
                             onSelectItem={handleSelectPackage}
                             showCheckboxes={true}
                         ></Table> : <h1>No se encontararon paquetes </h1>}
-                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("Descargar PDF")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
@@ -151,7 +161,7 @@ const AltasScreen = () => {
                     <Presentation
                         data={packages}
                         seachInput={setSeachInput}
-                        presentationMenu={<CreateService isModalOpen={setIsModalAddOpen}/>}
+                        presentationMenu={<CreateService isModalOpen={setIsModalAddOpen} selectedService={selectedService}/>}
                         isMenuVisible={isModalAddOpen}>
                         <div style={{
                             display: 'flex',
@@ -162,6 +172,7 @@ const AltasScreen = () => {
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddServiceClick()}></Button>
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteServiceClick()}></Button>
+                            {selectedService ? <Button text={"Modificar"} clickAction={() => handleModifyServiceClick()}></Button> : ""}
                         </div>
                         {services.length !== 0 ? <Table
                             data={services}
@@ -169,7 +180,7 @@ const AltasScreen = () => {
                             selectedItem={selectedService}
                             onSelectItem={handleSelectService}
                         ></Table> : <h1>No se encontraron servicios</h1>}
-                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("Descargar PDF")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
@@ -198,7 +209,7 @@ const AltasScreen = () => {
                             selectedItem={selectedSeller}
                             onSelectItem={handleSelectSeller}
                         ></Table> : <h1>No se encontraron empleados</h1>}
-                        <Button text={"Descargar PDF"} clickAction={() => alert("caca")}
+                        <Button text={"Descargar PDF"} clickAction={() => alert("Descargar PDF")}
                                 disabled={"pdfLoading"}></Button>
                     </Presentation>
                 );
