@@ -91,6 +91,7 @@ const AltasScreen = () => {
                 }))
                 setSellers(loadedSellers.map(sel => {
                     return {
+                        id: sel.id,
                         nombre_completo: `${sel.lastname} ${sel.name}`,
                         dni: sel.dni,
                         nacionalidad: sel.nationality,
@@ -189,7 +190,7 @@ const AltasScreen = () => {
                     <Presentation
                         data={sellers}
                         seachInput={setSeachInput}
-                        presentationMenu={<CreateEmployee isModalOpen={setIsModalAddOpen}/>}
+                        presentationMenu={<CreateEmployee isModalOpen={setIsModalAddOpen} selectedEmployee={selectedSeller}/>}
                         isMenuVisible={isModalAddOpen}
                     >
                         <div style={{
@@ -200,6 +201,7 @@ const AltasScreen = () => {
                             height:'2%'
                         }}>
                             <Button text={"Agregar"} clickAction={() => handleAddEmployeClick()}></Button>
+                            {selectedSeller ? <Button text={"Modificar"} clickAction={() => handleModifyServiceClick()}></Button> : ""}
                             <Button text={"Borrar"} color={'#B32100'} clickAction={() => handleDeleteSellerClick()}></Button>
                         </div>
                         {sellers.length !== 0 ? <Table

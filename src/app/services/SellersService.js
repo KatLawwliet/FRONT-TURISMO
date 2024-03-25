@@ -62,6 +62,19 @@ export const createSeller = async (seller, auth) => {
     }
 }
 
+export const updateSeller = async (seller, id, auth) => {
+    try {
+        await axios.patch(baseURL+"/"+id, seller,{
+            headers: {
+                'Authorization': `Basic ${auth}`
+            }
+        })
+    }catch (error){
+        console.error('Hubo un error al realizar la solicitud:', error.response ? error.response.data : error);
+        throw error;
+    }
+}
+
 export const deleteSeller = async (id, auth) => {
     try {
         await axios.delete(baseURL+"/"+id,{
