@@ -32,7 +32,7 @@ const CreatePackage = ({isModalOpen, setLoad}) => {
                     price: ss.costo
                 }
             })
-        })
+        }, auth)
         setCalc(calcul)
         setIsModalOpennn(!isModalOpennn);
     }

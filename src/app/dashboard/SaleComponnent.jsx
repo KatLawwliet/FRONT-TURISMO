@@ -9,7 +9,7 @@ import {sendPaymentNotification} from '../services/NotificationService'
 import {getClients} from "../services/ClientService";
 import Modal from "@/app/dashboard/Modal";
 import Input from "@/app/dashboard/InputComponnet";
-import useLocalStorage from "./UseLocalStorage"
+import useLocalStorage from "../UseLocalStorage"
 
 const Sale = ({isServiceSelected, toggleModal, setSelectedServices, setServices, services, selectedServices}) => {
 
